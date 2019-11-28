@@ -1,0 +1,284 @@
+.font-thin {
+  font-weight: 300;
+}
+
+.center-element-width {
+  position: absolute;
+  top: $magazine50p;
+  left: $magazine50p;
+  transform: translate(-$magazine50p, -$magazine50p);
+  width: $magazine100p;
+}
+
+.widget-spacing {
+  margin-bottom: $widgetSpacingMB;
+  margin-top: $widgetSpacingMT;
+}
+
+.widget-column {
+  margin-top: $widgetSpacingMT;
+}
+
+.widget-content {
+  .widget-tabs {
+    @extend .z-depth-1-half;
+    padding: 7px;
+    margin-bottom: $widgetSpacingMT;
+    margin-top: -$widgetSpacingMT;
+    font-size: 13px;
+    word-wrap: break-word;
+  }
+
+  .view {
+    margin-bottom: $widgetViewMB;
+  }
+
+  .single-post {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: $widgetViewMB;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .post-data {
+      margin-top: .2rem;
+      margin-bottom: $widgetSpacingMB;
+      font-weight: bold;
+      color: $postDataColor;
+
+      &.featured {
+        margin-bottom: 4.5rem;
+      }
+
+      p {
+        float: left;
+      }
+
+      a {
+        float: right;
+      }
+    }
+
+    h6 {
+      margin-top: $widgetViewMB;
+      margin-bottom: $widgetViewMB;
+      font-weight: $fontWeight400;
+      color: #424242;
+
+      &:hover {
+        color: $postDataColor;
+      }
+    }
+  }
+}
+
+.pagination {
+  @media only screen and (max-width: 1024px) {
+    margin-bottom: 3rem;
+  }
+}
+
+body {
+
+  &.homepage-v1,
+  &.homepage-v2,
+  &.homepage-v3,
+  &.homepage-v4,
+  &.postpage-v2,
+  &.postpage-v3,
+  &.postpage-v4,
+  &.postpage-v5 {
+    background-color: #f7f7f7;
+    font-weight: $fontWeight400;
+
+    .font-small {
+      font-size: .85rem;
+    }
+  }
+
+  &.homepage-v1,
+  &.homepage-v2,
+  &.homepage-v3,
+  &.homepage-v4,
+  &.homepage-v5,
+  &.postpage-v1 {
+
+    .widget-content {
+      .single-post {
+        .post-data {
+          margin-bottom: 2.4rem;
+          font-weight: 500;
+          color: $postDataColor;
+        }
+      }
+    }
+  }
+
+  &.homepage-v2,
+  &.homepage-v3 {
+
+    .carousel {
+      &.carousel-half {
+        height: 50vh;
+
+        .carousel-inner {
+          height: $magazine100p;
+
+          .carousel-item,
+          .carousel-item.active {
+            height: $magazine100p;
+          }
+        }
+      }
+    }
+  }
+
+  &.homepage-v2 {
+
+    @media only screen and (max-width: 1024px) {
+      .extra-margins {
+        margin-left: 3rem;
+      }
+    }
+  }
+
+  &.homepage-v3,
+  &.homepage-v5,
+  &.postpage-v3 {
+
+    @media only screen and (max-width: 1024px) {
+      .extra-margins {
+        margin-left: $homepageML;
+        margin-right: $homepageML;
+      }
+    }
+
+    @media only screen and (min-width: 1025px) {
+      .extra-margins {
+        margin-right: 2rem;
+      }
+    }
+  }
+
+
+  &.homepage-v3,
+  &.homepage-v4,
+  &.homepage-v5,
+  &.postpage-v1,
+  &.postpage-v2,
+  &.postpage-v3,
+  &.postpage-v3 {
+
+    .title-hr {
+      border-top: 2px solid rgba(0, 0, 0, .1);
+    }
+  }
+
+  &.homepage-v4 {
+
+    .list-group-item {
+      line-height: 1.45rem;
+    }
+  }
+
+  &.postpage-v1,
+  &.postpage-v2,
+  &.postpage-v3 {
+
+    .tile-widget {
+      .tile-title {
+        left: $containerPaddingLeft;
+        font-size: 1.6rem
+      }
+    }
+  }
+
+  &.postpage-v1,
+  &.postpage-v2,
+  &.postpage-v3,
+  &.postpage-v4,
+  &.postpage-v5 {
+    .article {
+      font-size: .9rem;
+      line-height: 1.8;
+    }
+  }
+
+
+
+  &.postpage-v4 {
+
+
+    @media only screen and (max-width: 767px) {
+      .container {
+        .article {
+          margin-right: $homepageML;
+          margin-left: $homepageML;
+          padding-left: $containerPaddingLeft;
+          padding-right: $containerPaddingLeft;
+        }
+      }
+    }
+
+    .gallery {
+      column-count: 3;
+      column-width: 33%;
+
+      .pics {
+        transition: all 350ms ease;
+      }
+
+      .animation {
+        transform: scale(1);
+      }
+    }
+
+    .carousel-multi-item {
+      .carousel-indicators {
+        margin-bottom: -1em;
+
+        .active,
+        li {
+          background-color: #6b6d71;
+        }
+      }
+    }
+
+    .media {
+      .avatar {
+        width: 4rem;
+      }
+    }
+
+    .shadow-textarea {
+      textarea {
+        height: auto;
+
+        &.form-control {
+          padding-left: .8rem;
+
+          &::placeholder {
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+
+  &.postpage-v5 {
+
+    @media only screen and (max-width: 767px) {
+      .card {
+        margin-right: $homepageML;
+        margin-left: $homepageML;
+      }
+    }
+  }
+}
+
+.w-lg-100 {
+  @media (min-width: 500px) and (max-width: 750px), (min-width: 992px) {
+    width: $magazine100p !important;
+  }
+}
