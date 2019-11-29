@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./style-index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Calistoga" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Asap" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="col-3">
+        <div class="d-flex flex-row d-flex justify-content-center">
+            <button type="button" class="btn btn-primary header_btn" data-toggle="modal" data-target="#loginModal">Đăng nhập</button>
+            <!-- Modal -->
+            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLable" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModal">Đăng nhập</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="was-validated">
+                                <div class="form-group">
+                                    <label for="uname">Username:</label>
+                                    <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Password:</label>
+                                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="loginBtn" type="button" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary header_btn" data-toggle="modal" data-target="#signupModal">Đăng kí</button>
+            <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupLable" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModal">Đăng Kí</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="was-validated">
+                                <div class="form-group">
+                                    <label for="uname">Username:</label>
+                                    <input type="text" class="form-control" id="uname-su" placeholder="Enter username" name="uname-su" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    <small id="unameHelp" class="form-text text-muted">Username can contain any letters or numbers, without spaces</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="uname">Email:</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pwd">Password:</label>
+                                    <input type="password" class="form-control" id="pwd-su" placeholder="Enter password" name="pswd-su" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    <small id="pwdHelp" class="form-text text-muted">Password should be at least 4 characters</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pwd">Password (Confirm):</label>
+                                    <input type="password" class="form-control" id="pwdcf" placeholder="Confirm password" name="pswdcf" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    <small id="pwdHelp" class="form-text text-muted">Confirm password</small>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="signupBtn" type="button" class="btn btn-primary">Đăng kí</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("#loginBtn").click(function() {
+                var username = $("#uname").val();
+                var password = $("#pwd").val();
+
+                if (username == "user" && password == "user") {
+                    window.location.href = "./index-user.html";
+                } else {
+                    alert("Wrong username or password. Please try again.");
+                }
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
