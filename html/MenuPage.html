@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Five Leaves</title>
     <!-- Google Material Icon-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Font Awesome -->
@@ -19,31 +19,26 @@
 </head>
 
 <body class="black-skin">
-    <!--Double navigation-->
-    <header position="absolute" bottom="0">
-        <!-- Sidebar navigation -->
-        <div id="slide-out" class="side-nav sn-bg-3 fixed">
+
+    <header position="absolute">
+        <div id="slide-out" class="side-nav bg-dark">
             <ul class="custom-scrollbar">
-                <!-- Logo -->
+
                 <li>
                     <div class="logo-wrapper waves-light">
                         <a href="#"><img src="../asset/logo.png" class="img-fluid flex-center"></a>
                     </div>
                 </li>
 
-                <!--/Social-->
-                <!--Search Form-->
-                <li>
 
+                <li>
                     <form class="search-form" role="search">
                         <div class="form-group md-form mt-0 pt-1 waves-light">
-                            <i class="fas fa-search"></i>
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search" />
                         </div>
                     </form>
                 </li>
-                <!--/.Search Form-->
-                <!-- Side navigation links -->
+
                 <li>
                     <ul class="collapsible collapsible-accordion">
                         <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i> Điện
@@ -68,7 +63,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> About<i
+                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> About<d
                                     class="fas fa-angle-down rotate-icon"></i></a>
                             <div class="collapsible-body">
                                 <ul class="list-unstyled">
@@ -87,203 +82,391 @@
                                     </li>
                                     <li><a href="#" class="waves-effect">About US</a>
                                     </li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
-        </div>
-
-        <!--/. Side navigation links -->
-        </ul>
-        <div class="sidenav-bg mask-strong"></div>
-        </div>
-        <!--/. Sidebar navigation -->
-        <!-- Navbar -->
-        <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
-            <!-- SideNav slide-out button -->
-            <div class="float-left">
-                <a href="#" data-activates="slide-out" class="button-collapse black-text waves-effect waves-light"><i
-                        class="fas fa-bars"></i></a>
-            </div>
-            <!-- Breadcrumb-->
-            <div class="breadcrumb mr-auto waves-effect waves-light">
-                <b>FIVE LEAVES</b>
-            </div>
-            <ul class="nav navbar-nav nav-flex-icons ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fas fa-envelope"></i> <span
-                            class="clearfix d-none d-sm-inline-block">Contact</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fas fa-comments"></i> <span
-                            class="clearfix d-none d-sm-inline-block">Support</span></a>
-                </li>
-
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
-                        aria-labelledby="navbarDropdownMenuLink-55">
-                        <div align="center">
-                            <label display="block" align="right">Hòm Thư</label>
-                        </div>
-                        <a class="dropdown-item waves-effect waves-light" href="#">Profile<s>
-                                <a class="dropdown-item waves-effect waves-light" href="#">Security</a>
-                                <a class="dropdown-item waves-effect waves-light" href="#">Sign Out</a>
-                </li>
-                <li class="nav-item avatar dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
-                            class="rounded-circle z-depth-0" alt="avatar image">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
-                        aria-labelledby="navbarDropdownMenuLink-55">
-                        <div align="center">
-                            <p display="block">Nguyễn Đức Thông</p>
-                        </div>
-                        <label display="block">Số dư khả dụng :</label>
-                        <p display="block" align="right">100000 VND</p>
-                        <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
-                        <a class="dropdown-item waves-effect waves-light" href="#">Security</a>
-                        <a class="dropdown-item waves-effect waves-light" href="#">Sign Out</a>
-                    </div>
                 </li>
             </ul>
-        </nav>
-        <!-- /.Navbar -->
-    </header>
-    <!--/.Double navigation-->
+        </div>
+        <div class="sidenav-bg mask-strong"></div>
 
-    <div class="col-md" style="margin-top: 65px">
+        <nav class="navbar navbar-dark fixed-top navbar-expand-lg mb-1 scrolling-navbar">
+            <div class="float-left border breadcrumb" style="padding: 10px;">
+                <a href="#" data-activates="slide-out" class="button-collapse white-text waves-effect waves-light">
+                    <span class="navbar-toggler-icon  waves-effect waves-light"></span>
+                </a>
+            </div>
+
+            <div class=" border breadcrumb mr-auto waves-effect waves-light" style="padding: 10px;margin-left: 20px;">
+                <b>FIVE LEAVES</b>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon waves-effect waves-light"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+                <ul class="nav navbar-nav nav-flex-icons mt-2 ml-auto nav ">
+                    <li class="nav-item">
+                        <a class="nav-link"><i class="fas fa-envelope"></i>
+                            <span class="clearfix d-none d-sm-inline-block">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"><i class="fas fa-comments"></i>
+                            <span class="clearfix d-none d-sm-inline-block">Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
+                            aria-labelledby="navbarDropdownMenuLink-55">
+                            <div align="center">
+                                <label display="block" align="right">Hòm Thư</label>
+                            </div>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Security</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Sign Out</a>
+                        </div>
+                    </li>
+                    <li class="nav-item avatar dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
+                                class="rounded-circle z-depth-0" alt="avatar image" />
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
+                            aria-labelledby="navbarDropdownMenuLink-55">
+                            <div align="center">
+                                <p display="block">Nguyễn Đức Thông</p>
+                            </div>
+                            <label display="block">Số dư khả dụng :</label>
+                            <p display="block" align="right">100000 VND</p>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Security</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Sign Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Grid Item-->
+    <div class="col-md" style="margin-top: 80px">
+        <!-- Mode View -->
         <div class="row-md" align="right">
             <button type="button" class="btn btn-default px-3"><i class="fas fa-list" aria-hidden="true"></i></button>
             <button type="button" class="btn btn-default px-3"><i class="fas fa-grip-horizontal"
                     aria-hidden="true"></i></button>
         </div>
-        <div class="scrollbarList scrollbar-primary">
-            <div class="force-overflowList">
-                <div class="row-md">
-                    <div class="team-grid">
-                        <div class="container">
-                            <div class="row people">
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/Iphone.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Iphone X</h3>
-                                            <p class="title">A product of Apple company</p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/car.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Car</h3>
-                                            <p class="title">A product of human </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/tivi.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Carl Kent</h3>
-                                            <p class="title">Stylist </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/key.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Carl Kent</h3>
-                                            <p class="title">Stylist </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/clock.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Carl Kent</h3>
-                                            <p class="title">Stylist </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/Door.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Carl Kent</h3>
-                                            <p class="title">Stylist </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/house.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Carl Kent</h3>
-                                            <p class="title">Stylist </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/monitor.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Carl Kent</h3>
-                                            <p class="title">Stylist </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3 item">
-                                    <div class="box" style="background-image:url(../asset/water.png)">
-                                        <div class="cover">
-                                            <h3 class="name">Carl Kent</h3>
-                                            <p class="title">Stylist </p>
-                                            <div class="social"><a href="#"><i
-                                                        class="fa fa-facebook-official"></i></a><a href="#"><i
-                                                        class="fa fa-twitter"></i></a><a href="#"><i
-                                                        class="fa fa-instagram"></i></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col"></div>
-                            </div>
-                        </div>
+        <!-- Grid Item-->
+        <div class="d-flex flex-wrap">
+            <div class="col-lg-3 col-md-12 mb-5">
+
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/Iphone.png" class="card-img-top" style="padding: 25px;" />
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
                     </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/clock.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/car.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/Desk.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/Door.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/house.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/key.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/laptop.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/monitor.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/Samsung.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-5">
+                <div class="card card-cascade Regular mb-4 rounded-item">
+                    <!--Card image-->
+                    <div class="view view-cascade">
+                        <img src="../asset/Tivi.png" class="card-img-top" style="padding: 25px;">
+                        <a href="#!">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Title-->
+                        <h4 class="card-title"><strong>[HOT HOT !!!!] Iphone XXX</strong></h4>
+                        <h5 class="indigo-text"><strong>Start After 11 : 11 : 11</strong></h5>
+
+                        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem
+                            accusantium doloremque
+                            laudantium, totam
+                            rem aperiam.
+                        </p>
+                    </div>
+                    <!--/.Card content-->
+
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="footer-dark">
         <footer>
@@ -292,7 +475,6 @@
                     <div class="col-sm-6 col-md-3 item">
                         <h3>Services</h3>
                         <ul>
-
                             <li><a href="#">Hosting</a></li>
                         </ul>
                     </div>
@@ -322,7 +504,7 @@
                         </ul>
                     </div>
                 </div>
-                <p class="copyright">Company Name © 2017</p>
+                <p class="copyright">Five Leaves © 2019</p>
             </div>
         </footer>
     </div>
