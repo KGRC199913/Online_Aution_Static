@@ -13,18 +13,19 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
     <div class="col-3">
         <div class="d-flex flex-row d-flex justify-content-center">
-            <button type="button" class="btn btn-primary header_btn" data-toggle="modal" data-target="#loginModal">Đăng nhập</button>
+            <button type="button" class="btn btn-primary header_btn" data-toggle="modal" data-target="#loginModal">Login</button>
             <!-- Modal -->
             <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLable" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="loginModal">Đăng nhập</h5>
+                            <h5 class="modal-title" id="loginModal">Login</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -46,18 +47,18 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button id="loginBtn" type="button" class="btn btn-primary">Đăng nhập</button>
+                            <button id="loginBtn" type="button" class="btn btn-primary">Login</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary header_btn" data-toggle="modal" data-target="#signupModal">Đăng kí</button>
+            <button type="button" class="btn btn-primary header_btn" data-toggle="modal" data-target="#signupModal">Sign up</button>
             <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupLable" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="loginModal">Đăng Kí</h5>
+                            <h5 class="modal-title" id="loginModal">Sign Up</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -94,10 +95,15 @@
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                     <small id="pwdHelp" class="form-text text-muted">Confirm password</small>
                                 </div>
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+                                    <label class="custom-control-label" for="defaultChecked2">By checking this box, I agree to the <a href="">Terms & Conditions & Privacy Policy.</label>
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button id="signupBtn" type="button" class="btn btn-primary">Đăng kí</button>
+                            <button id="signupBtn" type="button" class="btn btn-primary">Sign up</button>
                         </div>
                     </div>
                 </div>
