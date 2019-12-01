@@ -22,7 +22,10 @@ app.get('', (req, res) => {
         name: 'Tuan-chan'
     });
 });
-
+app.get('/home',(req,res)=>
+{
+    res.render('MenuPage');
+})
 //END ROUTES
 
 app.listen(port, () => {

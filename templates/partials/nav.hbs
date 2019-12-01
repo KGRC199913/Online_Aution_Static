@@ -1,135 +1,69 @@
-<body class="black-skin">
-    <header position="absolute">
-        <div id="slide-out" class="side-nav bg-dark">
-            <ul class="custom-scrollbar">
+<header>
+    {{>sideNav}}
+    <div class="sidenav-bg mask-strong"></div>
 
-                <li>
-                    <div class="logo-wrapper waves-light">
-                        <a href="#"><img src="../asset/logo.png" class="img-fluid flex-center"></a>
+    <nav class="navbar navbar-dark fixed-top navbar-expand-lg mb-1 scrolling-navbar">
+        {{>sideNavBtn}}
+
+        <div class=" border breadcrumb mr-auto waves-effect waves-light" style="padding: 10px;margin-left: 20px;">
+            <b>FIVE LEAVES</b>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon waves-effect waves-light"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="nav navbar-nav nav-flex-icons mt-2 ml-auto nav ">
+                <li class="nav-item">
+                    <a class="nav-link"><i class="fas fa-dollar-sign"></i>
+                        <span class="clearfix d-none d-sm-inline-block">Sell</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"><i class="fas fa-comments"></i>
+                        <span class="clearfix d-none d-sm-inline-block">Support</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="clearfix d-none d-sm-inline-block">Mail Box</span><i class="fas fa-envelope"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <div align="center">
+                            <label display="block" align="right">Hòm Thư</label>
+                        </div>
+                        <a class="dropdown-item waves-effect waves-light" href="#">Mail 1.....</a>
+                        <a class="dropdown-item waves-effect waves-light" href="#">Mail 2......</a>
+                        <a class="dropdown-item waves-effect waves-light" href="#">Mail 3.....</a>
+                        <div class="text-center">
+                            <a class="dropdown-item waves-effect waves-light" href="#">Mark all as read</a>
+                        </div>
+
                     </div>
                 </li>
-                <li>
-                    <form class="search-form" role="search">
-                        <div class="form-group md-form mt-0 pt-1 waves-light">
-                            <input type="text" class="form-control" placeholder="Search" />
-                        </div>
-                    </form>
-                </li>
 
-                <li>
-                    <ul class="collapsible collapsible-accordion">
-                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i> Điện
-                                tử<i class="fas fa-angle-down rotate-icon"></i></a>
-                            <div class="collapsible-body">
-                                <ul class="list-unstyled">
-                                    <li><a href="#" class="waves-effect">Điện thoại di động</a>
-                                    </li>
-                                    <li><a href="#" class="waves-effect">Máy tính xách tay</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-hand-pointer"></i>
-                                Instruction<i class="fas fa-angle-down rotate-icon"></i></a>
-                            <div class="collapsible-body">
-                                <ul class="list-unstyled">
-                                    <li><a href="#" class="waves-effect">For bloggers</a>
-                                    </li>
-                                    <li><a href="#" class="waves-effect">For authors</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> About<d
-                                    class="fas fa-angle-down rotate-icon"></i></a>
-                            <div class="collapsible-body">
-                                <ul class="list-unstyled">
-                                    <li><a href="#" class="waves-effect">Introduction</a>
-                                    </li>
-                                    <li><a href="#" class="waves-effect">Monthly meetings</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a class="collapsible-header waves-effect arrow-r"><i class="far fa-envelope"></i> Contact
-                                me<i class="fas fa-angle-down rotate-icon"></i></a>
-                            <div class="collapsible-body">
-                                <ul class="list-unstyled">
-                                    <li><a href="#" class="waves-effect">FAQ</a>
-                                    </li>
-                                    <li><a href="#" class="waves-effect">About US</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
+                <li class="nav-item avatar dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
+                            class="rounded-circle z-depth-0" alt="avatar image" />
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right text-center dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <div align="center">
+                            <p display="block">Nguyễn Đức Thông</p>
+                        </div>
+                        <label display="block">Số dư khả dụng</label>
+                        <p display="block">100000 VND</p>
+                        <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
+                        <a class="dropdown-item waves-effect waves-light" href="#">Security</a>
+                        <a class="dropdown-item waves-effect waves-light" href="#">Sign Out</a>
+                    </div>
                 </li>
             </ul>
         </div>
-        <div class="sidenav-bg mask-strong"></div>
+    </nav>
 
-        <nav class="navbar navbar-dark fixed-top navbar-expand-lg mb-1 scrolling-navbar">
-            <div class="float-left border breadcrumb" style="padding: 10px;">
-                <a href="#" data-activates="slide-out" class="button-collapse white-text waves-effect waves-light">
-                    <span class="navbar-toggler-icon  waves-effect waves-light"></span>
-                </a>
-            </div>
-
-            <div class=" border breadcrumb mr-auto waves-effect waves-light" style="padding: 10px;margin-left: 20px;">
-                <b>FIVE LEAVES</b>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon waves-effect waves-light"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-                <ul class="nav navbar-nav nav-flex-icons mt-2 ml-auto nav ">
-                    <li class="nav-item">
-                        <a class="nav-link"><i class="fas fa-envelope"></i>
-                            <span class="clearfix d-none d-sm-inline-block">Contact</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"><i class="fas fa-comments"></i>
-                            <span class="clearfix d-none d-sm-inline-block">Support</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
-                            aria-labelledby="navbarDropdownMenuLink-55">
-                            <div align="center">
-                                <label display="block" align="right">Hòm Thư</label>
-                            </div>
-                            <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
-                            <a class="dropdown-item waves-effect waves-light" href="#">Security</a>
-                            <a class="dropdown-item waves-effect waves-light" href="#">Sign Out</a>
-                        </div>
-                    </li>
-                    <li class="nav-item avatar dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
-                                class="rounded-circle z-depth-0" alt="avatar image" />
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
-                            aria-labelledby="navbarDropdownMenuLink-55">
-                            <div align="center">
-                                <p display="block">Nguyễn Đức Thông</p>
-                            </div>
-                            <label display="block">Số dư khả dụng :</label>
-                            <p display="block" align="right">100000 VND</p>
-                            <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
-                            <a class="dropdown-item waves-effect waves-light" href="#">Security</a>
-                            <a class="dropdown-item waves-effect waves-light" href="#">Sign Out</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-</body>
+</header>
