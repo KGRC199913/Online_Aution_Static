@@ -1,2 +1,29 @@
-<a id="back-to-top" href="#" class="btn  btn-reddit btn-lg back-to-top p-3 rounded-beauty" role="button"><i
-                class="fas fa-chevron-up"></i></a>
+<style>
+    .back-to-top {
+    background-color: red;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+}
+</style>
+<a id="back-to-top" href="#" class="btn  btn-reddit btn-lg back-to-top p-3" role="button"><i
+        class="fas fa-chevron-up"></i></a>
+<script>
+    $(document).ready(function () {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 600) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 300);
+            return false;
+        });
+    });
+</script>
