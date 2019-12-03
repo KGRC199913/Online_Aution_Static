@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheest">
+    <!-- Your custom styles (optional) -->
+    <link href="/css/menupage.css" rel="stylesheet">
+
+    <script type="text/javascript " src="/js/jquery-3.4.1.min.js"></script>
+</head>
+
+{{>nav}}
+
+<body style="margin-top: 80px;">
+    <div class="col-3">
+        <div class="d-flex flex-row d-flex justify-content-center">
+            <button type="button" class="btn btn-primary header_btn" data-toggle="modal" data-target="#signupModal">Sign
+                Up</button>
+            <!-- Modal -->
+            <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupLable"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="signupModal">Sign Up</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="was-validated">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="fname">First name:</label>
+                                        <input type="text" class="form-control" id="fname"
+                                            placeholder="Enter firstname" name="fname" required>
+                                        <div class="valid-feedback">Valid.</div>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                        <small id="unameHelp" class="form-text text-muted">First name can contain any
+                                            letters or numbers, without spaces</small>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lname">Last name:</label>
+                                        <input type="text" class="form-control" id="lname"
+                                            placeholder="Enter lastname" name="lname" required>
+                                        <div class="valid-feedback">Valid.</div>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                        <small id="unameHelp" class="form-text text-muted">Last name can contain any
+                                            letters or numbers, without spaces</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter email"
+                                        name="email" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pwd-su">Password:</label>
+                                    <input type="password" class="form-control" id="pwd-su" placeholder="Enter password"
+                                        name="pswd-su" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    <small id="pwdHelp" class="form-text text-muted">Password should be at least 4
+                                        characters</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pwdcf">Password (Confirm):</label>
+                                    <input type="password" class="form-control" id="pwdcf"
+                                        placeholder="Confirm password" name="pswdcf" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                    <small id="pwdHelp" class="form-text text-muted">Confirm password</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="defaultChecked" required>
+                                        <label class="form-check-label" for="defaultChecked">
+                                            I agree to the <a href=" ">Terms & Conditions &
+                                                Privacy Policy.
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            You must agree before submitting.
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="signupBtn" type="submit" class="btn btn-primary">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript " src="/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript " src="/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript " src="/js/mdb.min.js"></script>
+
+</body>
+
+</html>
