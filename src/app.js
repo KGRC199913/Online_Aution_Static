@@ -21,9 +21,21 @@ app.get('/products', (req, res) => {
         title: 'Product Detail',
     });
 });
-app.get('/home',(req,res)=>
-{
+
+app.get('/home', (req, res) => {
     res.render('MenuPage');
+});
+
+app.get('/login', (req, res) => {
+    res.render('Login');
+});
+
+app.get('/profile', (req, res) => {
+    res.render('Profile');
+});
+
+app.get('/signup', (req, res) => {
+    res.render('Signup');
 });
 
 app.get('/addItem', (req, res) => {
