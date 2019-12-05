@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,35 +8,40 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core css -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="/css/mdb.css" rel="stylesheet" type="text/css">
+    <link href="/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+    <!-- Your custom styles (optional) -->
     <link href="/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
     <link href="/css/owl.theme.default.min.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-<header>
-    <div datasrc="nav.html"></div>
-</header>
-<!-- Start your project here-->
 {{>nav}}
+<body class="black-skin">
+<!-- Start your project here-->
 <div class="container-fluid">
     <div class="row">
-        <div class="card" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 1%">
+        <div class="card" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 80px">
             <div class="card-body rounded-bottom rounded-top">
                 <h2 class="card-title">
                     Item Name
                 </h2>
                 <div class="row" style="margin-left: 0.1%">
-                    <img src="/asset/cat_img.jpg" style="width: 30.25%; height: auto">
-                    <div class="col" style="max-width: 30%">
+                    <div class="col-sm-12 col-lg-4">
+                        <img src="/asset/cat_img.jpg" style="width: 100%; height: auto">
+                        <div class='d-flex justify-content-between' style="margin-top: 1%">
+                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg" style="height: auto; width: 100%"/></div>
+                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg" style="height: auto; width: 100%"/></div>
+                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg" style="height: auto; width: 100%"/></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
                         <p>Seller: SupahCat</p>
                         <p>Highest Bidder: MeguhCat</p>
                         <p>Something else...</p>
                     </div>
-                    <div class="d-flex flex-row align-items-center" style="margin-left: 1%">
+                    <div class="col-sm-12 col-lg-4">
                         <div class="p2">
                             <div class="col" style="margin-left: 1.9%; margin-bottom: 2%">
                                 <h3 class="card-title">Current: $5000</h3>
@@ -51,11 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin-top: 1%">
-                    <span><img src="/asset/cat_img.jpg" style="max-width: 10%; max-height: 10%"/></span>
-                    <span><img src="/asset/cat_img.jpg" style="max-width: 10%; max-height: 10%"/></span>
-                    <span><img src="/asset/cat_img.jpg" style="max-width: 10%; max-height: 10%"/></span>
-                </div>
+
                 <div class="card-footer text-center mt-4">
                     3 days left!!
                 </div>
@@ -112,7 +112,6 @@
 </div>
 {{>footer}}
 </body>
-<script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/ProductDetail.js"></script>
 </html>

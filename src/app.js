@@ -16,16 +16,19 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(publicDirectoryPath));
 
 //ROUTES
-app.get('', (req, res) => {
+app.get('/products', (req, res) => {
     res.render('ProductDetail', {
         title: 'Product Detail',
-        name: 'Tuan-chan'
     });
 });
 app.get('/home',(req,res)=>
 {
     res.render('MenuPage');
-})
+});
+
+app.get('/addItem', (req, res) => {
+    res.render('SellItemPage');
+});
 //END ROUTES
 
 app.listen(port, () => {
