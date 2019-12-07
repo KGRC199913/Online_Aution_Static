@@ -41,6 +41,10 @@ app.get('/signup', (req, res) => {
 app.get('/addItem', (req, res) => {
     res.render('SellItemPage');
 });
+
+app.get('/viewprofile', (req, res) => {
+    res.render('ViewProfile');
+
 //END ROUTES
 
 app.listen(port, () => {
