@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Material Design Bootstrap</title>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <!-- Bootstrap core css -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
     <link href="/css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css" media="all"
+          rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
-    <!-- Your custom styles (optional) -->
-    <link href="/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
-    <link href="/css/owl.theme.default.min.css" rel="stylesheet" type="text/css">
 </head>
 {{>nav}}
 <body class="black-skin">
@@ -31,15 +29,20 @@
                     <div class="col-sm-12 col-lg-4">
                         <img src="/asset/cat_img.jpg" style="width: 100%; height: auto">
                         <div class='d-flex justify-content-between' style="margin-top: 1%">
-                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg" style="height: auto; width: 100%"/></div>
-                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg" style="height: auto; width: 100%"/></div>
-                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg" style="height: auto; width: 100%"/></div>
+                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                                                              style="height: auto; width: 100%"/></div>
+                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                                                              style="height: auto; width: 100%"/></div>
+                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                                                              style="height: auto; width: 100%"/></div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-lg-4">
-                        <p>Seller: SupahCat</p>
-                        <p>Highest Bidder: MeguhCat</p>
-                        <p>Something else...</p>
+                        <h4><b>Seller: </b><a id="seller" href="/home">Seller Name</a></h4>
+                        <input id="sellerRating" class="rateInput">
+                        <h4><b>Highest Bidder: </b><a id="highestBidder" href="/home">Bidder Name</a></h4>
+                        <input id="bidderRating" class="rateInput">
+                        <h4 id="startDate">20/9/2019 19:00:00</h4>
                     </div>
                     <div class="col-sm-12 col-lg-4">
                         <div class="p2">
@@ -56,8 +59,11 @@
                     </div>
                 </div>
 
-                <div class="card-footer text-center mt-4">
-                    3 days left!!
+                <div id="endDate" class="card-footer text-center mt-4">
+                    <h4><b>
+                        3 days left!!
+                    </b>
+                    </h4>
                 </div>
                 <div>
                     <h4 class="card-title">
@@ -72,37 +78,39 @@
         </div>
     </div>
 
-    <div style="text-align: center;">
-        Similar Items
-    </div>
-    <div class="card" style="width: 80%; max-width: 80%; max-height: 30%; margin: 1% auto;">
-        <div class="owl-carousel owl-theme">
-            <div class="card">
+    <div class="row" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 20px">
+        <div style="width: 100%" class="align-content-center">
+            <h3>
+                Similar Items
+            </h3>
+        </div>
+        <div class="similar-carousel col-lg-12 col-sm-12" style="margin-top: 10px; padding-right: 50px;">
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
                 <img class="card-img" src="/asset/cat_img.jpg">
                 <div class="card-title">Item 1</div>
                 <div class="card-text">Lorems Ipsum</div>
             </div>
-            <div class="card">
+            <div class="card mx-3">
                 <img class="card-img" src="/asset/cat_img.jpg">
                 <div class="card-title">Item 1</div>
                 <div class="card-text">Lorems Ipsum</div>
             </div>
-            <div class="card">
+            <div class="card mx-3">
                 <img class="card-img" src="/asset/cat_img.jpg">
                 <div class="card-title">Item 1</div>
                 <div class="card-text">Lorems Ipsum</div>
             </div>
-            <div class="card">
+            <div class="card mx-3">
                 <img class="card-img" src="/asset/cat_img.jpg">
                 <div class="card-title">Item 1</div>
                 <div class="card-text">Lorems Ipsum</div>
             </div>
-            <div class="card">
-                <img class="card-img" src="/asset/cat_img.jpg">
-                <div class="card-title">Item 1</div>
-                <div class="card-text">Lorems Ipsum</div>
-            </div>
-            <div class="card">
+            <div class="card mx-3">
                 <img class="card-img" src="/asset/cat_img.jpg">
                 <div class="card-title">Item 1</div>
                 <div class="card-text">Lorems Ipsum</div>
@@ -112,6 +120,9 @@
 </div>
 {{>footer}}
 </body>
-<script src="/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/js/star-rating.min.js"
+        type="text/javascript"></script>
 <script src="/js/ProductDetail.js"></script>
 </html>
