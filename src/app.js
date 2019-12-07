@@ -44,7 +44,7 @@ app.get('/addItem', (req, res) => {
 
 app.get('/viewprofile', (req, res) => {
     res.render('ViewProfile');
-});
+
 //END ROUTES
 
 app.listen(port, () => {
