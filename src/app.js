@@ -16,27 +16,35 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(publicDirectoryPath));
 
 //ROUTES
-app.get('', (req, res) => {
+app.get('/products', (req, res) => {
     res.render('ProductDetail', {
         title: 'Product Detail',
-        name: 'Tuan-chan'
     });
 });
+
 app.get('/home', (req, res) => {
     res.render('MenuPage');
-})
+});
+
 app.get('/login', (req, res) => {
     res.render('Login');
-})
+});
 
 app.get('/profile', (req, res) => {
     res.render('Profile');
-})
+});
 
 app.get('/signup', (req, res) => {
     res.render('Signup');
-})
+});
 
+app.get('/addItem', (req, res) => {
+    res.render('SellItemPage');
+});
+
+app.get('/viewprofile', (req, res) => {
+    res.render('ViewProfile');
+});
 //END ROUTES
 
 app.listen(port, () => {
