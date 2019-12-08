@@ -50,6 +50,9 @@ app.get('/payment', (req, res) => {
     res.render('Payment');
 });
 
+app.get('/admin', (req, res) => {
+    res.render('AdminDashboard');
+});
 //END ROUTES
 
 app.listen(port, () => {
