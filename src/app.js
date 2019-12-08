@@ -46,9 +46,10 @@ app.get('/viewprofile', (req, res) => {
     res.render('ViewProfile');
 });
 
-app.get('/admindashboard', (req, res) => {
-   res.render('AdminDashboard');
+app.get('/payment', (req, res) => {
+    res.render('Payment');
 });
+
 //END ROUTES
 
 app.listen(port, () => {
