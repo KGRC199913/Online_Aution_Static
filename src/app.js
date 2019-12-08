@@ -44,7 +44,11 @@ app.get('/addItem', (req, res) => {
 
 app.get('/viewprofile', (req, res) => {
     res.render('ViewProfile');
+});
 
+app.get('/admindashboard', (req, res) => {
+   res.render('AdminDashboard');
+});
 //END ROUTES
 
 app.listen(port, () => {
