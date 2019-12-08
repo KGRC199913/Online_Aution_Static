@@ -10,9 +10,7 @@
     <link href="/css/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css" media="all"
-          rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
 </head>
 {{>nav}}
@@ -25,42 +23,80 @@
                 <h2 class="card-title">
                     Item Name
                 </h2>
-                <div class="row" style="margin-left: 0.1%">
-                    <div class="col-sm-12 col-lg-4">
-                        <img src="/asset/cat_img.jpg" style="width: 100%; height: auto">
+                <div class="row" style="margin-left: 0.1%;">
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <img class="hoverable" src="/asset/cat_img.jpg" style="width: 100%; height: auto">
                         <div class='d-flex justify-content-between' style="margin-top: 1%">
-                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                            <div class="hoverable" style="max-width: 32%;"><img src="/asset/cat_img.jpg"
                                                               style="height: auto; width: 100%"/></div>
-                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                            <div class="hoverable" style="max-width: 32%;"><img src="/asset/cat_img.jpg"
                                                               style="height: auto; width: 100%"/></div>
-                            <div style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                            <div class="hoverable" style="max-width: 32%;"><img src="/asset/cat_img.jpg"
                                                               style="height: auto; width: 100%"/></div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-lg-4">
-                        <h4><b>Seller: </b><a id="seller" href="/home">Seller Name</a></h4>
-                        <input id="sellerRating" class="rateInput">
-                        <h4><b>Highest Bidder: </b><a id="highestBidder" href="/home">Bidder Name</a></h4>
-                        <input id="bidderRating" class="rateInput">
-                        <h4 id="startDate">20/9/2019 19:00:00</h4>
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <div class="justify-content-between winter-neva-gradient" style="padding-left: 2%">
+                            <h4 style="margin-bottom: 0px"><b>Seller: </b><a id="seller" href="/home">Seller Name</a></h4>
+                            <div id="seller-rating" class="rate"></div>
+                            <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a id="highestBidder" href="/home">Bidder Name</a></h4>
+                            <div id="bidder-rating" class="rate"></div>
+                            <h4 style="margin-top: 10px" id="startDate">20/9/2019 19:00:00</h4>
+                        </div>
+                        <div style="margin-top: 3%">
+                            <h3 class="card-title text-secondary">Current: $5000</h3>
+                            <input class="quantity" style="width: 100%" min="0" name="quantity" value="1"
+                                   type="number">
+                            <button class="btn btn-primary" style="margin-left: 0 !important;">Bid</button>
+                            <button class="btn btn-amber">Buy Now</button>
+                        </div>
                     </div>
-                    <div class="col-sm-12 col-lg-4">
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
                         <div class="p2">
-                            <div class="col" style="margin-left: 1.9%; margin-bottom: 2%">
-                                <h3 class="card-title">Current: $5000</h3>
-                                <input class="quantity" style="width: 95%" min="0" name="quantity" value="1"
-                                       type="number">
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-primary">Bid</button>
-                                <button class="btn btn-amber">Buy Now</button>
+                            <div>
+                                <table class="table table-striped overflow-auto" style="border: 1px solid black">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Bidder</th>
+                                        <th scope="col">Bid</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="col">12:19 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">5000000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:17 08/12/19</th>
+                                        <th scope="col">***in</th>
+                                        <th scope="col">2200000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:15 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">2000000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:12 08/12/19</th>
+                                        <th scope="col">***in</th>
+                                        <th scope="col">1200000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:10 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">1000000</th>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div id="endDate" class="card-footer text-center mt-4">
-                    <h4><b>
+                    <h4 class="text-danger"><b>
                         3 days left!!
                     </b>
                     </h4>
@@ -120,15 +156,13 @@
 </div>
 {{>footer}}
 </body>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/js/star-rating.min.js"
-        type="text/javascript"></script>
-<script src="/js/ProductDetail.js"></script>
 <!-- Bootstrap tooltips -->
-    <script type="text/javascript " src="/js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript " src="/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript " src="/js/mdb.min.js"></script>
+<script type="text/javascript " src="/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript " src="/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript " src="/js/mdb.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script src="/js/ProductDetail.js"></script>
 </html>
