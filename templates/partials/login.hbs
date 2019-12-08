@@ -1,5 +1,5 @@
-<div class="modal fade" id="loginModal" role="dialog" aria-labelledby="loginLable" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="loginModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="loginModal">Login</h5>
@@ -21,9 +21,10 @@
                             required>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <a href="#" data-target="#pwdModal" data-toggle="modal">Forgot password ?</a>
+                <a data-target="#pwdModal" data-toggle="modal">Forgot password ?</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="loginBtn" type="submit" class="btn btn-primary">Login</button>
             </div>
