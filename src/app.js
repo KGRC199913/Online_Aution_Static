@@ -44,6 +44,11 @@ app.get('/addItem', (req, res) => {
 
 app.get('/viewprofile', (req, res) => {
     res.render('ViewProfile');
+});
+
+app.get('/payment', (req, res) => {
+    res.render('Payment');
+});
 
 //END ROUTES
 
