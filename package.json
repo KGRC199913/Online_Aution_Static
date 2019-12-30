@@ -1,27 +1,26 @@
 {
-  "name": "online_aution_static",
+  "name": "clc-express",
   "version": "1.0.0",
-  "description": "An webstite for online aution",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/app.js",
-    "dev": "nodemon ./src/app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KGRC199913/Online_Aution_Static.git"
-  },
-  "author": "Tuan Pham, Thong Nguyen, Vinh Doan",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KGRC199913/Online_Aution_Static/issues"
-  },
-  "homepage": "https://github.com/KGRC199913/Online_Aution_Static#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
-    "hbs": "^4.0.6"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.2"
+    "express-async-errors": "^3.1.1",
+    "express-handlebars": "^3.1.0",
+    "express-handlebars-sections": "^1.0.1",
+    "express-mysql-session": "^2.1.0",
+    "express-session": "^1.17.0",
+    "moment": "^2.24.0",
+    "multer": "^1.4.2",
+    "mysql": "^2.17.1",
+    "numeral": "^2.0.6"
   }
 }
