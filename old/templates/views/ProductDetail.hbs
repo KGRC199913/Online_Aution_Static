@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+</head>
+{{>nav}}
+<body class="black-skin">
+<!-- Start your project here-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="card" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 80px">
+            <div class="card-body rounded-bottom rounded-top">
+                <h2 class="card-title">
+                    Item Name
+                </h2>
+                <div class="row" style="margin-left: 0.1%;">
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <img class="hoverable" src="/asset/cat_img.jpg" style="width: 100%; height: auto">
+                        <div class='d-flex justify-content-between' style="margin-top: 1%">
+                            <div class="hoverable" style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                                                              style="height: auto; width: 100%"/></div>
+                            <div class="hoverable" style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                                                              style="height: auto; width: 100%"/></div>
+                            <div class="hoverable" style="max-width: 32%;"><img src="/asset/cat_img.jpg"
+                                                              style="height: auto; width: 100%"/></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <div class="justify-content-between winter-neva-gradient" style="padding-left: 2%">
+                            <h4 style="margin-bottom: 0px"><b>Seller: </b><a id="seller" href="/home">Seller Name</a></h4>
+                            <div id="seller-rating" class="rate"></div>
+                            <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a id="highestBidder" href="/home">Bidder Name</a></h4>
+                            <div id="bidder-rating" class="rate"></div>
+                            <h4 style="margin-top: 10px" id="startDate">20/9/2019 19:00:00</h4>
+                        </div>
+                        <div style="margin-top: 3%">
+                            <h3 class="card-title text-secondary">Current: $5000</h3>
+                            <input class="quantity" style="width: 100%" min="0" name="quantity" value="1"
+                                   type="number">
+                            <button class="btn btn-primary" style="margin-left: 0 !important;">Bid</button>
+                            <button class="btn btn-amber">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <div class="p2">
+                            <div>
+                                <table class="table table-striped overflow-auto" style="border: 1px solid black">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Bidder</th>
+                                        <th scope="col">Bid</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="col">12:19 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">5000000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:17 08/12/19</th>
+                                        <th scope="col">***in</th>
+                                        <th scope="col">2200000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:15 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">2000000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:12 08/12/19</th>
+                                        <th scope="col">***in</th>
+                                        <th scope="col">1200000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:10 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">1000000</th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="endDate" class="card-footer text-center mt-4">
+                    <h4 class="text-danger"><b>
+                        3 days left!!
+                    </b>
+                    </h4>
+                </div>
+                <div>
+                    <h4 class="card-title">
+                        Item Description
+                    </h4>
+                    <div class="card-text">
+                        Lorems Ipsum
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 20px">
+        <div style="width: 100%" class="align-content-center">
+            <h3>
+                Similar Items
+            </h3>
+        </div>
+        <div class="similar-carousel col-lg-12 col-sm-12" style="margin-top: 10px; padding-right: 50px;">
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+        </div>
+    </div>
+</div>
+{{>footer}}
+</body>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript " src="/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript " src="/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript " src="/js/mdb.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script src="/js/ProductDetail.js"></script>
+</html>

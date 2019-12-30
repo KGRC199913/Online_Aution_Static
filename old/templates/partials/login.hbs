@@ -1,0 +1,71 @@
+<div class="modal fade" id="loginModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModal">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="was-validated">
+                    <div class="form-group">
+                        <label for="uname">Username:</label>
+                        <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname"
+                            required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd"
+                            required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a data-target="#pwdModal" data-toggle="modal">Forgot password ?</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="loginBtn" type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Forgot password-->
+<div id="pwdModal" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">What's My Password?</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <p>If you have forgotten your password you can reset it here.</p>
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <input class="form-control input-lg" placeholder="E-mail Address"
+                                                name="email" type="email">
+                                        </div>
+                                        <input class="btn btn-lg btn-primary btn-block" value="Send My Password"
+                                            type="submit">
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
