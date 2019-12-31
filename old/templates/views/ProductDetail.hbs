@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Material Design Bootstrap</title>
+    <link href="/public/css/mdb.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
@@ -164,5 +163,39 @@
 <script type="text/javascript " src="/js/mdb.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-<script src="/js/ProductDetail.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.similar-carousel').slick({
+            slidesToShow: 3,
+            infinite: true,
+            dots: true,
+            lazyLoad: 'ondemand',
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+        $('div.rate').rateYo({
+            starWidth: "20px",
+            maxValue: 5,
+            step: 0.5,
+            halfStar: true,
+            readOnly: true
+        });
+        $('#seller-rating').rateYo("option", "rating", 4.5);
+        $('#bidder-rating').rateYo("option", "rating", 5);
+
+    });
+</script>
 </html>

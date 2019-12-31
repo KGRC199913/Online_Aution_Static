@@ -1,9 +1,208 @@
-<div class="card">
-    <div class="card-header">
-        <h4>Product Detail</h4>
+<!--<div class="card">-->
+<!--    <div class="card-header">-->
+<!--        <h4>Product Detail</h4>-->
+<!--    </div>-->
+<!--    <div class="card-body">-->
+<!--        {{{this.product.FullDes}}}-->
+<!--        {{{this.product.ProID}}}-->
+<!--    </div>-->
+<!--</div>-->
+
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.similar-carousel').slick({
+                slidesToShow: 3,
+                infinite: true,
+                dots: true,
+                lazyLoad: 'ondemand',
+                arrows: true,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+            $('div.rate').rateYo({
+                starWidth: "20px",
+                maxValue: 5,
+                step: 0.5,
+                halfStar: true,
+                readOnly: true
+            });
+            $('#seller-rating').rateYo("option", "rating", 4.5);
+            $('#bidder-rating').rateYo("option", "rating", 5);
+
+        });
+    </script>
+{{/section}}
+
+<body class="black-skin">
+<!-- Start your project here-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="card" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 80px">
+            <div class="card-body rounded-bottom rounded-top">
+                <h2 class="card-title">
+                    {{this.product.ProName}}
+                </h2>
+                <div class="row" style="margin-left: 0.1%;">
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <img class="hoverable" src="/public/imgs/sp/{{this.product.ProID}}/main.jpg"
+                             style="width: 100%; height: auto">
+                        <div class='d-flex justify-content-between' style="margin-top: 1%">
+                            <div class="hoverable" style="max-width: 32%;"><img
+                                    src="/public/imgs/sp/{{this.product.ProID}}/1.jpg"
+                                    style="height: auto; width: 100%"/></div>
+                            <div class="hoverable" style="max-width: 32%;"><img
+                                    src="/public/imgs/sp/{{this.product.ProID}}/2.jpg"
+                                    style="height: auto; width: 100%"/></div>
+                            <div class="hoverable" style="max-width: 32%;"><img
+                                    src="/public/imgs/sp/{{this.product.ProID}}/3.jpg"
+                                    style="height: auto; width: 100%"/></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <div class="justify-content-between winter-neva-gradient">
+                            <h4 style="margin-bottom: 0px"><b>Seller: </b><a id="seller" href="/home">Seller Name</a>
+                            </h4>
+                            <div id="seller-rating" class="rate"></div>
+                            <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
+                                    id="highestBidder" href="/home">Bidder Name</a></h4>
+                            <div id="bidder-rating" class="rate"></div>
+                            <h4 style="margin-top: 10px" id="startDate">{{#getFormatedDateTime
+                                    this.product.startDate}}{{/getFormatedDateTime}}</h4>
+                        </div>
+                        <div style="margin-top: 20px">
+                            <h3 class="card-title text-info">Current: {{this.product.curPrice}} vnđ</h3>
+                            <input class="quantity" style="width: 100%" min="0" name="quantity"
+                                   value="{{#nextPrice this.product.curPrice this.product.priceStep}}{{/nextPrice}}"
+                                   step="{{this.product.priceStep}}"
+                                   type="number">
+                            <button class="btn btn-primary" style="margin-left: 0 !important; margin-top: 10px">Bid
+                            </button>
+                            <button class="btn btn-info" style="margin-top: 10px">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
+                        <div class="p2">
+                            <div>
+                                <table class="table table-striped overflow-auto" style="border: 1px solid black">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Bidder</th>
+                                        <th scope="col">Bid</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="col">12:19 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">5000000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:17 08/12/19</th>
+                                        <th scope="col">***in</th>
+                                        <th scope="col">2200000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:15 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">2000000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:12 08/12/19</th>
+                                        <th scope="col">***in</th>
+                                        <th scope="col">1200000</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">12:10 08/12/19</th>
+                                        <th scope="col">*****Txxx</th>
+                                        <th scope="col">1000000</th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="endDate" class="card-footer text-center mt-4">
+                    <h4 class="text-danger"><b>
+                        {{#getFormatedDateTime this.product.endDate}}{{/getFormatedDateTime}}
+                    </b>
+                    </h4>
+                </div>
+                <div style="margin-top: 20px">
+                    <h4 class="card-title bg-secondary align-content-center" style="text-align: center; padding: 10px">
+                        Item Description
+                    </h4>
+                    <div class="card-text">>
+                        {{{this.product.FullDes}}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        {{{this.product.FullDes}}}
-        {{{this.product.ProID}}}
+
+    <div class="row" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 20px">
+        <div style="width: 100%" class="align-content-center">
+            <h3>
+                Similar Items
+            </h3>
+        </div>
+        <div class="similar-carousel col-lg-12 col-sm-12" style="margin-top: 10px; padding-right: 50px;">
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+            <div class="card mx-3">
+                <img class="card-img" src="/asset/cat_img.jpg">
+                <div class="card-title">Item 1</div>
+                <div class="card-text">Lorems Ipsum</div>
+            </div>
+        </div>
     </div>
 </div>
+</body>
