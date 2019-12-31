@@ -58,6 +58,6 @@ router.get('/:id', async function (req, res) {
   res.render('vwProducts/detail', {
     product: rows[0]
   })
-})
+});
 
 module.exports = router;
