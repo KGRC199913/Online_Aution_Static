@@ -10,5 +10,12 @@ module.exports = {
       return rows[0];
 
     return null;
-  }
+  },
+  singleById: async id => {
+    const rows = await db.load(`select * from users where f_ID = '${id}'`);
+    if (rows.length > 0)
+      return rows[0];
+
+    return null;
+  },
 };
