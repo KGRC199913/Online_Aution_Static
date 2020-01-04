@@ -1,5 +1,7 @@
+
 const express = require('express');
 const productModel = require('../models/product.model');
+const userModel = require('../models/user.model');
 const config = require('../config/default.json');
 
 const router = express.Router();
@@ -55,8 +57,12 @@ router.get('/byCat/:catId', async function (req, res) {
 
 router.get('/:id', async function (req, res) {
   const rows = await productModel.single(req.params.id);
+  const seller = await userModel.singleById(rows[0].sellerId);
+  const hgBidder = await userModel.singleById(rows[0].hgBidderId);
   res.render('vwProducts/detail', {
-    product: rows[0]
+    product: rows[0],
+    seller: seller,
+    hgBidder: hgBidder,
   })
 });
 

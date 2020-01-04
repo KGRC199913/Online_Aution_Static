@@ -43,8 +43,11 @@ router.post('/logout', async function (req, res) {
 
 
 const restrict = require('../middlewares/auth.mdw');
-router.get('/profile', restrict, async function (req, res) {
-  res.render('vwAccount/profile');
+router.get('/profile/:id', restrict, async function (req, res) {
+  const user = await userModel.singleById(req.params.id);
+  res.render('vwAccount/profile', {
+    user: user,
+  });
 })
 
 router.get('/register', async function (req, res) {

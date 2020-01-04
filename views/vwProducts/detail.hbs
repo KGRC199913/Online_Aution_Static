@@ -82,11 +82,11 @@
                     </div>
                     <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
                         <div class="justify-content-between winter-neva-gradient">
-                            <h4 style="margin-bottom: 0px"><b>Seller: </b><a id="seller" href="/home">Seller Name</a>
+                            <h4 style="margin-bottom: 0px"><b>Seller: </b><a id="seller" href="/account/profile/{{this.seller.f_ID}}">{{this.seller.f_Username}}</a>
                             </h4>
                             <div id="seller-rating" class="rate"></div>
                             <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
-                                    id="highestBidder" href="/home">Bidder Name</a></h4>
+                                    id="highestBidder" href="/account/profile/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Username}}</a></h4>
                             <div id="bidder-rating" class="rate"></div>
                             <h4 style="margin-top: 10px" id="startDate">{{#getFormatedDateTime
                                     this.product.startDate}}{{/getFormatedDateTime}}</h4>
