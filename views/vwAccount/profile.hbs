@@ -1,8 +1,176 @@
+{{#section 'css'}}
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+{{/section}}
+
+{{#section 'js'}}
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+{{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
+<script src="validator.js"></script>
+<script src="contact.js"></script>
+<script>
+    $("#editbtn").on('click', firstClick)
+
+    function firstClick() {
+        $(this).text('Save');
+        $("#editbtn").removeClass("btn-primary");
+        $("#editbtn").addClass("btn-danger");
+        $("#editbtn").off('click').on('click', secondClick)
+
+        $("#name").removeAttr("disabled");
+        $("#name").attr("required", true);
+
+        $("#email").removeAttr("disabled");
+        $("#email").attr("required", true);
+
+        $("#bday").removeAttr("disabled");
+        $("#bday").attr("required", true);
+
+        $("#address").removeAttr("disabled");
+        $("#address").attr("required", true);
+
+        $("#pwd-su").removeAttr("disabled");
+        $("#pwd-su").attr("required", true);
+
+        $("#pwdcf").removeAttr("disabled");
+        $("#pwdcf").attr("required", true);
+    }
+
+    function secondClick() {
+        $(this).text('Edit');
+        $("#editbtn").removeClass("btn-danger");
+        $("#editbtn").addClass("btn-primary");
+        $("#editbtn").off('click').on('click', firstClick)
+
+        $("#name").removeAttr("required");
+        $("#name").attr("disabled", true);
+
+        $("#email").removeAttr("required");
+        $("#email").attr("disabled", true);
+
+        $("#bday").removeAttr("required");
+        $("#bday").attr("disabled", true);
+
+        $("#address").removeAttr("required");
+        $("#address").attr("disabled", true);
+
+        $("#pwd-su").removeAttr("required");
+        $("#pwd-su").attr("disabled", true);
+
+        $("#pwdcf").removeAttr("required");
+        $("#pwdcf").attr("disabled", true);
+    }
+</script>
+{{/section}}
+
 <div class="card">
     <div class="card-header">
-        <h4>Example App: Profile</h4>
+        <h1>Profile</h1>
     </div>
     <div class="card-body">
-        <p>{{this.user.f_Username}}</p>
+        <div class="form-row">
+            <!-- left column -->
+            <div class="form-group col-md-4" style="padding-top: 30px;">
+                <div class="form-group">
+                    <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                    <h6>Upload a different photo...</h6>
+
+                    <input type="file" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label style="color: red; font-size: 25px;" for="available">Available to spend:</label>
+                    <label id="available" name="available">
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="form-group col-md-8">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <form class="was-validated">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        value="{{this.user.f_Name}}" disabled>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="text" class="form-control" id="email" value="{{this.user.f_Email}}"
+                                        name="email" disabled>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bday">Birthday:</label>
+                                    <input id="bday" class="form-control" type="text" name="bday"
+                                        value="{{#datetimeToSecond this.user.f_DOB}}{{/datetimeToSecond}}" disabled>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Address:</label>
+                                    <input type="text" class="form-control" id="address" name="address" disabled>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pwd-su">Password:</label>
+                                    <input type="password" class="form-control" id="pwd-su" name="pswd-su" disabled>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pwdcf">Password (Confirm):</label>
+                                    <input type="password" class="form-control" id="pwdcf" name="pswdcf" disabled>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a data-target="#pwdModal" data-toggle="modal">Change password?</a>
+                            <button id="editbtn" type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pwdModal" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModal">Change Password?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="npwd">New Password:</label>
+                        <input type="password" class="form-control" id="npwd" placeholder="Enter email" name="npwd">
+                    </div>
+                    <div class="form-group">
+                        <label for="cpwd">Confirm Password:</label>
+                        <input type="password" class="form-control" id="cpwd" placeholder="Enter password"
+                            name="cpwd">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
