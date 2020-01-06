@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>ExpressJS Example</title>
+  <title>Aution Online</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -11,46 +11,19 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/home">
       <i class="fa fa-home fa-lg"></i>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0 mr-auto">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          <i class="fa fa-search"></i>
-          Search
-        </button>
-      </form>
+    <div class="collapse navbar-collapse justify-content-sm-end" id="navbarSupportedContent">
       <form id="frmLogout" action="/account/logout" method="post"></form>
       <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class=nav-link href="/sell">Sell</a>
+        </li>
         {{#if lcIsAuthenticated}}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -81,6 +54,30 @@
       </ul>
     </div>
   </nav>
+  <div>
+    <form class="form-inline input-group p-3" method="GET" action="/search">
+      <div class="input-group-prepend">
+            <span class="input-group-text black lighten-3" id="basic-text1"><i class="fas"
+                    aria-hidden="true"></i></span>
+        </div>
+      <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        <i class="fa fa-search"></i>
+        Search
+      </button>
+      <div style="width: 3%;"> </div>
+      <select class=" form-control-sm-1 input-group-text browser-default justify-content-end  ">
+        <optgroup label="Giá">
+          <option value="1">Giá giảm dần</option>
+          <option value="2">Giá tăng dần</option>
+        </optgroup>
+        <optgroup label="Thời gian">
+          <option value="3">Thời gian giảm dần</option>
+          <option value="4">Thời gian tăng dần</option>
+        </optgroup>
+      </select>
+    </form>
+  </div>
   <div class="container-fluid my-4">
     <div class="row">
       <div class="col-sm-3">
@@ -126,5 +123,140 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   {{{_sections.js}}}
 </body>
+<style>
+  /*footer*/
+  .footer-dark {
+    margin-top: auto;
+    padding: 20px 0;
+    color: #f0f9ff;
+    background-color: #282d32;
+  }
+
+  .footer-dark h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .footer-dark ul {
+    padding: 0;
+    list-style: none;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  .footer-dark ul a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.6;
+  }
+
+  .footer-dark ul a:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width:767px) {
+    .footer-dark .item:not(.social) {
+      text-align: center;
+      padding-bottom: 20px;
+    }
+  }
+
+  .footer-dark .item.text {
+    margin-bottom: 36px;
+  }
+
+  @media (max-width:767px) {
+    .footer-dark .item.text {
+      margin-bottom: 0;
+    }
+  }
+
+  .footer-dark .item.text p {
+    opacity: 0.6;
+    margin-bottom: 0;
+  }
+
+  .footer-dark .item.social {
+    text-align: center;
+  }
+
+  @media (max-width:991px) {
+    .footer-dark .item.social {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+
+  .footer-dark .item.social>a {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    margin: 0 8px;
+    color: #fff;
+    opacity: 0.85;
+  }
+
+  .footer-dark .item.social>a:hover {
+    opacity: 1.0;
+  }
+
+  .footer-dark .copyright {
+    text-align: center;
+    padding-top: 24px;
+    opacity: 0.3;
+    font-size: 13px;
+    margin-bottom: 0;
+  }
+</style>
+<div class="footer-dark">
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-3 item">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">Hosting</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-md-3 item">
+          <h3>About</h3>
+          <ul>
+            <li><a href="#">Company</a></li>
+            <li><a href="#">Team</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6 item text">
+          <h3>Company Name</h3>
+          <p>Nguyen Duc Thong</p>
+        </div>
+        <div class="col item social">
+          <ul class="list-unstyled list-inline">
+            <li class="list-inline-item"><a class="btn-floating" href="https://www.facebook.com/Sirai.Eden"><i
+                  class="fab">
+                </i></a></li>
+            <li class="list-inline-item"><a class="btn-floating btn-tw"><i class="fab">
+                </i></a></li>
+            <li class="list-inline-item"><a class="btn-floating" href="https://www.google.com.vn"><i class="fab ">
+                </i></a></li>
+            <li class="list-inline-item"><a class="btn-floating btn-li"><i class="fab">
+                </i></a></li>
+            <li class="list-inline-item"><a class="btn-floating"
+                href="https://github.com/KGRC199913/Online_Aution_Static"><i class="fab">
+                </i></a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">Five Leaves.Inc © 2019</p>
+    </div>
+  </footer>
+</div>
 
 </html>
