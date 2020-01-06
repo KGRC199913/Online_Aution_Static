@@ -1,8 +1,174 @@
+<script>
+  function setTimer(countDownElem, date) {
+    // set the date we're counting down to
+    var target_date = new Date(date).getTime();
+    // variables for time units
+    var days, hours, minutes, seconds;
+    // get tag element
+
+  
+    //update the tag with id "countdown" every 1 second
+    setInterval(function () {
+      // find the amount of "seconds" between now and target
+      var current_date = new Date().getTime();
+      var seconds_left = (target_date - current_date) / 1000;
+      // do some time calculations
+      days = parseInt(seconds_left / 86400);
+      seconds_left = seconds_left % 86400;
+      hours = parseInt(seconds_left / 3600);
+      seconds_left = seconds_left % 3600;
+      minutes = parseInt(seconds_left / 60);
+      seconds = parseInt(seconds_left % 60);
+      if (days < 0 || hours < 0 || minutes < 0 || seconds < 0) {
+        countDownElem.innerHTML = "Expire time";
+      }
+      else{
+        // format countdown string + set tag value
+        countDownElem.innerHTML = days + "d " + hours + ":" + minutes + ":" + seconds;
+      }
+    }, 1000);
+  }
+</script>
 <div class="card">
   <div class="card-header">
-    <h4>Example App: Home</h4>
+    <h4>Giá cao nhất</h4>
   </div>
+  {{#if this.empty1}}
   <div class="card-body">
-    <p>Sinh viên tự thực hiện</p>
+    <h4 class="card-text">Không có dữ liệu.</h4>
   </div>
+  {{else}}
+  <div class="card-body bg-dark">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" style="padding-left: 6%;padding-right: 6%;padding-top:2%;padding-bottom:2%">
+        {{#each this.top5prices}}
+        <div class="carousel-item {{#if @first }}active {{/if}}">
+          <div class="row">
+            <img src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg" alt="{{ProName}}" style="padding-right: 5%;">
+            <div class="text-white">
+              <h5>{{ProName}}</h5>
+              <p>{{TinyDes}}</p>
+              <h5 id="timeprice{{@index}}" class="text-danger"></h5>
+              <script>
+                    var countDownElem = document.getElementById("timeprice{{@index}}");
+                    var date = "{{endDate}}";
+                    setTimer(countDownElem, date);
+              </script>
+              <a class="link-text" href="#">
+                <h5>Read more <i class="fas ml-2"></i></h5>
+              </a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <a class="carousel-control-prev" style="width:4%;" href="#carouselExampleIndicators" role="button"
+        data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" style="width:4%;" href="#carouselExampleIndicators" role="button"
+        data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  {{/if}}
+</div>
+</br>
+<div class="card">
+  <div class="card-header">
+    <h4>Gần kết thúc</h4>
+  </div>
+  {{#if this.empty2}}
+  <div class="card-body">
+    <h4 class="card-text">Không có dữ liệu.</h4>
+  </div>
+  {{else}}
+  <div class="card-body bg-dark">
+    <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" style="padding-left: 6%;padding-right: 6%;padding-top:2%;padding-bottom:2%">
+        {{#each this.top5dates}}
+        <div class="carousel-item {{#if @first }}active {{/if}}">
+          <div class="row">
+            <img src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg" alt="{{ProName}}" style="padding-right: 5%;">
+            <div class="text-white">
+              <h5>{{ProName}}</h5>
+              <p>{{TinyDes}}</p>
+              <h5 id="timedate{{@index}}" class="text-danger"></h5>
+              <script>
+                    var countDownElem = document.getElementById("timedate{{@index}}");
+                    var date = "{{endDate}}";
+                    setTimer(countDownElem, date);
+              </script>
+              <a class="link-text" href="#">
+                <h5>Read more <i class="fas ml-2"></i></h5>
+              </a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <a class="carousel-control-prev" style="width:4%;" href="#carouselExampleIndicators1" role="button"
+        data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" style="width:4%;" href="#carouselExampleIndicators1" role="button"
+        data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  {{/if}}
+</div>
+</br>
+<div class="card">
+  <div class="card-header">
+    <h4>Nhiều lượt ra giá nhất</h4>
+  </div>
+  {{#if this.empty3}}
+  <div class="card-body">
+    <h4 class="card-text">Không có dữ liệu.</h4>
+  </div>
+  {{else}}
+  <div class="card-body bg-dark">
+    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" style="padding-left: 6%;padding-right: 6%;padding-top:2%;padding-bottom:2%">
+        {{#each this.top5actives}}
+        <div class="carousel-item {{#if @first }}active {{/if}}">
+          <div class="row">
+            <img src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg" alt="{{ProName}}" style="padding-right: 5%;">
+            <div class="text-white">
+              <h5>{{ProName}}</h5>
+              <p>{{TinyDes}}</p>
+              <h5 id="timeactive{{@index}}" class="text-danger"></h5>
+              <script>
+                    var countDownElem = document.getElementById("timeactive{{@index}}");
+                    var date = "{{endDate}}";
+                    setTimer(countDownElem, date);
+              </script>
+              <a class="link-text" href="#">
+                <h5>Read more <i class="fas ml-2"></i></h5>
+              </a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <a class="carousel-control-prev" style="width:4%;" href="#carouselExampleIndicators2" role="button"
+        data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" style="width:4%;" href="#carouselExampleIndicators2" role="button"
+        data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  {{/if}}
 </div>

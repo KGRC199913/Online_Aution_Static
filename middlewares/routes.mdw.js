@@ -20,4 +20,6 @@ module.exports = function (app) {
   app.use('/account', require('../routes/_account.route'));
   app.use('/products', require('../routes/_product.route'));
   app.use('/demo', require('../routes/_demo.route'));
+  app.use('/home',require('../routes/home.route'));
+  app.use('/search',require('../routes/search.route'));
 };
