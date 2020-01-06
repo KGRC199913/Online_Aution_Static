@@ -6,66 +6,153 @@
 {{#section 'js'}}
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+{{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
+<script src="validator.js"></script>
+<script src="contact.js"></script>
 <script>
+  //validate Password
+  var password = document.getElementById("pwd-su")
+    , confirm_password = document.getElementById("pwdcf");
+  function validatePassword() {
+    if (password.value.length < 8)
+      password.setCustomValidity("Password must as least 8 characters");
+    if (password.value != confirm_password.value) {
+      confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
+    }
+  }
+  password.onchange = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+
+  function trueValidatePassword() {
+    if (password.value.length >= 8 && password.value === confirm_password.value) {
+      return true;
+    }
+    return false;
+  }
+  //validate Name
+  var fullname = document.getElementById('txtName');
+  var regexName = /^[a-zA-Z ]+$/;
+  function validateName() {
+    if (fullname.value.match(regexName) === null) {
+      fullname.setCustomValidity("Name format error");
+    } else {
+      fullname.setCustomValidity('');
+    }
+  }
+  fullname.onkeyup = validateName;
+  function trueValidateName() {
+    if (fullname.value.match(regexName) === null)
+      return false;
+    return true;
+  }
+  //validate Email
+  var email = document.getElementById('txtEmail');
+  var regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  function validateEmail() {
+    if (email.value.match(regexEmail) === null)
+      email.setCustomValidity('Email format error.');
+    else
+      email.setCustomValidity('');
+    $.getJSON(`/account/is-available?email=${email.value}`, function (data) {
+      if (data !== true)
+        email.setCustomValidity('Email already existed.');
+      else
+        email.setCustomValidity('');
+    });
+  }
+  email.onkeyup = validateEmail;
+  function trueValidateEmail() {
+    if (email.value.match(regexEmail) === null)
+      return false;
+    return true;
+  }
+
+  $('#frmRegister').submit(function (event) {
+    event.preventDefault();
+    validate();
+  });
   $('#txtDOB').datetimepicker({
     format: 'd/m/Y',
     timepicker: false,
     mask: true,
   });
 
-  $('#frmRegister').submit(function (event) {
-    event.preventDefault();
-    validate();
-  });
-
   function validate() {
-    const username = $('#txtUsername').val();
-    $.getJSON(`/account/is-available?user=${username}`, function (data) {
-      if (data === true) {
+    const email = $('#txtEmail').val();
+    $.getJSON(`/account/is-available?email=${email}`, function (data) {
+      if (data === true && trueValidatePassword() === true && trueValidateName() === true && trueValidateEmail() === true) {
         $('#frmRegister').off('submit').submit();
       } else {
-        alert('not available');
+        alert('Sign up failed.');
       }
-    })
+    });
+
   }
 </script>
 {{/section}}
 
-<div class="card">
+<div class="card" role="document">
   <div class="card-header">
-    <h4>Register</h4>
+    <h3 class="modal-title" id="signupModal"><strong>Sign Up</strong></h3>
   </div>
   <div class="card-body">
     <form method="POST" id="frmRegister">
-      <div class="form-group">
-        <label for="txtUsername">Username</label>
-        <input type="text" class="form-control" id="txtUsername" name="username" autofocus>
-      </div>
-      <div class="form-group">
-        <label for="txtPassword">Password</label>
-        <input type="password" class="form-control" id="txtPassword" name="password">
-      </div>
-      <div class="form-group">
-        <label for="txtConfirm">Confirm</label>
-        <input type="password" class="form-control" id="txtConfirm" name="confirm">
-      </div>
-      <div class="form-group">
-        <label for="txtName">Name</label>
-        <input type="text" class="form-control" id="txtName" name="name">
-      </div>
-      <div class="form-group">
-        <label for="txtEmail">Email</label>
-        <input type="text" class="form-control" id="txtEmail" name="email">
-      </div>
-      <div class="form-group">
-        <label for="txtDOB">DOB</label>
-        <input type="text" class="form-control" id="txtDOB" name="dob">
-      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="txtName">Name:</label>
+          <input type="text" class="form-control" id="txtName" placeholder="Enter name" name="name">
+        </div>
 
-      <button type="submit" class="btn btn-outline-success">
-        <i class="fa fa-check" aria-hidden="true"></i>
-        Register
-      </button>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" class="form-control" id="txtEmail" placeholder="Enter email" name="email">
+          <div hidden="true" id="e">Example: abc@xyz.com</div>
+        </div>
+
+        <div class="form-group">
+          <label for="txtDOB">DOB:</label>
+          <input type="text" class="form-control" id="txtDOB" placeholder="Enter DOB" name="dob">
+          <div hidden="true" id="e">Example: 01/01/2000</div>
+        </div>
+
+        <div class="form-group">
+          <label for="pwd-su">Password:</label>
+          <input type="password" class="form-control" id="pwd-su" placeholder="Enter password" name="password">
+          <div hidden="true" id="pw">Password should be at least 4
+            characters</div>
+        </div>
+
+        <div class="form-group">
+          <label for="pwdcf">Password (Confirm):</label>
+          <input type="password" class="form-control" id="pwdcf" placeholder="Confirm password" name="confirm">
+          <div hidden="true" id="pwcf">Confirm password</div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="defaultChecked">
+            <label class="form-check-label" for="defaultChecked">
+              I agree to the <a href=" ">Terms & Conditions &
+                Privacy Policy.
+            </label>
+            <div class="invalid-feedback">
+              You must agree before submitting.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
+            data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+          <input name="recaptcha" class="form-control d-none" data-recaptcha="true"
+            data-error="Please complete the Captcha">
+          <div class="help-block with-errors"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="signupBtn" type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
