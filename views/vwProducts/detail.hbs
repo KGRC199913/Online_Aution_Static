@@ -15,9 +15,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <style>
         .cube {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 300px;
             margin-bottom: 200px;
+        }
+        .padded {
+            padding-left: 1%;
+            padding-top: 5%;
         }
     </style>
 {{/section}}
@@ -48,6 +52,15 @@
                     }
                 ]
             });
+
+            $('.img-carousel').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+            });
+
             $('div.rate').rateYo({
                 starWidth: "20px",
                 maxValue: 5,
@@ -68,11 +81,74 @@
                 $(this).val(min);
             }
         });
+
+        $('#addFavBtn').click(function () {
+            $.post("/addToFavorite", {
+                user: $('#userStore').val(),
+                product: $('#productStore').val(),
+            }, (data) => {
+                alert(data);
+            });
+        });
+
+        function changeShow(src) {
+            $('#show-img').attr({"src": `/public/imgs/sp/${src}`});
+        }
     </script>
 {{/section}}
 
 <body class="black-skin">
+<input type="hidden" id="userStore" value={{lcAuthUser.f_ID}}>
+<input type="hidden" id="productStore" value={{this.product.ProID}}>
 <!-- Start your project here-->
+<div id="history-modal" class="modal fade padded" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Bid History</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-body">
+                <div class="col-12">
+                    <p>
+                    <h2>Bid History</h2>
+                    </p>
+                    <div style="margin-top: 1%; width: 100%;">
+                        <div class="p2">
+                            <div>
+                                <table class="table table-striped overflow-auto" style="border: 1px solid black">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Bidder</th>
+                                        <th scope="col">Bid</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each this.history}}
+                                        <tr>
+                                            <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
+                                            <th scope="col">{{#maskString user.f_Name}}{{/maskString}}</th>
+                                            <th scope="col">{{bid_money}}</th>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="card" style="width: 100%; margin-left: 2%; margin-right: 2%">
@@ -82,30 +158,26 @@
                 </h2>
                 <div class="row" style="margin-left: 0.1%;">
                     <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
-                        <img class="hoverable" src="/public/imgs/sp/{{this.product.ProID}}/main.jpg"
+                        <img id="show-img" src="/public/imgs/sp/{{this.product.ProID}}/main.jpg"
                              style="width: 100%; height: auto">
-                        <div class='d-flex justify-content-between' style="margin-top: 1%">
-                            <div class="hoverable" style="max-width: 32%;"><img
-                                    src="/public/imgs/sp/{{this.product.ProID}}/1.jpg"
-                                    style="height: auto; width: 100%"/></div>
-                            <div class="hoverable" style="max-width: 32%;"><img
-                                    src="/public/imgs/sp/{{this.product.ProID}}/2.jpg"
-                                    style="height: auto; width: 100%"/></div>
-                            <div class="hoverable" style="max-width: 32%;"><img
-                                    src="/public/imgs/sp/{{this.product.ProID}}/3.jpg"
-                                    style="height: auto; width: 100%"/></div>
+                        <div class='d-flex justify-content-between img-carousel' style="margin-top: 1%">
+                            {{#each this.imgs}}
+                                <div class="hoverable" style="max-width: 32%;"><img
+                                        src="/public/imgs/sp/{{this}}"
+                                        style="height: auto; width: 100%" onclick="changeShow('{{this}}')"/></div>
+                            {{/each}}
                         </div>
                     </div>
                     <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
                         <div class="justify-content-between winter-neva-gradient">
 
                             <h4 style="margin-bottom: 0"><b>Seller: </b><a id="seller"
-                                                                           href="/account/profile/{{this.seller.f_ID}}">{{this.seller.f_Username}}</a>
+                                                                           href="/account/profile/{{this.seller.f_ID}}">{{this.seller.f_Name}}</a>
                             </h4>
                             <div id="seller-rating" class="rate" rating="4.8"></div>
                             <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
                                     id="highestBidder"
-                                    href="/account/profile/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Username}}</a></h4>
+                                    href="/account/profile/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Name}}</a></h4>
                             <div id="bidder-rating" class="rate" rating="4.5"></div>
                             <h4 style="margin-top: 10px" id="startDate">{{#getFormatedDateTime
                                     this.product.startDate}}{{/getFormatedDateTime}}</h4>
@@ -122,9 +194,24 @@
                                            step="{{this.product.priceStep}}"
                                            type="number">
                                 </div>
-                                <button class="btn btn-primary" style="margin-left: 0 !important; margin-top: 10px">Bid
+                                <button id="bidBtn" type="button" class="btn btn-primary" style="margin-left: 0 !important; margin-top: 10px">Bid
                                 </button>
-                                <button class="btn btn-info" style="margin-top: 10px">Buy Now</button>
+                                <button id="buyBtn" type="button" class="btn btn-info" style="margin-top: 10px">Buy Now</button>
+                                <button id="addFavBtn" type="button" class="btn btn-outline-primary" style="margin-top: 10px">Add to Favorite</button>
+                                {{#if (isSeller lcAuthUser)}}
+                                    <button type="button" class="btn btn-outline-secondary" style="margin-top: 10px"
+                                            data-toggle="modal" data-target="#history-modal"
+                                    >Show Bid
+                                        History
+                                    </button>
+                                {{/if}}
+                                {{#if (isAdmin lcAuthUser)}}
+                                    <button type="button" class="btn btn-outline-secondary" style="margin-top: 10px"
+                                            data-toggle="modal" data-target="#history-modal"
+                                    >Show Bid
+                                        History
+                                    </button>
+                                {{/if}}
                             {{/if}}
                         </div>
                     </div>
@@ -165,7 +252,6 @@
         </div>
         <div class="similar-carousel col-lg-12 col-sm-12" style="margin-top: 10px; padding-right: 50px;">
             {{#each this.similar}}
-
                 <div class="card mx-1 cube">
                     <img class="card-img" src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg">
                     <div class="card-title"><h5><a href="/products/{{ProID}}">{{ProName}}</a></h5></div>
@@ -175,35 +261,6 @@
             {{/each}}
 
         </div>
-    </div>
-    <div class="col-12">
-        <p>
-        <h2>Bid History</h2></p>
-        <div style="margin-top: 1%">
-            <div class="p2">
-                <div>
-                    <table class="table table-striped overflow-auto" style="border: 1px solid black">
-                        <thead>
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Bidder</th>
-                            <th scope="col">Bid</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {{#each this.history}}
-                            <tr>
-                                <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
-                                <th scope="col">{{#maskString user.f_Name}}{{/maskString}}</th>
-                                <th scope="col">{{bid_money}}</th>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 </div>
