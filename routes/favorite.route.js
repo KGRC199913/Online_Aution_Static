@@ -11,10 +11,10 @@ router.post('/', async function (req, res) {
     try {
         await favoriteModel.add(entity);
     } catch (e) {
-        return res.send('This product is already in favorite list');
+        return res.send('This product is already in favorite list.');
     }
 
-    res.send('Added');
+    res.send('Added to favorite list.');
 });
 
 module.exports = router;
