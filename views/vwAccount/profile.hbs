@@ -73,12 +73,6 @@
             <!-- left column -->
             <div class="form-group col-md-4" style="padding-top: 30px;">
                 <div class="form-group">
-                    <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-                    <h6>Upload a different photo...</h6>
-
-                    <input type="file" class="form-control">
-                </div>
-                <div class="form-group">
                     <label style="color: red; font-size: 25px;" for="available">Available to spend:</label>
                     <label id="available" name="available">
                 </div>
@@ -121,24 +115,10 @@
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="pwd-su">Password:</label>
-                                    <input type="password" class="form-control" id="pwd-su" name="pswd-su" disabled>
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="pwdcf">Password (Confirm):</label>
-                                    <input type="password" class="form-control" id="pwdcf" name="pswdcf" disabled>
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a data-target="#pwdModal" data-toggle="modal">Change password?</a>
+                            <a href="#pwdModal" data-toggle="modal">Change password?</a>
                             <button id="editbtn" type="submit" class="btn btn-primary">Edit</button>
                         </div>
                     </div>
@@ -153,7 +133,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="loginModal">Change Password?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
             </div>
             <form method="POST">
                 <div class="modal-body">
