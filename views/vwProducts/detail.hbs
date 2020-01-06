@@ -13,6 +13,13 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <style>
+        .cube {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 200px;
+        }
+    </style>
 {{/section}}
 
 {{#section 'js'}}
@@ -48,9 +55,18 @@
                 halfStar: true,
                 readOnly: true
             });
-            $('#seller-rating').rateYo("option", "rating", 4.5);
-            $('#bidder-rating').rateYo("option", "rating", 5);
+            $('#seller-rating').rateYo("option", "rating", $('#seller-rating').attr('rating'));
+            $('#bidder-rating').rateYo("option", "rating", $('#bidder-rating').attr('rating'));
 
+        });
+        $('#bidPrice').change(function () {
+            var max = parseInt($(this).attr('max'));
+            var min = parseInt($(this).attr('min'));
+            if ($(this).val() > max) {
+                $(this).val(max);
+            } else if ($(this).val() < min) {
+                $(this).val(min);
+            }
         });
     </script>
 {{/section}}
@@ -59,7 +75,7 @@
 <!-- Start your project here-->
 <div class="container-fluid">
     <div class="row">
-        <div class="card" style="width: 100%; margin-left: 2%; margin-right: 2%; margin-top: 80px">
+        <div class="card" style="width: 100%; margin-left: 2%; margin-right: 2%">
             <div class="card-body rounded-bottom rounded-top">
                 <h2 class="card-title">
                     {{this.product.ProName}}
@@ -82,75 +98,51 @@
                     </div>
                     <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
                         <div class="justify-content-between winter-neva-gradient">
-                            <h4 style="margin-bottom: 0px"><b>Seller: </b><a id="seller" href="/account/profile/{{this.seller.f_ID}}">{{this.seller.f_Username}}</a>
+
+                            <h4 style="margin-bottom: 0"><b>Seller: </b><a id="seller"
+                                                                           href="/account/profile/{{this.seller.f_ID}}">{{this.seller.f_Username}}</a>
                             </h4>
-                            <div id="seller-rating" class="rate"></div>
+                            <div id="seller-rating" class="rate" rating="4.8"></div>
                             <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
-                                    id="highestBidder" href="/account/profile/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Username}}</a></h4>
-                            <div id="bidder-rating" class="rate"></div>
+                                    id="highestBidder"
+                                    href="/account/profile/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Username}}</a></h4>
+                            <div id="bidder-rating" class="rate" rating="4.5"></div>
                             <h4 style="margin-top: 10px" id="startDate">{{#getFormatedDateTime
                                     this.product.startDate}}{{/getFormatedDateTime}}</h4>
                         </div>
                         <div style="margin-top: 20px">
                             <h3 class="card-title text-info">Current: {{this.product.curPrice}} vnđ</h3>
-                            <input class="quantity" style="width: 100%" min="0" name="quantity"
-                                   value="{{#nextPrice this.product.curPrice this.product.priceStep}}{{/nextPrice}}"
-                                   step="{{this.product.priceStep}}"
-                                   type="number">
-                            <button class="btn btn-primary" style="margin-left: 0 !important; margin-top: 10px">Bid
-                            </button>
-                            <button class="btn btn-info" style="margin-top: 10px">Buy Now</button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-lg-4" style="margin-top: 1%">
-                        <div class="p2">
-                            <div>
-                                <table class="table table-striped overflow-auto" style="border: 1px solid black">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Bidder</th>
-                                        <th scope="col">Bid</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="col">12:19 08/12/19</th>
-                                        <th scope="col">*****Txxx</th>
-                                        <th scope="col">5000000</th>
-                                    </tr>
-                                    <tr>
-                                        <th scope="col">12:17 08/12/19</th>
-                                        <th scope="col">***in</th>
-                                        <th scope="col">2200000</th>
-                                    </tr>
-                                    <tr>
-                                        <th scope="col">12:15 08/12/19</th>
-                                        <th scope="col">*****Txxx</th>
-                                        <th scope="col">2000000</th>
-                                    </tr>
-                                    <tr>
-                                        <th scope="col">12:12 08/12/19</th>
-                                        <th scope="col">***in</th>
-                                        <th scope="col">1200000</th>
-                                    </tr>
-                                    <tr>
-                                        <th scope="col">12:10 08/12/19</th>
-                                        <th scope="col">*****Txxx</th>
-                                        <th scope="col">1000000</th>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            {{#if lcIsAuthenticated}}
+                                <div style="width: 100%;">
+                                    <input class="quantity" id="bidPrice" style="width: 35%" name="quantity"
+                                           min="{{#nextPrice this.product.curPrice
+                                                             this.product.priceStep}}{{/nextPrice}}"
+                                           value="{{#nextPrice this.product.curPrice
+                                                               this.product.priceStep}}{{/nextPrice}}"
+                                           step="{{this.product.priceStep}}"
+                                           type="number">
+                                </div>
+                                <button class="btn btn-primary" style="margin-left: 0 !important; margin-top: 10px">Bid
+                                </button>
+                                <button class="btn btn-info" style="margin-top: 10px">Buy Now</button>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
 
                 <div id="endDate" class="card-footer text-center mt-4">
-                    <h4 class="text-danger"><b>
+                    {{#if (shouldDateRelative this.product.endDate)}}
+                        <h4 class="text-danger">
+                            <b>
+                                {{#getRelativeDateTime this.product.endDate}}{{/getRelativeDateTime}}
+                            </b>
+                        </h4>
+                    {{else}}
+                    <h4 class="text-info"><b>
                         {{#getFormatedDateTime this.product.endDate}}{{/getFormatedDateTime}}
                     </b>
-                    </h4>
+                    {{/if}}
+                </h4>
                 </div>
                 <div style="margin-top: 20px">
                     <h4 class="card-title bg-secondary align-content-center" style="text-align: center; padding: 10px">
@@ -172,37 +164,47 @@
             </h3>
         </div>
         <div class="similar-carousel col-lg-12 col-sm-12" style="margin-top: 10px; padding-right: 50px;">
-            <div class="card mx-3">
-                <img class="card-img" src="/asset/cat_img.jpg">
-                <div class="card-title">1</div>
-                <div class="card-text">Lorems Ipsum</div>
-            </div>
-            <div class="card mx-3">
-                <img class="card-img" src="/asset/cat_img.jpg">
-                <div class="card-title">Item 1</div>
-                <div class="card-text">Lorems Ipsum</div>
-            </div>
-            <div class="card mx-3">
-                <img class="card-img" src="/asset/cat_img.jpg">
-                <div class="card-title">Item 1</div>
-                <div class="card-text">Lorems Ipsum</div>
-            </div>
-            <div class="card mx-3">
-                <img class="card-img" src="/asset/cat_img.jpg">
-                <div class="card-title">Item 1</div>
-                <div class="card-text">Lorems Ipsum</div>
-            </div>
-            <div class="card mx-3">
-                <img class="card-img" src="/asset/cat_img.jpg">
-                <div class="card-title">Item 1</div>
-                <div class="card-text">Lorems Ipsum</div>
-            </div>
-            <div class="card mx-3">
-                <img class="card-img" src="/asset/cat_img.jpg">
-                <div class="card-title">Item 1</div>
-                <div class="card-text">Lorems Ipsum</div>
-            </div>
+            {{#each this.similar}}
+
+                <div class="card mx-1 cube">
+                    <img class="card-img" src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg">
+                    <div class="card-title"><h5><a href="/products/{{ProID}}">{{ProName}}</a></h5></div>
+                    <div class="card-text"><b>Descriptions: </b>{{TinyDes}}</div>
+                    <div class="card-text"><b>Current: </b>{{curPrice}} vnd</div>
+                </div>
+            {{/each}}
+
         </div>
     </div>
+    <div class="col-12">
+        <p>
+        <h2>Bid History</h2></p>
+        <div style="margin-top: 1%">
+            <div class="p2">
+                <div>
+                    <table class="table table-striped overflow-auto" style="border: 1px solid black">
+                        <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Bidder</th>
+                            <th scope="col">Bid</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each this.history}}
+                            <tr>
+                                <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
+                                <th scope="col">{{#maskString user.f_Name}}{{/maskString}}</th>
+                                <th scope="col">{{bid_money}}</th>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 </body>

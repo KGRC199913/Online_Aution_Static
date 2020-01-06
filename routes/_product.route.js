@@ -2,6 +2,7 @@
 const express = require('express');
 const productModel = require('../models/product.model');
 const userModel = require('../models/user.model');
+const bidHistoryModel = require('../models/bid.model');
 const config = require('../config/default.json');
 
 const router = express.Router();
@@ -59,7 +60,18 @@ router.get('/:id', async function (req, res) {
   const rows = await productModel.single(req.params.id);
   const seller = await userModel.singleById(rows[0].sellerId);
   const hgBidder = await userModel.singleById(rows[0].hgBidderId);
+
+  const history = await bidHistoryModel.byProId(rows[0].ProID);
+  for (let h in history) {
+    history[h]['user'] = await userModel.singleById(history[h].user_id);
+  }
+
+  const similar = await productModel.getXRandomProductInCat(5, rows[0].CatID);
+
   res.render('vwProducts/detail', {
+    currentUser: req.session.authUser,
+    history: history,
+    similar: similar,
     product: rows[0],
     seller: seller,
     hgBidder: hgBidder,
