@@ -1,9 +1,11 @@
 {{#section 'css'}}
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.css" />
 {{/section}}
 
 {{#section 'js'}}
+<script type="text/javascript" src="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 {{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
@@ -62,6 +64,7 @@
         $("#pwdcf").attr("disabled", true);
     }
 </script>
+
 {{/section}}
 
 <div class="card">
@@ -71,15 +74,34 @@
     <div class="card-body">
         <div class="form-row">
             <!-- left column -->
-            <div class="form-group col-md-4" style="padding-top: 30px;">
+            <div class="form-group col-md-6" style="padding-top: 30px;">
                 <div class="form-group">
-                    <label style="color: red; font-size: 25px;" for="available">Available to spend:</label>
+                    <label style="color: red; font-size: 20px;" for="available">Available to spend:</label>
                     <label id="available" name="available">
+                </div>
+                <div class="container mt-2" style="background-color: rgb(255, 255, 255)">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive mt-5">
+                                <table class="table table-bordered table-striped table-hover users-table mb-2">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Product ID</th>
+                                            <th>User ID</th>
+                                            <th>Bid Money</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- edit form column -->
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-6">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
@@ -134,8 +156,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="loginModal">Change Password?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <form method="POST">
                 <div class="modal-body">
@@ -145,8 +167,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cpwd">Confirm Password:</label>
-                        <input type="password" class="form-control" id="cpwd" placeholder="Enter password"
-                            name="cpwd">
+                        <input type="password" class="form-control" id="cpwd" placeholder="Enter password" name="cpwd">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -156,3 +177,4 @@
         </div>
     </div>
 </div>
+

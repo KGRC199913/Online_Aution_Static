@@ -3,7 +3,11 @@ const util = require('util');
 
 const pool = mysql.createPool({
     connectionLimit: 100,
+<<<<<<< Updated upstream
     host: '127.0.0.1',
+=======
+    host: 'localhost',
+>>>>>>> Stashed changes
     port: "3306",
     user: 'root',
     password: 'shint1001',
