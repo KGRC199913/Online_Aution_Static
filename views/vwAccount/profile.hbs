@@ -12,13 +12,11 @@
 <script>
 
     $("#editbtn").on('click', firstClick);
+    $('#savebtn').on('click', secondClick).hide();
 
     function firstClick() {
-        $(this).text('Save');
-        $("#editbtn").removeClass("btn-primary");
-        $("#editbtn").addClass("btn-danger");
-        $("#editbtn").off('click').on('click', secondClick)
-
+        $(this).hide();
+        $('#savebtn').show();
         $("#name").removeAttr("disabled");
         $("#name").attr("required", true);
 
@@ -30,10 +28,8 @@
     }
 
     function secondClick() {
-        $(this).text('Edit');
-        $("#editbtn").removeClass("btn-danger");
-        $("#editbtn").addClass("btn-primary");
-        $("#editbtn").off('click').on('click', firstClick)
+        $(this).hide();
+        $('#editbtn').show();
 
         $("#name").removeAttr("required");
         $("#name").attr("disabled", true);
@@ -44,20 +40,24 @@
         $("#address").removeAttr("required");
         $("#address").attr("disabled", true);
 
-        var fullname = document.getElementById('name');
-        var bday = document.getElementById('bday');
-        var address = document.getElementById('address');
+        var fullname = $(`#name`).val();
+        var bday = $(`#bday`).val();
+        var address = $(`#address`).val();
 
-        const url = "/account/profile/";
         const id = $('#userIDStore').val();
-        alert(url);
-        $.post(url, {id, fullname, bday, address}, (data, textStatus, jqXHR) => {
+
+        $.post(`/account/profile/`, {
+            id: id,
+            name: fullname,
+            dob: bday,
+            address: address,
+        }, (data, status, jqXHR) => {
             alert(data);
             if (jqXHR.status === 200) {
                 window.location.reload();
             }
         });
-        alert('meo');
+
     }
 </script>
 <script>
@@ -66,7 +66,7 @@
         $.post(`/addToFavorite/remove`, {
             user: $(`#userIDStore`).val(),
             product: proID,
-        }, (data, textStatus, jqXHR){
+        }, (data, textStatus, jqXHR) => {
             alert(data);
             if (jqXHR.status === 200) {
                 window.location.reload();
@@ -193,7 +193,7 @@
 
                                 <div class="form-group">
                                     <label for="address">Address:</label>
-                                    <input type="text" class="form-control" id="address" name="address" disabled>
+                                    <input type="text" class="form-control" id="address" name="address" value="{{this.user.f_Address}}" disabled>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -201,7 +201,8 @@
                         </div>
                         <div class="modal-footer">
                             <a href="#pwdModal" data-toggle="modal">Change password?</a>
-                            <button id="editbtn" type="submit" class="btn btn-primary">Edit</button>
+                            <button id="editbtn" type="button" class="btn btn-primary">Edit</button>
+                            <button id="savebtn" type="button" class="btn btn-danger">Save</button>
                         </div>
                     </div>
                 </div>

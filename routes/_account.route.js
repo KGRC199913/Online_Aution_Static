@@ -62,6 +62,7 @@ router.post('/logout', async function(req, res) {
 const restrict = require('../middlewares/auth.mdw');
 router.get('/profile/:id', restrict, async function(req, res) {
     const rows = await userModel.singleById(req.params.id);
+    rows['f_DOB'] = moment(rows.f_DOB).format();
 
     const history = await bidHistoryModel.byJoinUserId(req.params.id);
     for (let h in history) {
@@ -82,14 +83,15 @@ router.get('/profile/:id', restrict, async function(req, res) {
 });
 
 router.post('/profile', async function(req, res) {
-    console.log('meow');
     const id = req.body.id;
     const name = req.body.name;
-    const address = req.body.address;
+    const address = req.body.address | null;
     const dob = req.body.dob;
 
+    const formatDob = moment(dob).format(`YYYY-MM-DD`);
+
     try {
-        await userModel.update(user, name, address, dob);
+        await userModel.update(id, name, address, formatDob);
     } catch (err) {
         res.status = 400;
         res.send('Cannot update, unknown error');
