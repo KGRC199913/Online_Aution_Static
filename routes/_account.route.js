@@ -3,6 +3,7 @@ const moment = require('moment');
 const bcrypt = require('bcryptjs');
 const userModel = require('../models/user.model');
 const config = require('../config/default.json');
+const reviewModel = require('../models/review.model');
 
 const router = express.Router();
 
@@ -13,9 +14,6 @@ router.get('/login', async function(req, res) {
 })
 
 router.post('/login', async function(req, res) {
-    console.log('Login');
-    console.log(req.session);
-
     const user = await userModel.singleByEmail(req.body.email);
     if (user === null)
         return res.render('vwAccount/login', {
@@ -34,12 +32,24 @@ router.post('/login', async function(req, res) {
     req.session.isAuthenticated = true;
     req.session.authUser = user;
 
+    const reviews = await reviewModel.byReceivingId(user.f_ID);
+    if (reviews === null) {
+        req.session.rating = 5;
+    } else {
+        let avgRating = 0.0;
+        for (let review in reviews) {
+            avgRating += reviews[review].rating;
+        }
+        avgRating /= reviews.length;
+        req.session.rating = avgRating;
+        console.log(avgRating);
+    }
+
     const url = req.query.retUrl || '/';
     res.redirect(url);
 })
 
 router.post('/logout', async function(req, res) {
-    console.log(req.session);
     req.session.isAuthenticated = false;
     req.session.authUser = null;
     res.redirect(req.headers.referer);
@@ -56,10 +66,9 @@ router.get('/profile/:id', restrict, async function(req, res) {
 
 router.get('/register', async function(req, res) {
     res.render('vwAccount/register');
-})
+});
 
 router.post('/register', async function(req, res) {
-    console.log("meow" + req.body);
     const hash = bcrypt.hashSync(req.body.password, config.authentication.saltRounds);
     const f_DOB = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
     const entity = {
@@ -72,7 +81,7 @@ router.post('/register', async function(req, res) {
     }
     const ret = await userModel.add(entity);
     res.render('vwAccount/register');
-})
+});
 
 router.get('/is-available', async function(req, res) {
     const email = await userModel.singleByEmail(req.query.email);

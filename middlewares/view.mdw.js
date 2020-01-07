@@ -12,21 +12,20 @@ module.exports = function (app) {
             section: hbs_sections(),
             format: val => numeral(val).format('0,0'),
             nextPrice: (cur, step) => cur + step,
-
+            getDMYOnly: (datetime) => moment(datetime).format('DD/MM/YYYY'),
             getSimpleDate: (datetime) => moment(datetime).format(`hh:mm Do MMMM YYYY`),
             getFormatedDateTime: (datetime) => moment(datetime).format('Do MMMM YYYY, h:mm:ss a'),
-            shouldDateRelative: (datetime) => {
-                var duration = moment.duration(moment(datetime).diff(moment.now()));
-                return duration.asDays() <= 3;
-            },
-            getRelativeDateTime: (datetime) => moment(datetime).toNow(),
+            shouldDateRelative: (datetime) => moment.duration(moment(datetime).diff(moment.now())).asDays() <= 3,
+            getRelativeDateTime: (datetime) => moment(datetime).fromNow(),
             isGuest: (user) => !user,
             isBidder: (user) => user.f_Permission === 0,
             isSeller: (user) => user.f_Permission === 1,
             isAdmin: (user) => user.f_Permission === 2,
-            isBidOver: (datetime) => moment(datetime).isBefore(moment.now()),
+            isBidOver: (datetime) => moment(datetime).isBefore(),
             maskString: string => mask(string),
             datetimeToSecond: (datetime) => moment(datetime).format('DD/MM/YYYY'),
+            isUserRateSuit: (rating) => rating >= 4,
+            isSameId: (us1, us2) => us1 !== null && us2 !== null && us1.f_ID === us2.f_ID,
         }
     }));
     app.set('view engine', 'hbs');

@@ -13,12 +13,14 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
         .cube {
             width: 150px;
             height: 300px;
             margin-bottom: 200px;
         }
+
         .padded {
             padding-left: 1%;
             padding-top: 5%;
@@ -29,6 +31,7 @@
 {{#section 'js'}}
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(document).ready(function () {
             $('.similar-carousel').slick({
@@ -94,57 +97,92 @@
         function changeShow(src) {
             $('#show-img').attr({"src": `/public/imgs/sp/${src}`});
         }
+
+        $('#bidBtn').on('click', function () {
+            const bidPrice = $(`#bidPrice`).val();
+            $('#message-p').html(`<p>Are you sure placing bid (value: ${bidPrice} vnd) on this product?</p>`);
+            $(`#bid-dialog`).dialog('open');
+        });
+
+        $(`#historyShowBtn`).on('click', function () {
+            $(`#history-dialog`).dialog(`open`);
+        });
+
+        $(function () {
+            $(`#bid-dialog`).dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    "Confirm": function () {
+                        $(this).dialog("close");
+                        $.post(`/bid`, {
+                            user: $(`#userStore`).val(),
+                            product: $(`#productStore`).val(),
+                            price: $(`#bidPrice`).val(),
+                        }, (data, textStatus, jqXHR) => {
+                            alert(data);
+                            if (jqXHR.status === 200) {
+                                window.location.reload(true);
+                            }
+                        });
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $(`#history-dialog`).dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                maxHeight: window.innerHeight - 200,
+                overflow: 'scroll',
+                modal: true,
+                autoOpen: false,
+                show: {effect: 'fade', speed: 1000},
+                hide: {effect: 'fade', speed: 1000},
+                buttons: {
+                    "Close": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        })
     </script>
 {{/section}}
 
 <input type="hidden" id="userStore" value={{lcAuthUser.f_ID}}>
 <input type="hidden" id="productStore" value={{this.product.ProID}}>
 <!-- Start your project here-->
-<div id="history-modal" class="modal fade padded" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-     aria-hidden="true">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Bid History</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-body">
-                <div class="col-12">
-                    <p>
-                    <h2>Bid History</h2>
-                    </p>
-                    <div style="margin-top: 1%; width: 100%;">
-                        <div class="p2">
-                            <div>
-                                <table class="table table-striped overflow-auto" style="border: 1px solid black">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Bidder</th>
-                                        <th scope="col">Bid</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {{#each this.history}}
-                                        <tr>
-                                            <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
-                                            <th scope="col">{{#maskString user.f_Name}}{{/maskString}}</th>
-                                            <th scope="col">{{bid_money}}</th>
-                                        </tr>
-                                    {{/each}}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+<div id="bid-dialog" title="Are you sure?">
+    <p id="message-p"></p>
+</div>
+<div id="history-dialog" title="Bid History">
+    <div style="margin-top: 1%; width: 100%;">
+        <div class="p2">
+            <div>
+                <table class="table table-striped overflow-auto" style="border: 1px solid black">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Bidder</th>
+                        <th scope="col">Bid</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each this.history}}
+                        <tr>
+                            <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
+                            <th scope="col">{{#maskString user.f_Name}}{{/maskString}}</th>
+                            <th scope="col">{{bid_money}}</th>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
     </div>
 </div>
@@ -174,12 +212,20 @@
                                                                            href="/account/profile/{{this.seller.f_ID}}">{{this.seller.f_Name}}</a>
                             </h4>
                             <div id="seller-rating" class="rate" rating="4.8"></div>
-                            <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
-                                    id="highestBidder"
-                                    href="/account/profile/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Name}}</a></h4>
-                            <div id="bidder-rating" class="rate" rating="4.5"></div>
-                            <h4 style="margin-top: 10px" id="startDate">{{#getFormatedDateTime
-                                    this.product.startDate}}{{/getFormatedDateTime}}</h4>
+                            {{#if (isSameId lcAuthUser this.hgBidder)}}
+                                <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: <a href="/account/profile/{{this.lcAuthUser.f_ID}}">You</a></b></h4>
+                            {{else}}
+                                <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
+                                        id="highestBidder"
+                                        href="/account/profile/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Name}}</a></h4>
+                                <div id="bidder-rating" class="rate" rating="4.5"></div>
+                            {{/if}}
+                            <div id="priceStepdiv" style="margin-top: 15px;"><h4><b>Step: </b>{{this.product.priceStep}}
+                                vnd
+                            </h4></div>
+                            <h4 style="margin-top: 10px"><b>Bid Turns: </b>{{this.bidTurns}}</h4>
+                            <h4 style="margin-top: 10px" id="startDate"><b>Start from: </b>{{#getDMYOnly
+                                    this.product.startDate}}{{/getDMYOnly}}</h4>
                         </div>
                         <div style="margin-top: 20px">
                             <h3 class="card-title text-info">Current: {{this.product.curPrice}} vnđ</h3>
@@ -193,40 +239,49 @@
                                            step="{{this.product.priceStep}}"
                                            type="number">
                                 </div>
-                                <button id="bidBtn" type="button" class="btn btn-primary" style="margin-left: 0 !important; margin-top: 10px">Bid
+                                {{#if (isBidder lcAuthUser)}}
+                                    {{#if (isUserRateSuit lcRating)}}
+                                        <button id="bidBtn" type="button" class="btn btn-primary"
+                                                style="margin-left: 0 !important; margin-top: 10px">Bid
+                                        </button>
+                                        <button id="buyBtn" type="button" class="btn btn-info" style="margin-top: 10px">
+                                            Buy
+                                            Now
+                                        </button>
+                                    {{/if}}
+                                {{/if}}
+                                <button id="addFavBtn" type="button" class="btn btn-outline-primary"
+                                        style="margin-top: 10px">Add to Favorite
                                 </button>
-                                <button id="buyBtn" type="button" class="btn btn-info" style="margin-top: 10px">Buy Now</button>
-                                <button id="addFavBtn" type="button" class="btn btn-outline-primary" style="margin-top: 10px">Add to Favorite</button>
-                                {{#if (isSeller lcAuthUser)}}
-                                    <button type="button" class="btn btn-outline-secondary" style="margin-top: 10px"
-                                            data-toggle="modal" data-target="#history-modal"
-                                    >Show Bid
-                                        History
-                                    </button>
-                                {{/if}}
-                                {{#if (isAdmin lcAuthUser)}}
-                                    <button type="button" class="btn btn-outline-secondary" style="margin-top: 10px"
-                                            data-toggle="modal" data-target="#history-modal"
-                                    >Show Bid
-                                        History
-                                    </button>
-                                {{/if}}
+                                <button type="button" class="btn btn-outline-secondary" style="margin-top: 10px"
+                                        id="historyShowBtn"
+                                >Show Bid
+                                    History
+                                </button>
                             {{/if}}
                         </div>
                     </div>
                 </div>
 
                 <div id="endDate" class="card-footer text-center mt-4">
-                    {{#if (shouldDateRelative this.product.endDate)}}
-                        <h4 class="text-danger">
+                    {{#if (isBidOver this.product.endDate)}}
+                        <h4 class="text-warning">
                             <b>
-                                {{#getRelativeDateTime this.product.endDate}}{{/getRelativeDateTime}}
+                                Finished!!!
                             </b>
                         </h4>
                     {{else}}
-                    <h4 class="text-info"><b>
-                        {{#getFormatedDateTime this.product.endDate}}{{/getFormatedDateTime}}
-                    </b>
+                        {{#if (shouldDateRelative this.product.endDate)}}
+                            <h4 class="text-warning">
+                                <b>
+                                    {{#getRelativeDateTime this.product.endDate}}{{/getRelativeDateTime}}
+                                </b>
+                            </h4>
+                        {{else}}
+                        <h4 class="text-info"><b>
+                            {{#getFormatedDateTime this.product.endDate}}{{/getFormatedDateTime}}
+                        </b>
+                        {{/if}}
                     {{/if}}
                 </h4>
                 </div>

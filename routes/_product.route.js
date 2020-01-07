@@ -6,7 +6,6 @@ const bidHistoryModel = require('../models/bid.model');
 const config = require('../config/default.json');
 const fs = require('fs');
 
-
 const router = express.Router();
 
 router.get('/byCat/:catId', async function (req, res) {
@@ -85,6 +84,7 @@ router.get('/:id', async function (req, res) {
     imgs: imgArr,
     currentUser: req.session.authUser,
     history: history,
+    bidTurns: history.length,
     similar: similar,
     product: rows[0],
     seller: seller,
