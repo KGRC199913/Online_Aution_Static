@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 const userModel = require('../models/user.model');
 const config = require('../config/default.json');
 const reviewModel = require('../models/review.model');
+const productModel = require('../models/product.model');
+const bidHistoryModel = require('../models/bid.model');
+const favoriteModel = require('../models/favorite.model');
+
 
 const router = express.Router();
 
@@ -58,10 +62,24 @@ router.post('/logout', async function(req, res) {
 
 const restrict = require('../middlewares/auth.mdw');
 router.get('/profile/:id', restrict, async function(req, res) {
-    const user = await userModel.singleById(req.params.id);
+    const rows = await userModel.singleById(req.params.id);
+
+    const history = await bidHistoryModel.byJoinUserId(req.params.id);
+    for (let h in history) {
+        history[h]['product'] = await productModel.single(history[h].product_id);
+    }
+
+    const favorite = await favoriteModel.byJoinUserId(req.params.id);
+    for (let f in favorite) {
+        favorite[f]['favorite'] = await productModel.single(favorite[f].product_id);
+    }
+
     res.render('vwAccount/profile', {
-        user: user,
+        user: rows,
+        bidding: history,
+        favorite: favorite,
     });
+
 })
 
 router.get('/register', async function(req, res) {
