@@ -7,6 +7,7 @@ const reviewModel = require('../models/review.model');
 const productModel = require('../models/product.model');
 const bidHistoryModel = require('../models/bid.model');
 const favoriteModel = require('../models/favorite.model');
+const upSellerModel = require('../models/upseller.model');
 
 const router = express.Router();
 
@@ -154,6 +155,22 @@ router.post('/write_review', async function (req, res) {
     }
     res.status = 200;
     res.send("Comment saved");
+});
+
+router.post('/up_seller', async function (req, res) {
+    const id = req.body.user_id;
+    const entity = {
+        user_seller : id,
+    }
+    try {
+        await upSellerModel.add(entity);
+    } catch (e) {
+        res.status = 400;
+        return res.send("Already in seller upgrade list, please wait!!");
+    }
+
+    res.status = 200;
+    return res.send("Added to list, please wait to be approved");
 });
 
 module.exports = router;
