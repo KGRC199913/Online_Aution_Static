@@ -16,8 +16,8 @@
         const proId = $(this).attr(`id`);
         $.post(`/addToFavorite/remove`, {
             user: $(`#userIDStore`).val(),
-            product: proID,
-        }, (data, textStatus, jqXHR){
+            product: proId,
+        }, (data, textStatus, jqXHR) => {
             alert(data);
             if (jqXHR.status === 200) {
                 window.location.reload();

@@ -8,7 +8,6 @@ const productModel = require('../models/product.model');
 const bidHistoryModel = require('../models/bid.model');
 const favoriteModel = require('../models/favorite.model');
 
-
 const router = express.Router();
 
 router.get('/login', async function(req, res) {
@@ -46,7 +45,6 @@ router.post('/login', async function(req, res) {
         }
         avgRating /= reviews.length;
         req.session.rating = avgRating;
-        console.log(avgRating);
     }
 
     const url = req.query.retUrl || '/';
@@ -107,6 +105,55 @@ router.get('/is-available', async function(req, res) {
         return res.json(true);
 
     res.json(false);
-})
+});
+
+router.get(`/review/:id`, async function (req, res) {
+    const user = await userModel.singleById(req.params.id);
+    const reviews = await reviewModel.byReceivingId(req.params.id);
+
+    let totalReview;
+    if (reviews === null) {
+        totalReview = 5;
+    } else {
+        let avgRating = 0.0;
+        for (let review in reviews) {
+            avgRating += reviews[review].rating;
+        }
+        avgRating /= reviews.length;
+        totalReview = avgRating;
+    }
+
+    res.render('vwAccount/review', {
+        user: user,
+        reviews: reviews,
+        avgRated: totalReview
+    });
+});
+
+router.get('/write_review', async function (req, res) {
+    const user = await userModel.singleById(req.query.to);
+    res.render('vwAccount/review_write', {
+        user: user,
+    });
+});
+
+router.post('/write_review', async function (req, res) {
+    const entity = {
+        from_user_id: req.body.from,
+        to_user_id: req.body.to,
+        review: req.body.review,
+        rating: req.body.rate,
+    };
+
+    try {
+        await reviewModel.add(entity);
+    } catch (e) {
+        res.status = 400;
+        res.send("Error saving comment, unknown error!!!");
+        return console.log(e);
+    }
+    res.status = 200;
+    res.send("Comment saved");
+});
 
 module.exports = router;

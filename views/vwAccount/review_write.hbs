@@ -1,0 +1,60 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+{{/section}}
+{{#section 'js'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#starRated').html(`<h4>0</h4>`);
+        });
+        $(function () {
+            $("#starRating").rateYo({
+                starWidth: "25px",
+                maxValue: 5,
+                numStars: 5,
+                precision: 1,
+            }).on("rateyo.change", function (e, data) {
+                $('#starRated').html(`<h4>${data.rating}</h4>`);
+                $('#rateStore').val(data.rating);
+            });
+            $('#cancelBtn').on(`click`, function () {
+                window.location.href = "/";
+            });
+            $('#submitBtn').on(`click`, function () {
+                $.post('/account/write_review', {
+                    to: $('#targetIdStore').val(),
+                    from: $('#srcIdStore').val(),
+                    review: $('#comment').val(),
+                    rate: $('#rateStore').val(),
+                }, (data, textStatus, jqXHR) => {
+                    alert(data);
+                    if (jqXHR.status === 200) {
+                        window.location.href = "/";
+                    }
+                })
+            });
+        });
+    </script>
+{{/section}}
+<input id="targetIdStore" type="hidden" value={{user.f_ID}}>
+<input id="srcIdStore" type="hidden" value={{lcAuthUser.f_ID}}>
+<input id="rateStore" type="hidden" value=0>
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <label for="comment">Writing comment for {{user.f_Name}}</label>
+        </div>
+        <div class="card-text">
+            <textarea id="comment" rows="5" style="width: 100%"></textarea>
+        </div>
+        <div class="row card-text p-2">
+            <div id="starRating" style="margin-bottom: 10px">
+            </div>
+            <div class="col-5"><p id="starRated"></p></div>
+        </div>
+        <div class="card-footer">
+            <button id="submitBtn" type="button" class="btn btn-success">Submit</button>
+            <button id="cancelBtn" type="button" class="btn btn-danger">Cancel</button>
+        </div>
+    </div>
+</div>
