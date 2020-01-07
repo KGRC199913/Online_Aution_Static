@@ -6,7 +6,7 @@
 {{#section 'js'}}
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-{{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="validator.js"></script>
 <script src="contact.js"></script>
 <script>
@@ -84,6 +84,7 @@
     $.getJSON(`/account/is-available?email=${email}`, function (data) {
       if (data === true && trueValidatePassword() === true && trueValidateName() === true && trueValidateEmail() === true) {
         $('#frmRegister').off('submit').submit();
+        alert('Sign up success.');
       } else {
         alert('Sign up failed.');
       }
