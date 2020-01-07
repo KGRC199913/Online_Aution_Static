@@ -1,7 +1,7 @@
 module.exports = function (app) {
   app.get('/', function (req, res) {
     // res.send('hello expressjs');
-    res.render('home');
+    res.redirect('/home');
   })
 
   app.get('/about', function (req, res) {
@@ -20,4 +20,7 @@ module.exports = function (app) {
   app.use('/account', require('../routes/_account.route'));
   app.use('/products', require('../routes/_product.route'));
   app.use('/demo', require('../routes/_demo.route'));
+  app.use('/home',require('../routes/home.route'));
+  app.use('/search',require('../routes/search.route'));
+  app.use('/addToFavorite', require('../routes/favorite.route'));
 };

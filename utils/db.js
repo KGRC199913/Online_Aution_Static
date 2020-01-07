@@ -2,16 +2,12 @@ const mysql = require('mysql');
 const util = require('util');
 
 const pool = mysql.createPool({
-    connectionLimit: 100,
-<<<<<<< Updated upstream
-    host: '127.0.0.1',
-=======
-    host: 'localhost',
->>>>>>> Stashed changes
-    port: "3306",
-    user: 'root',
-    password: 'shint1001',
-    database: 'qlbh'
+  connectionLimit: 100,
+  host: 'localhost',
+  port: "3306",
+  user: 'root',
+  password: 'Kuro96',
+  database: 'qlbh'
 });
 
 const pool_query = util.promisify(pool.query).bind(pool);
