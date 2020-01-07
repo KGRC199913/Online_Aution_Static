@@ -23,4 +23,5 @@ module.exports = function (app) {
   app.use('/home',require('../routes/home.route'));
   app.use('/search',require('../routes/search.route'));
   app.use('/addToFavorite', require('../routes/favorite.route'));
+  app.use('/bid', require('../routes/bid.route'));
 };

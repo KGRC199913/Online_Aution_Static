@@ -11,10 +11,26 @@ router.post('/', async function (req, res) {
     try {
         await favoriteModel.add(entity);
     } catch (e) {
-        return res.send('This product is already in favorite list');
+        res.status(401);
+        return res.send('This product is already in favorite list.');
     }
+    res.status(200);
+    res.send('Added to favorite list.');
+});
 
-    res.send('Added');
+router.post('/remove', async function (req, res) {
+    const entity = {
+        user_id : req.body.user,
+        product_id : req.body.product,
+    };
+    try {
+        await favoriteModel.remove(entity);
+    } catch (e) {
+        res.status(401);
+        return res.send('Not in favorite list');
+    }
+    res.status(200);
+    res.send('Remove from favorite list.');
 });
 
 module.exports = router;
