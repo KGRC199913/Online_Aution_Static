@@ -1,0 +1,27 @@
+<div>
+    {{#if (isSameId lcAuthUser user)}}
+        <h1>Reviews of {{user.f_Name}}:</h1>
+    {{else}}
+        <h1>Reviews of {{#maskString user.f_Name}}{{/maskString}}</h1>
+    {{/if}}
+    <hr>
+    <h2>Review from others</h2>
+    {{#if reviews}}
+        {{#each reviews}}
+            <div class="card" style="width: 100%; margin-top: 20px;">
+                <div class="card-body">
+                    <h4 class="card-title">Rated: {{rating}} stars</h4>
+                    <p class="card-text">{{review}}</p>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <h5 style="margin-top: 20px" class="text-muted">No review</h5>
+    {{/if}}
+    <hr>
+    <div class="card" style="width: 100%; margin-top: 20px;">
+        <div class="card-body">
+            <h4 class="card-title">Average Rating: {{avgRated}} stars</h4>
+        </div>
+    </div>
+</div>
