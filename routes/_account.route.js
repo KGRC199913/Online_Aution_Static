@@ -79,7 +79,25 @@ router.get('/profile/:id', restrict, async function(req, res) {
         favorite: favorite,
     });
 
-})
+});
+
+router.post('/profile', async function(req, res) {
+    console.log('meow');
+    const id = req.body.id;
+    const name = req.body.name;
+    const address = req.body.address;
+    const dob = req.body.dob;
+
+    try {
+        await userModel.update(user, name, address, dob);
+    } catch (err) {
+        res.status = 400;
+        res.send('Cannot update, unknown error');
+        return console.log(err);
+    }
+    res.status = 200;
+    return res.send('Profile updated');
+});
 
 router.get('/register', async function(req, res) {
     res.render('vwAccount/register');
@@ -173,4 +191,4 @@ router.post('/up_seller', async function (req, res) {
     return res.send("Added to list, please wait to be approved");
 });
 
-module.exports = router;
+module.exports = router

@@ -10,20 +10,8 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 {{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
 <script>
-    $("#editbtn").on('click', firstClick)
 
-    $(`.close-btn`).on(`click`, function() {
-        const proId = $(this).attr(`id`);
-        $.post(`/addToFavorite/remove`, {
-            user: $(`#userIDStore`).val(),
-            product: proId,
-        }, (data, textStatus, jqXHR) => {
-            alert(data);
-            if (jqXHR.status === 200) {
-                window.location.reload();
-            }
-        });
-    });
+    $("#editbtn").on('click', firstClick);
 
     function firstClick() {
         $(this).text('Save');
@@ -34,20 +22,11 @@
         $("#name").removeAttr("disabled");
         $("#name").attr("required", true);
 
-        $("#email").removeAttr("disabled");
-        $("#email").attr("required", true);
-
         $("#bday").removeAttr("disabled");
         $("#bday").attr("required", true);
 
         $("#address").removeAttr("disabled");
         $("#address").attr("required", true);
-
-        $("#pwd-su").removeAttr("disabled");
-        $("#pwd-su").attr("required", true);
-
-        $("#pwdcf").removeAttr("disabled");
-        $("#pwdcf").attr("required", true);
     }
 
     function secondClick() {
@@ -59,21 +38,41 @@
         $("#name").removeAttr("required");
         $("#name").attr("disabled", true);
 
-        $("#email").removeAttr("required");
-        $("#email").attr("disabled", true);
-
         $("#bday").removeAttr("required");
         $("#bday").attr("disabled", true);
 
         $("#address").removeAttr("required");
         $("#address").attr("disabled", true);
 
-        $("#pwd-su").removeAttr("required");
-        $("#pwd-su").attr("disabled", true);
+        var fullname = document.getElementById('name');
+        var bday = document.getElementById('bday');
+        var address = document.getElementById('address');
 
-        $("#pwdcf").removeAttr("required");
-        $("#pwdcf").attr("disabled", true);
+        const url = "/account/profile/";
+        const id = $('#userIDStore').val();
+        alert(url);
+        $.post(url, {id, fullname, bday, address}, (data, textStatus, jqXHR) => {
+            alert(data);
+            if (jqXHR.status === 200) {
+                window.location.reload();
+            }
+        });
+        alert('meo');
     }
+</script>
+<script>
+    $(`.close-btn`).on(`click`, function () {
+        const proId = $(this).attr(`id`);
+        $.post(`/addToFavorite/remove`, {
+            user: $(`#userIDStore`).val(),
+            product: proID,
+        }, (data, textStatus, jqXHR){
+            alert(data);
+            if (jqXHR.status === 200) {
+                window.location.reload();
+            }
+        });
+    });
 </script>
 
 {{/section}}
@@ -142,7 +141,8 @@
                                                 </a>
                                             </th>
                                             <th>
-                                                <button type="button" class="close close-btn" id={{product_id}} style="padding-right: 25px;">
+                                                <button type="button" class="close close-btn" id={{product_id}}
+                                                    style="padding-right: 25px;">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </th>
@@ -159,9 +159,12 @@
 
             <!-- edit form column -->
             <div class="form-group col-md-6">
+                <div class="form-group">
+                    <button style="width: 100%; background:blue; color:white; " type="submit" class="btn">Upgrade to
+                        seller?</button>
+                </div>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-
                         <div class="modal-body">
                             <form class="was-validated">
                                 <div class="form-group">
