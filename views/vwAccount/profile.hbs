@@ -9,8 +9,6 @@
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 {{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
-<script src="validator.js"></script>
-<script src="contact.js"></script>
 <script>
     $("#editbtn").on('click', firstClick)
 
@@ -86,13 +84,49 @@
                                 <table class="table table-bordered table-striped table-hover users-table mb-2">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Product ID</th>
-                                            <th>User ID</th>
-                                            <th>Bid Money</th>
                                             <th>Date</th>
+                                            <th>Product Name</th>
+                                            <th>Bid</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        {{#each this.bidding}}
+                                        <tr>
+                                            <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
+                                            <th scope="col">{{ProName}}</th>
+                                            <th scope="col">{{bid_money}}</th>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <div>Bidding</div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container mt-2" style="background-color: rgb(255, 255, 255)">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive mt-5">
+                                <table class="table table-bordered table-striped table-hover users-table mb-2">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Product Name</th>
+                                            <th>Bid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.favorite}}
+                                        <tr>
+                                            <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
+                                            <th scope="col">{{this.product.ProName}}</th>
+                                            <th scope="col">{{bid_money}}</th>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <div>Favorite</div>
                                 </table>
                             </div>
                         </div>
@@ -177,4 +211,3 @@
         </div>
     </div>
 </div>
-
