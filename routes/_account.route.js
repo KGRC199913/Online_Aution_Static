@@ -58,7 +58,7 @@ router.get('/profile/:id', restrict, async function(req, res) {
         history[h]['product'] = await productModel.single(history[h].product_id);
     }
 
-    const favorite = await favoriteModel.byUserId(req.params.id);
+    const favorite = await favoriteModel.byJoinUserId(req.params.id);
     for (let f in favorite) {
         favorite[f]['favorite'] = await productModel.single(favorite[f].product_id);
     }
