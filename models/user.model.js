@@ -25,5 +25,4 @@ module.exports = {
 
         return null;
     },
-    byUserId: proID => db.load(`select * from bidhistory WHERE user_id = '${userID}'`),
 };
