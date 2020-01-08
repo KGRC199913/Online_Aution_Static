@@ -1,12 +1,12 @@
 {{#section 'css'}}
-<link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+
 {{/section}}
 
 {{#section 'js'}}
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+
 <script>
   //validate Password
   var password = document.getElementById("pwd-su")
@@ -39,6 +39,7 @@
       fullname.setCustomValidity('');
     }
   }
+  fullname.onchange = validateName;
   fullname.onkeyup = validateName;
   function trueValidateName() {
     if (fullname.value.match(regexName) === null)
@@ -52,12 +53,12 @@
     if (email.value.match(regexEmail) === null)
       email.setCustomValidity('Email format error.');
     else
-      email.setCustomValidity('');
+      email.setCustomValidity('abc');
     $.getJSON(`/account/is-available?email=${email.value}`, function (data) {
       if (data !== true)
         email.setCustomValidity('Email already existed.');
       else
-        email.setCustomValidity('');
+        email.setCustomValidity('abc');
     });
   }
   email.onkeyup = validateEmail;
@@ -114,6 +115,12 @@
           <label for="txtDOB">DOB:</label>
           <input type="text" class="form-control" id="txtDOB" placeholder="Enter DOB" name="dob">
           <div hidden="true" id="e">Example: 01/01/2000</div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
+          <div hidden="true" id="e">Example: 227 NVC</div>
         </div>
 
         <div class="form-group">

@@ -61,6 +61,25 @@
     }
 </script>
 <script>
+    $("#submitBtn").on('click', function() {
+        const oldpw = $('#opwd').val();
+        const newpw = $('#npwd').val();
+        const cfirmpw = $('#cpwd').val();
+        console.log(oldpw + ' ' + newpw + ' '+ cfirmpw);
+        $.post(`/account/profile/changepw/`, {
+            id: $(`#userIDStore`).val(),
+            oldPassword: oldpw,
+            password: newpw,
+            cfirmpassword: cfirmpw,
+        },(data, status, jqXHR) => {
+            alert(data);
+            if (jqXHR.status === 200) {
+                window.location.reload();
+            }
+        });
+    });
+</script>
+<script>
     $(`.close-btn`).on(`click`, function () {
         const proId = $(this).attr(`id`);
         $.post(`/addToFavorite/remove`, {
@@ -155,6 +174,40 @@
                         </div>
                     </div>
                 </div>
+                <div class="container mt-2" style="background-color: rgb(255, 255, 255)">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive mt-5">
+                                <table class="table table-bordered table-striped table-hover users-table mb-2">
+                                    <thead>
+                                        <tr>
+                                            <th>Product name</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.win_bid}}
+                                        <tr>
+                                            <th scope="col">
+                                                <a href="/products/{{ProID}}">
+                                                    {{ProName}}
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <button type="button" class="close close-btn" id={{product_id}}
+                                                    style="padding-right: 25px;">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <div>Won List</div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- edit form column -->
@@ -200,7 +253,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <a href="#pwdModal" data-toggle="modal">Change password?</a>
+                            <a href="#changepw" data-toggle="modal">Change password?</a>
                             <button id="editbtn" type="button" class="btn btn-primary">Edit</button>
                             <button id="savebtn" type="button" class="btn btn-danger">Save</button>
                         </div>
@@ -211,7 +264,7 @@
     </div>
 </div>
 
-<div id="pwdModal" class="modal fade" role="dialog" aria-hidden="true">
+<div id="changepw" class="modal fade" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -223,16 +276,20 @@
             <form method="POST">
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="opwd">Old Password:</label>
+                        <input type="password" class="form-control" id="opwd" placeholder="Old password" name="opwd">
+                    </div>
+                    <div class="form-group">
                         <label for="npwd">New Password:</label>
-                        <input type="password" class="form-control" id="npwd" placeholder="Enter email" name="npwd">
+                        <input type="password" class="form-control" id="npwd" placeholder="New password" name="npwd">
                     </div>
                     <div class="form-group">
                         <label for="cpwd">Confirm Password:</label>
-                        <input type="password" class="form-control" id="cpwd" placeholder="Enter password" name="cpwd">
+                        <input type="password" class="form-control" id="cpwd" placeholder="Confirm password" name="cpwd">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+                    <button id="submitBtn" type="button" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
