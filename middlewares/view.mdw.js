@@ -4,7 +4,6 @@ const numeral = require('numeral');
 const moment = require('moment');
 const userModel = require('../models/user.model');
 
-
 module.exports = function (app) {
     app.engine('hbs', exphbs({
         defaultLayout: 'main.hbs',
@@ -26,8 +25,12 @@ module.exports = function (app) {
             datetimeToSecond: (datetime) => moment(datetime).format('DD/MM/YYYY'),
             isUserRateSuit: (rating) => rating >= 4,
             isSameId: (us1, us2) => us1 !== null && us2 !== null && us1.f_ID === us2.f_ID,
-        }
-    }));
+            role: permission => {
+                if(permission === 2) return 'Admin';
+                if(permission === 1) return 'Seller';
+                else return 'Bidder'},
+            } 
+       }));
     app.set('view engine', 'hbs');
 };
 
