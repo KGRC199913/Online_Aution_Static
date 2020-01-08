@@ -1,0 +1,11 @@
+System mail address: aution15.hcmus@gmail.com
+                     Webproject1999
+SENDGRID: "autionhcmus"     : "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"
+        : "autionsmtphcmus" : "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"
+
+Server	smtp.sendgrid.net
+Ports	
+25, 587	(for unencrypted/TLS connections)
+465	(for SSL connections)
+Username	apikey
+Password	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
