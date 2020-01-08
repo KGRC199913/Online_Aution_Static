@@ -9,47 +9,30 @@
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 {{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
-<script src="validator.js"></script>
-<script src="contact.js"></script>
 <script>
-    $("#editbtn").on('click', firstClick)
+
+    $("#editbtn").on('click', firstClick);
+    $('#savebtn').on('click', secondClick).hide();
 
     function firstClick() {
-        $(this).text('Save');
-        $("#editbtn").removeClass("btn-primary");
-        $("#editbtn").addClass("btn-danger");
-        $("#editbtn").off('click').on('click', secondClick)
-
+        $(this).hide();
+        $('#savebtn').show();
         $("#name").removeAttr("disabled");
         $("#name").attr("required", true);
-
-        $("#email").removeAttr("disabled");
-        $("#email").attr("required", true);
 
         $("#bday").removeAttr("disabled");
         $("#bday").attr("required", true);
 
         $("#address").removeAttr("disabled");
         $("#address").attr("required", true);
-
-        $("#pwd-su").removeAttr("disabled");
-        $("#pwd-su").attr("required", true);
-
-        $("#pwdcf").removeAttr("disabled");
-        $("#pwdcf").attr("required", true);
     }
 
     function secondClick() {
-        $(this).text('Edit');
-        $("#editbtn").removeClass("btn-danger");
-        $("#editbtn").addClass("btn-primary");
-        $("#editbtn").off('click').on('click', firstClick)
+        $(this).hide();
+        $('#editbtn').show();
 
         $("#name").removeAttr("required");
         $("#name").attr("disabled", true);
-
-        $("#email").removeAttr("required");
-        $("#email").attr("disabled", true);
 
         $("#bday").removeAttr("required");
         $("#bday").attr("disabled", true);
@@ -57,16 +40,43 @@
         $("#address").removeAttr("required");
         $("#address").attr("disabled", true);
 
-        $("#pwd-su").removeAttr("required");
-        $("#pwd-su").attr("disabled", true);
+        var fullname = $(`#name`).val();
+        var bday = $(`#bday`).val();
+        var address = $(`#address`).val();
 
-        $("#pwdcf").removeAttr("required");
-        $("#pwdcf").attr("disabled", true);
+        const id = $('#userIDStore').val();
+
+        $.post(`/account/profile/`, {
+            id: id,
+            name: fullname,
+            dob: bday,
+            address: address,
+        }, (data, status, jqXHR) => {
+            alert(data);
+            if (jqXHR.status === 200) {
+                window.location.reload();
+            }
+        });
+
     }
+</script>
+<script>
+    $(`.close-btn`).on(`click`, function () {
+        const proId = $(this).attr(`id`);
+        $.post(`/addToFavorite/remove`, {
+            user: $(`#userIDStore`).val(),
+            product: proID,
+        }, (data, textStatus, jqXHR) => {
+            alert(data);
+            if (jqXHR.status === 200) {
+                window.location.reload();
+            }
+        });
+    });
 </script>
 
 {{/section}}
-
+<input id="userIDStore" type="hidden" value={{lcAuthUser.f_ID}}>
 <div class="card">
     <div class="card-header">
         <h1>Profile</h1>
@@ -86,13 +96,60 @@
                                 <table class="table table-bordered table-striped table-hover users-table mb-2">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Product ID</th>
-                                            <th>User ID</th>
-                                            <th>Bid Money</th>
                                             <th>Date</th>
+                                            <th>Product Name</th>
+                                            <th>Bid</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        {{#each this.bidding}}
+                                        <tr>
+                                            <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
+                                            <th scope="col">
+                                                <a href="/products/{{ProID}}">
+                                                    {{ProName}}
+                                                </a>
+                                            </th>
+                                            <th scope="col">{{bid_money}}</th>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <div>Bidding</div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container mt-2" style="background-color: rgb(255, 255, 255)">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive mt-5">
+                                <table class="table table-bordered table-striped table-hover users-table mb-2">
+                                    <thead>
+                                        <tr>
+                                            <th>Product name</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.favorite}}
+                                        <tr>
+                                            <th scope="col">
+                                                <a href="/products/{{ProID}}">
+                                                    {{ProName}}
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <button type="button" class="close close-btn" id={{product_id}}
+                                                    style="padding-right: 25px;">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <div>Favorite</div>
                                 </table>
                             </div>
                         </div>
@@ -102,9 +159,12 @@
 
             <!-- edit form column -->
             <div class="form-group col-md-6">
+                <div class="form-group">
+                    <button style="width: 100%; background:blue; color:white; " type="submit" class="btn">Upgrade to
+                        seller?</button>
+                </div>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-
                         <div class="modal-body">
                             <form class="was-validated">
                                 <div class="form-group">
@@ -133,7 +193,7 @@
 
                                 <div class="form-group">
                                     <label for="address">Address:</label>
-                                    <input type="text" class="form-control" id="address" name="address" disabled>
+                                    <input type="text" class="form-control" id="address" name="address" value="{{this.user.f_Address}}" disabled>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -141,7 +201,8 @@
                         </div>
                         <div class="modal-footer">
                             <a href="#pwdModal" data-toggle="modal">Change password?</a>
-                            <button id="editbtn" type="submit" class="btn btn-primary">Edit</button>
+                            <button id="editbtn" type="button" class="btn btn-primary">Edit</button>
+                            <button id="savebtn" type="button" class="btn btn-danger">Save</button>
                         </div>
                     </div>
                 </div>
@@ -177,4 +238,3 @@
         </div>
     </div>
 </div>
-

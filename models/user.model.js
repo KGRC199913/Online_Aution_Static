@@ -3,6 +3,7 @@ const db = require('../utils/db');
 module.exports = {
     all: _ => db.load('select * from users'),
     add: entity => db.add(entity, 'users'),
+    update: (id, name, address, dob) => db.load(`update qlbh.users set f_Name = "${name}", f_Address = "${address}", f_DOB = "${dob}" WHERE f_ID = ${id}`),
 
     singleByUserName: async username => {
         const rows = await db.load(`select * from users where f_username = '${username}'`);
@@ -25,5 +26,4 @@ module.exports = {
 
         return null;
     },
-    byUserId: proID => db.load(`select * from bidhistory WHERE user_id = '${userID}'`),
 };
