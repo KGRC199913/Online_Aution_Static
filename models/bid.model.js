@@ -9,8 +9,6 @@ module.exports = {
     add: entity => db.add(entity, `bidhistory`),
     getHighestByProId: proID => db.load(`SELECT * FROM bidhistory WHERE product_id = ${proID} ORDER BY bid_money DESC LIMIT 1`),
     byUserId: userID => db.load(`SELECT * FROM bidhistory WHERE user_id=${userID}`),
-    distinctByUserId: UID => db.load(`SELECT distinct product_id, user_id FROM bidhistory WHERE user_id = ${UID}`),
-    byJoinUserId: userID => db.load(`SELECT * FROM qlbh.bidhistory as bid, qlbh.products as pro 
-    where bid.product_id = pro.ProID and bid.user_id = ${userID}`),
+    byJoinUserId: userID => db.load(`SELECT distinct ProID, ProName FROM bidhistory join products on product_id = ProID
+    where user_id = ${userID}`),
 }
-

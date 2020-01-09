@@ -8,6 +8,7 @@ const productModel = require('../models/product.model');
 const bidHistoryModel = require('../models/bid.model');
 const favoriteModel = require('../models/favorite.model');
 const upSellerModel = require('../models/upseller.model');
+const winModel = require('../models/win.model');
 
 const router = express.Router();
 
@@ -66,7 +67,7 @@ router.get('/profile/:id', restrict, async function(req, res) {
 
     const history = await bidHistoryModel.byJoinUserId(req.params.id);
     for (let h in history) {
-        history[h]['product'] = await productModel.single(history[h].product_id);
+        history[h]['product'] = await productModel.single(history[h].ProID);
     }
 
     const favorite = await favoriteModel.byJoinUserId(req.params.id);
@@ -74,21 +75,42 @@ router.get('/profile/:id', restrict, async function(req, res) {
         favorite[f]['favorite'] = await productModel.single(favorite[f].product_id);
     }
 
+    const win = await winModel.byJoinUserId(req.params.id);
+    for (let w in win) {
+        win[w]['win'] = await winModel.single(win[w].product_id);
+    }
+
     res.render('vwAccount/profile', {
         user: rows,
         bidding: history,
         favorite: favorite,
+        win_bid: win,
     });
 
+});
+
+router.post('/profile/changepw', async function(req, res) {
+    console.log('\\\\\\\\');
+    const id = req.body.id;
+    const user = await userModel.singleById(req.body.id);
+    const pw = bcrypt.hashSync(req.body.password, config.authentication.saltRounds);
+    const rs = bcrypt.compareSync(req.body.oldPassword, user.f_Password);
+    if (req.body.password !== req.body.cfirmpassword)
+        return res.send('Password not matching.');
+    if (rs === false)
+        return res.send('Old password is not correct');
+    await userModel.update_pw(id, pw);
+    res.status = 200;
+    return res.send('Password updated');
 });
 
 router.post('/profile', async function(req, res) {
     const id = req.body.id;
     const name = req.body.name;
-    const address = req.body.address | null;
+    const address = req.body.address;
     const dob = req.body.dob;
-
-    const formatDob = moment(dob).format(`YYYY-MM-DD`);
+    console.log(dob);
+    const formatDob = moment(dob, 'DD/MM/YYYY').format(`YYYY-MM-DD`);
 
     try {
         await userModel.update(id, name, address, formatDob);
@@ -114,6 +136,7 @@ router.post('/register', async function(req, res) {
         f_name: req.body.name,
         f_email: req.body.email,
         f_DOB,
+        f_Address: req.body.address,
         f_permission: 0
     }
     const ret = await userModel.add(entity);
@@ -128,7 +151,7 @@ router.get('/is-available', async function(req, res) {
     res.json(false);
 });
 
-router.get(`/review/:id`, async function (req, res) {
+router.get(`/review/:id`, async function(req, res) {
     const user = await userModel.singleById(req.params.id);
     const reviews = await reviewModel.byReceivingId(req.params.id);
 
@@ -151,14 +174,14 @@ router.get(`/review/:id`, async function (req, res) {
     });
 });
 
-router.get('/write_review', async function (req, res) {
+router.get('/write_review', async function(req, res) {
     const user = await userModel.singleById(req.query.to);
     res.render('vwAccount/review_write', {
         user: user,
     });
 });
 
-router.post('/write_review', async function (req, res) {
+router.post('/write_review', async function(req, res) {
     const entity = {
         from_user_id: req.body.from,
         to_user_id: req.body.to,
@@ -177,10 +200,10 @@ router.post('/write_review', async function (req, res) {
     res.send("Comment saved");
 });
 
-router.post('/up_seller', async function (req, res) {
+router.post('/up_seller', async function(req, res) {
     const id = req.body.user_id;
     const entity = {
-        user_seller : id,
+        user_seller: id,
     }
     try {
         await upSellerModel.add(entity);
@@ -193,4 +216,4 @@ router.post('/up_seller', async function (req, res) {
     return res.send("Added to list, please wait to be approved");
 });
 
-module.exports = router
+module.exports = router;

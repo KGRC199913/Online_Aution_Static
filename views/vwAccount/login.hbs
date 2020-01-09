@@ -50,9 +50,9 @@
             <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
           </div>
         </div>
-        {{#if err_message}}
+        {{#if error_message}}
         <div style="margin-left: 20px; margin-bottom: 10px; color: red">
-          {{err_message}}
+          {{error_message}}
         </div>
         {{/if}}
         <div class="modal-footer">
@@ -67,7 +67,6 @@
         </div>
       </form>
     </div>
-  </div>
   </div>
 
   <div id="pwdModal" class="modal fade" role="dialog" aria-hidden="true">
@@ -103,6 +102,8 @@
         </div>
       </div>
     </div>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
