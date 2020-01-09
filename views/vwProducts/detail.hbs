@@ -18,8 +18,8 @@
           rel="stylesheet">
     <style>
         .cube {
-            width: 150px;
-            height: 300px;
+            width: 200px;
+            height: 350px;
             margin-bottom: 200px;
         }
 
@@ -301,15 +301,20 @@
                         <div style="margin-top: 20px">
                             <h3 class="card-title text-info">Current: {{this.product.curPrice}} vnđ</h3>
                             {{#if lcIsAuthenticated}}
-                                <div style="width: 100%;">
-                                    <input class="quantity" id="bidPrice" style="width: 35%" name="quantity"
-                                           min="{{#nextPrice this.product.curPrice
-                                                             this.product.priceStep}}{{/nextPrice}}"
-                                           value="{{#nextPrice this.product.curPrice
-                                                               this.product.priceStep}}{{/nextPrice}}"
-                                           step="{{this.product.priceStep}}"
-                                           type="number">
-                                </div>
+                                {{#unless (isBidOver this.product.endDate)}}
+                                    {{#unless banned}}
+                                        <div style="width: 100%;">
+                                            <input class="quantity" id="bidPrice" style="width: 35%" name="quantity"
+                                                   min="{{#nextPrice this.product.curPrice
+                                                                     this.product.priceStep}}{{/nextPrice}}"
+                                                   value="{{#nextPrice this.product.curPrice
+                                                                       this.product.priceStep}}{{/nextPrice}}"
+                                                   step="{{this.product.priceStep}}"
+                                                   type="number">
+                                        </div>
+                                    {{/unless}}
+                                {{/unless}}
+
                                 {{#if (isBidder lcAuthUser)}}
                                     {{#if (isUserRateSuit lcRating)}}
                                         {{#unless (isBidOver this.product.endDate)}}
@@ -325,9 +330,11 @@
                                         {{/unless}}
                                     {{/if}}
                                 {{/if}}
-                                <button id="addFavBtn" type="button" class="btn btn-outline-primary"
-                                        style="margin-top: 10px">Add to Favorite
-                                </button>
+                                {{#if (isBidder lcAuthUser)}}
+                                    <button id="addFavBtn" type="button" class="btn btn-outline-primary"
+                                            style="margin-top: 10px">Add to Favorite
+                                    </button>
+                                {{/if}}
                                 <button type="button" class="btn btn-outline-secondary" style="margin-top: 10px"
                                         id="historyShowBtn"
                                 >Show Bid
@@ -361,6 +368,10 @@
                 </h4>
                 </div>
                 <div style="margin-top: 20px">
+                    <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 10px"
+                            onclick="window.location.href='/products/edit/{{this.product.ProID}}'">Append
+                        Description
+                    </button>
                     <h4 class="card-title bg-secondary align-content-center" style="text-align: center; padding: 10px">
                         Item Description
                     </h4>

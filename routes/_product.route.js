@@ -137,4 +137,10 @@ router.get('/:id', async function (req, res) {
     })
 });
 
+router.get('/edit/:id', async function (req, res) {
+    const product = (await productModel.single(req.params.id))[0];
+
+    res.render('vwProducts/desc_edit', {product});
+});
+
 module.exports = router;
