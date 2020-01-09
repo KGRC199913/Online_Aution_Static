@@ -77,7 +77,7 @@
     timepicker: false,
     mask: true,
   });
-
+  
   function validate() {
     const email = $('#txtEmail').val();
     $.getJSON(`/account/is-available?email=${email}`, function (data) {

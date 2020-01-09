@@ -67,7 +67,7 @@ router.get('/profile/:id', restrict, async function(req, res) {
 
     const history = await bidHistoryModel.byJoinUserId(req.params.id);
     for (let h in history) {
-        history[h]['product'] = await productModel.single(history[h].product_id);
+        history[h]['product'] = await productModel.single(history[h].ProID);
     }
 
     const favorite = await favoriteModel.byJoinUserId(req.params.id);
@@ -107,7 +107,7 @@ router.post('/profile/changepw', async function(req, res) {
 router.post('/profile', async function(req, res) {
     const id = req.body.id;
     const name = req.body.name;
-    const address = req.body.address | null;
+    const address = req.body.address;
     const dob = req.body.dob;
 
     const formatDob = moment(dob).format(`YYYY-MM-DD`);
