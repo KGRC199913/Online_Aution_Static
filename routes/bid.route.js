@@ -20,7 +20,7 @@ router.post('/', async function (req, res) {
     };
     try {
         await bidModel.add(entity);
-        productModel.updatePrice(req.body.product, req.body.price);
+        productModel.updatePrice(req.body.product, req.body.price, req.body.user);
     } catch (err) {
         res.status(401);
         return res.send(`Error Placing bid!! (Unknown Error)`);

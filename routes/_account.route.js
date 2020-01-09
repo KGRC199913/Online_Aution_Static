@@ -9,6 +9,7 @@ const bidHistoryModel = require('../models/bid.model');
 const favoriteModel = require('../models/favorite.model');
 const upSellerModel = require('../models/upseller.model');
 const winModel = require('../models/win.model');
+const banModel = require('../models/ban.model');
 
 const router = express.Router();
 
@@ -234,6 +235,29 @@ router.post('/upseller', async function (req, res) {
 
     res.status = 200;
     return res.send("Added to approve list!!");
+});
+
+router.post('/ban', async function (req, res) {
+    const entity = {
+        product_id: req.body.product,
+        user_id: req.body.user
+    };
+
+    try {
+        await banModel.add(entity);
+    } catch (e) {
+        res.status = 401;
+        return res.send("This user is banned for this product already");
+    }
+
+    const hg = (await bidHistoryModel.getHighestByProId(req.body.product))[0];
+    if (hg.user_id === parseInt(req.body.user)) {
+        const scHg = (await bidHistoryModel.getSecondHgByProId(req.body.product))[0];
+        await productModel.updatePrice(req.body.product, scHg.bid_money, scHg.user_id);
+    }
+
+    res.status = 200;
+    return res.send("Banned successfully");
 });
 
 module.exports = router;

@@ -1,0 +1,127 @@
+{{#section 'css'}}
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var editor = new FroalaEditor('#itemDesc', {
+                height: 350,
+                // toolbarInline: true,
+                charCounterCount: false,
+                toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertLink', 'undo', 'redo'],
+                toolbarVisibleWithoutSelection: true
+            });
+
+            $('#endDate').datepicker();
+            $('#op1').attr('selected', 'selected');
+
+            $('#submit-sell').on('click', function () {
+                const data = {
+                    ProName: $('#itemName').val(),
+                    TinyDes: $('#itemTinyDes').val(),
+                    FullDes: $('.fr-view').html(),
+                    curPrice: $('#itemPrice').val(),
+                    CatID: $('#Category :selected').val(),
+                    priceStep: $('#priceStep').val(),
+                    buyPrice: $('#immediateBuy').val(),
+                    endDate: $('#endDate').val()
+                };
+
+                let req = new XMLHttpRequest();
+                let formData = new FormData();
+
+                formData.append('text', JSON.stringify(data));
+
+                let mainImg = $('#itemImg').prop('files')[0];
+                formData.append('main', mainImg);
+
+                let subImgs = $('#itemSubImg').prop('files');
+                for (const img of subImgs) {
+                    formData.append(`sub`, img);
+                }
+
+                req.onreadystatechange = function() {
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        alert(this.responseText);
+                        window.location.reload();
+                    }
+                };
+                req.open('POST', '/sell');
+                req.send(formData);
+            })
+        })
+    </script>
+{{/section}}
+
+<div class="row">
+    <div class="card" style="width: 100%;">
+        <form method="post">
+            <div class="card-body row rounded-beauty">
+                <div class="col-lg-4 col-sm-12 d-flex flex-column">
+                    <div class="card-title" style=""><h3><b>Add new item</b></h3></div>
+                    <div class="form-group">
+                        <label for="itemImg">Item primary image</label>
+                        <input type="file" class="form-control-file" id="itemImg" accept="image/*">
+                        <img src="https://placehold.it/80x80" class="img-thumbnail" id="previewPrimaryImage"
+                             style="max-width: 300px; max-height: 300px;">
+                        <label for="itemSubImg" style="width: 100%; margin-top: 20px;">Subimages</label>
+                        <input type="file" class="form-control-file" id="itemSubImg" accept="image/*" multiple>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                    <h2>Info</h2>
+                    <div class="form-group">
+                        <label for="itemName">Item's name:</label>
+                        <input id="itemName" type="text" class="form-control" placeholder="Ex: Laptop CatX1"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Category">Category:</label>
+                        <select id="Category" class="form-control">
+                            {{#each this.categories}}
+                            <option id="op{{CatID}}" value={{CatID}}>{{CatName}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemTinyDes">Brief description:</label>
+                        <input id="itemTinyDes" type="text" class="form-control" placeholder="Ex: Sturdy and Elegant"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End at:</label>
+                        <input type='text' class="form-control" id='endDate'/>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPrice">Starting price:</label>
+                        <input id="itemPrice" type="number" min="0" class="form-control" placeholder="Ex: 1000000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="priceStep">Price step:</label>
+                        <input id="priceStep" type="number" min="0" class="form-control" placeholder="Ex: 500000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="immediateBuy">Immediate buy price:</label>
+                        <input id="immediateBuy" type="number" min="0" class="form-control" placeholder="Ex: 5500000"
+                               required>
+                    </div>
+                    <div class="form-group" style="height: 500px">
+                        <label for="itemDesc">Item description</label>
+                        <div id="itemDesc"></div>
+                    </div>
+                    <button id="submit-sell" type="button" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-primary">Clear</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
