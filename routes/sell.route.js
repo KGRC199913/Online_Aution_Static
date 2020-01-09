@@ -46,16 +46,23 @@ router.post('/', dataUpload, async function (req, res) {
         await  fs.promises.mkdir(dir);
 
         var mainImg = req.files['main'][0];
-        await sharp(mainImg.path).resize(100, 100).jpeg().toFile(`${dir}/main.jpg`);
+        await sharp(mainImg.path).resize(400, 300).jpeg().toFile(`${dir}/main.jpg`);
+        await sharp(mainImg.path).resize(200, 150).jpeg().toFile(`${dir}/main_thumbs.jpg`);
 
         var subImgs = req.files['sub'];
         let index = 0;
         for (const img of subImgs) {
-            await sharp(img.path).resize(50, 50).jpeg().toFile(`${dir}/${++index}`);
+            await sharp(img.path).resize(400, 300).jpeg().toFile(`${dir}/${++index}.jpg`);
+            await sharp(img.path).resize(200, 150).jpeg().toFile(`${dir}/${index}_thumbs.jpg`);
         }
 
         res.status = 200;
         res.send("Item upload successfully!!");
+
+        await fs.promises.unlink(mainImg.path);
+        for (const img of subImgs) {
+            await fs.promises.unlink(img.path);
+        }
     } catch (e) {
         console.log(e);
     }

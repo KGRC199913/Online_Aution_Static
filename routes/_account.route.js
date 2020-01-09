@@ -103,7 +103,6 @@ router.get('/profile/:id', restrict, async function(req, res) {
 });
 
 router.post('/profile/changepw', async function(req, res) {
-    console.log('\\\\\\\\');
     const id = req.body.id;
     const user = await userModel.singleById(req.body.id);
     const pw = bcrypt.hashSync(req.body.password, config.authentication.saltRounds);
@@ -237,12 +236,19 @@ router.post('/upseller', async function (req, res) {
         return res.send("Not a bidder.");
     }
 
-    await upSellerModel.add({
-        user_id : req.body.user
-    });
+    const id = req.body.user_id;
+    const entity = {
+        user_seller: id,
+    }
+    try {
+        await upSellerModel.add(entity);
+    } catch (e) {
+        res.status = 400;
+        return res.send("Already in seller upgrade list, please wait!!");
+    }
 
     res.status = 200;
-    return res.send("Added to approve list!!");
+    return res.send("Added to list, please wait to be approved");
 });
 
 router.post('/ban', async function (req, res) {
