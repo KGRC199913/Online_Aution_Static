@@ -14,4 +14,6 @@ module.exports = {
     getXRandomProductInCat: (amount, catId) => db.load(`SELECT * FROM products WHERE ProID IN 
     (SELECT ProID FROM (SELECT ProID FROM products WHERE CatID = ${catId} ORDER BY RAND() LIMIT ${amount}) t)`),
     updatePrice: (proId, newPrice) => db.load(`UPDATE products SET curPrice = ${newPrice} WHERE ProID = ${proId}`),
+    singleBySellerId: seller_id => db.load(`select * from products where sellerId = ${seller_id}`),
+    singleSoldItem: seller_id => db.load(`select * from products where sellerId=${seller_id} and hgBidderId != 0 and datediff(endDate, CURDATE()) < 0`),
 };

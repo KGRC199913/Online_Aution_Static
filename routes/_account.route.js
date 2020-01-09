@@ -80,11 +80,17 @@ router.get('/profile/:id', restrict, async function(req, res) {
         win[w]['win'] = await winModel.single(win[w].product_id);
     }
 
+    const selling = await productModel.singleBySellerId(req.params.id);
+
+    const soldItems = await productModel.singleSoldItem(req.params.id);
+
     res.render('vwAccount/profile', {
         user: rows,
         bidding: history,
         favorite: favorite,
         win_bid: win,
+        selling: selling,
+        soldItems: soldItems,
     });
 
 });
@@ -99,6 +105,8 @@ router.post('/profile/changepw', async function(req, res) {
         return res.send('Password not matching.');
     if (rs === false)
         return res.send('Old password is not correct');
+    if (req.body.password.length < 8)
+        return res.send('New password must as least 8 characters.');
     await userModel.update_pw(id, pw);
     res.status = 200;
     return res.send('Password updated');

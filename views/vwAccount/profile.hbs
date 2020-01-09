@@ -2,6 +2,7 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {{/section}}
 
 {{#section 'js'}}
@@ -61,17 +62,17 @@
     }
 </script>
 <script>
-    $("#submitBtn").on('click', function() {
+    $("#submitBtn").on('click', function () {
         const oldpw = $('#opwd').val();
         const newpw = $('#npwd').val();
         const cfirmpw = $('#cpwd').val();
-        console.log(oldpw + ' ' + newpw + ' '+ cfirmpw);
+        console.log(oldpw + ' ' + newpw + ' ' + cfirmpw);
         $.post(`/account/profile/changepw/`, {
             id: $(`#userIDStore`).val(),
             oldPassword: oldpw,
             password: newpw,
             cfirmpassword: cfirmpw,
-        },(data, status, jqXHR) => {
+        }, (data, status, jqXHR) => {
             alert(data);
             if (jqXHR.status === 200) {
                 window.location.reload();
@@ -104,6 +105,7 @@
         <div class="form-row">
             <!-- left column -->
             <div class="form-group col-md-6" style="padding-top: 30px;">
+                {{#if (isBidder lcAuthUser)}}
                 <div class="form-group">
                     <label style="color: red; font-size: 20px;" for="available">Available to spend:</label>
                     <label id="available" name="available">
@@ -206,6 +208,71 @@
                         </div>
                     </div>
                 </div>
+                {{/if}}
+
+                {{#if (isSeller lcAuthUser)}}
+                <div class="container mt-2" style="background-color: rgb(255, 255, 255)">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive mt-5">
+                                <table class="table table-bordered table-striped table-hover users-table mb-2">
+                                    <thead>
+                                        <tr>
+                                            <th>Product name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.selling}}
+                                        <tr>
+                                            <th scope="col">
+                                                <a href="/products/{{ProID}}">
+                                                    {{ProName}}
+                                                </a>
+                                            </th>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <div>Selling Items</div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-2" style="background-color: rgb(255, 255, 255)">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive mt-5">
+                                <table class="table table-bordered table-striped table-hover users-table mb-2">
+                                    <thead>
+                                        <tr>
+                                            <th>Product name</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each this.soldItems}}
+                                        <tr>
+                                            <th scope="col">
+                                                <a href="/products/{{ProID}}">
+                                                    {{ProName}}
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <i class="material-icons">
+                                                    thumbs_up_down
+                                                </i>
+                                            </th>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <div>Sold Items</div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+
             </div>
 
             <!-- edit form column -->
@@ -246,7 +313,8 @@
 
                                 <div class="form-group">
                                     <label for="address">Address:</label>
-                                    <input type="text" class="form-control" id="address" name="address" value="{{this.user.f_Address}}" disabled>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        value="{{this.user.f_Address}}" disabled>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
@@ -285,7 +353,8 @@
                     </div>
                     <div class="form-group">
                         <label for="cpwd">Confirm Password:</label>
-                        <input type="password" class="form-control" id="cpwd" placeholder="Confirm password" name="cpwd">
+                        <input type="password" class="form-control" id="cpwd" placeholder="Confirm password"
+                            name="cpwd">
                     </div>
                 </div>
                 <div class="modal-footer">
