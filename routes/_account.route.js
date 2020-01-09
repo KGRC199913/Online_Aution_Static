@@ -62,6 +62,12 @@ router.post('/logout', async function(req, res) {
 
 const restrict = require('../middlewares/auth.mdw');
 router.get('/profile/:id', restrict, async function(req, res) {
+    if (!req.session.authUser) {
+        return res.render('404', {
+            layout: false
+        })
+    }
+
     const rows = await userModel.singleById(req.params.id);
     rows['f_DOB'] = moment(rows.f_DOB).format();
 
@@ -214,6 +220,20 @@ router.post('/up_seller', async function(req, res) {
 
     res.status = 200;
     return res.send("Added to list, please wait to be approved");
+});
+
+router.post('/upseller', async function (req, res) {
+    if (req.session.authUser.f_Permission !== 0) {
+        res.status = 400;
+        return res.send("Not a bidder.");
+    }
+
+    await upSellerModel.add({
+        user_id : req.body.user
+    });
+
+    res.status = 200;
+    return res.send("Added to approve list!!");
 });
 
 module.exports = router;

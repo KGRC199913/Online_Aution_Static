@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
         .tab {
             overflow: auto;
@@ -42,7 +43,6 @@
             border-top: none;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
@@ -135,69 +135,6 @@
             </table>
         </div>
     </div>
-    <div id="product" class="tabcontent">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">STT</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">ProID</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">CatID</th>
-                        <th style="vertical-align: middle;white-space: nowrap" class=" bg-info font-weight-bold">Product
-                            Name</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">Bid Price</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">Bid Step</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">Buy Price</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">Seller ID</th>
-                        <th style="vertical-align: middle;white-space: nowrap" class=" bg-info font-weight-bold">Seller
-                            Name</th>
-                        <th style="text-align: center;vertical-align: middle;" class=" bg-info font-weight-bold">Highest
-                            Bidder ID</th>
-                        <th style="vertical-align: middle;white-space: nowrap" class=" bg-info font-weight-bold">Highest
-                            Bidder Name</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">Tiny Description</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">Start Date</th>
-                        <th style="text-align: center;vertical-align: middle;white-space: nowrap"
-                            class=" bg-info font-weight-bold">End Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each this.products}}
-                    <tr>
-                        <td style="vertical-align: middle;">
-                            <button type="button" class="btn btn-danger delete-product" value="{{ProID}}">X</button>
-                        </td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{@index}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{ProID}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{CatID}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{ProName}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{curPrice}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{priceStep}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{buyPrice}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{sellerId}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{sellerId}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{hgBidderId}}</td>
-                        <td style="text-align: center;vertical-align: middle;white-space: nowrap">{{hgBidderId}}</td>
-                        <td style="text-align: center;vertical-align: middle;" style="white-space: normal;">{{TinyDes}}
-                        </td>
-                        <td style="text-align: center;vertical-align: middle;">{{startDate}}</td>
-                        <td style="text-align: center;vertical-align: middle;">{{endDate}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </div>
     <div id="users" class="tabcontent">
         <button type="button" class="btn btn-success float-right">Add</button>
         <div class="table-responsive">
@@ -271,38 +208,6 @@
         }
     </script>
     <script>
-        $(`.edit-user`).on(`click`, function () {
-            const UID = $(this).attr(`value`);
-            $(`.user-dialog`).dialog("open");
-        });
-        $(`.user-dialog`).dialog({
-            autoOpen: false,
-            height: "auto",
-            width: 400,
-            modal: true,
-            buttons: {
-                "Confirm": function () {
-                    $(this).dialog("close");
-                    $.post(`/admin/up-user`, {
-                        user_id: UID,
-                        f_Permission: 1,
-                    }, (data, textStatus, jqXHR) => {
-                        alert(data);
-                        if (jqXHR.status === 200) {
-
-                        }
-                    });
-
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            },
-            close: function () {
-                form[0].reset();
-                allFields.removeClass("ui-state-error");
-            }
-        });
         $(`.delete-user`).on(`click`, function () {
             const UID = $(this).attr(`value`);
             console.log(UID);
@@ -352,8 +257,44 @@
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(`.edit-user`).on(`click`, function () {
+            const UID = $(this).attr(`value`);
+            $(`#user-dialog`).dialog("open");
+        });
+        $(`#user-dialog`).dialog({
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Confirm": function () {
+                    $(this).dialog("close");
+                    $.post(`/admin/up-user`, {
+                        user_id: UID,
+                        f_Permission: 1,
+                    }, (data, textStatus, jqXHR) => {
+                        alert(data);
+                        if (jqXHR.status === 200) {
+
+                        }
+                    });
+
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                form[0].reset();
+                allFields.removeClass("ui-state-error");
+            }
+        });
+    </script>
 </body>
 
 </html>
