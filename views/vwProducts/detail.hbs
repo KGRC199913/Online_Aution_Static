@@ -216,7 +216,9 @@
                         <div class="justify-content-between winter-neva-gradient">
 
                             <h4 style="margin-bottom: 0"><b>Seller: </b><a id="seller"
-                                                                           href="/account/review/{{this.seller.f_ID}}">{{this.seller.f_Name}}</a>
+                                                                           href="/account/review/{{this.seller.f_ID}}">{{#if
+                                    (isSeller lcAuthUser)}}{{this.seller.f_Name}} {{else}} {{#maskString
+                                    this.seller.f_Name}}{{/maskString}} {{/if}} </a>
                                 {{#if lcIsAuthenticated}}
                                     <a href="/account/write_review?to={{this.seller.f_ID}}">
                                     <i class="material-icons">
@@ -225,15 +227,17 @@
                                     </a>
                                 {{/if}}
                             </h4>
-                            <div id="seller-rating" class="rate" rating="4.8"></div>
+                            <div id="seller-rating" class="rate" rating="{{this.seller.rating}}"></div>
                             {{#if (isSameId lcAuthUser this.hgBidder)}}
                                 <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: <a
                                         href="/account/review/{{this.lcAuthUser.f_ID}}">You</a></b></h4>
                             {{else}}
                                 <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
                                         id="highestBidder"
-                                        href="/account/review/{{this.hgBidder.f_ID}}">{{this.hgBidder.f_Name}}</a></h4>
-                                <div id="bidder-rating" class="rate" rating="4.5"></div>
+                                        href="/account/review/{{this.hgBidder.f_ID}}">{{#if
+                                        (isBidder lcAuthUser)}}{{this.hgBidder.f_Name}} {{else}} {{#maskString
+                                        this.hgBidder.f_Name}}{{/maskString}} {{/if}}</a></h4>
+                                <div id="bidder-rating" class="rate" rating="{{this.hgBidder.rating}}"></div>
                             {{/if}}
                             <div id="priceStepdiv" style="margin-top: 15px;"><h4><b>Step: </b>{{this.product.priceStep}}
                                 vnd
