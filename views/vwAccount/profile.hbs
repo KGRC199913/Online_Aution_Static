@@ -210,10 +210,12 @@
 
             <!-- edit form column -->
             <div class="form-group col-md-6">
+                {{#if (isBidder lcAuthUser)}}
                 <div class="form-group">
                     <button style="width: 100%; background:blue; color:white; " type="submit" class="btn">Upgrade to
                         seller?</button>
                 </div>
+                {{/if}}
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-body">

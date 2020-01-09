@@ -109,8 +109,8 @@ router.post('/profile', async function(req, res) {
     const name = req.body.name;
     const address = req.body.address;
     const dob = req.body.dob;
-
-    const formatDob = moment(dob).format(`YYYY-MM-DD`);
+    console.log(dob);
+    const formatDob = moment(dob, 'DD/MM/YYYY').format(`YYYY-MM-DD`);
 
     try {
         await userModel.update(id, name, address, formatDob);
