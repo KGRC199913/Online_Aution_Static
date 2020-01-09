@@ -110,6 +110,12 @@
             $(`#history-dialog`).dialog(`open`);
         });
 
+        $(`.ban-user`).on('click', function () {
+            $(`#banIdStore`).val($(this).attr('val'));
+            $(`#ban-message-p`).html('<p>Are you sure banning this user?</p>');
+            $('#ban-dialog').dialog(`open`);
+        });
+
         $(function () {
             $(`#bid-dialog`).dialog({
                 resizable: false,
@@ -136,6 +142,31 @@
                     }
                 }
             });
+            $(`#ban-dialog`).dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    "Confirm": function () {
+                        $(this).dialog("close");
+                        $.post(`/account/ban`, {
+                            user: $(`#banIdStore`).val(),
+                            product: $(`#productStore`).val(),
+                        }, (data, textStatus, jqXHR) => {
+                            alert(data);
+                            if (jqXHR.status === 200) {
+                                window.location.reload(true);
+                            }
+                        });
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
             $(`#history-dialog`).dialog({
                 resizable: false,
                 height: "auto",
@@ -158,9 +189,13 @@
 
 <input type="hidden" id="userStore" value={{lcAuthUser.f_ID}}>
 <input type="hidden" id="productStore" value={{this.product.ProID}}>
+<input type="hidden" id="banIdStore">
 <!-- Start your project here-->
 <div id="bid-dialog" title="Are you sure?">
     <p id="message-p"></p>
+</div>
+<div id="ban-dialog" title="Are you sure?">
+    <p id="ban-message-p"></p>
 </div>
 <div id="history-dialog" title="Bid History">
     <div style="margin-top: 1%; width: 100%;">
@@ -173,6 +208,11 @@
                             <th scope="col">Date</th>
                             <th scope="col">Bidder</th>
                             <th scope="col">Bid</th>
+                            {{#if (isSeller lcAuthUser)}}
+                                {{#if (isSameId lcAuthUser this.seller)}}
+                                    <th scope="col">Ban</th>
+                                {{/if}}
+                            {{/if}}
                         </tr>
                         </thead>
                         <tbody>
@@ -181,6 +221,14 @@
                                 <th scope="col">{{#getSimpleDate date}}{{/getSimpleDate}}</th>
                                 <th scope="col">{{#maskString user.f_Name}}{{/maskString}}</th>
                                 <th scope="col">{{bid_money}}</th>
+                                {{#if (isSeller ../lcAuthUser)}}
+                                    {{#if (isSameId ../lcAuthUser ../this.seller)}}
+                                        <th scope="col">
+                                            <button class="btn btn-danger ban-user" type="button" val="{{user.f_ID}}">X
+                                            </button>
+                                        </th>
+                                    {{/if}}
+                                {{/if}}
                             </tr>
                         {{/each}}
                         </tbody>
@@ -228,16 +276,20 @@
                                 {{/if}}
                             </h4>
                             <div id="seller-rating" class="rate" rating="{{this.seller.rating}}"></div>
-                            {{#if (isSameId lcAuthUser this.hgBidder)}}
-                                <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: <a
-                                        href="/account/review/{{this.lcAuthUser.f_ID}}">You</a></b></h4>
+                            {{#if noBid}}
+                                <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: None</b></h4>
                             {{else}}
-                                <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
-                                        id="highestBidder"
-                                        href="/account/review/{{this.hgBidder.f_ID}}">{{#if
-                                        (isBidder lcAuthUser)}}{{this.hgBidder.f_Name}} {{else}} {{#maskString
-                                        this.hgBidder.f_Name}}{{/maskString}} {{/if}}</a></h4>
-                                <div id="bidder-rating" class="rate" rating="{{this.hgBidder.rating}}"></div>
+                                {{#if (isSameId lcAuthUser this.hgBidder)}}
+                                    <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: <a
+                                            href="/account/review/{{this.lcAuthUser.f_ID}}">You</a></b></h4>
+                                {{else}}
+                                    <h4 style="margin-top: 10px; margin-bottom: 0px"><b>Highest Bidder: </b><a
+                                            id="highestBidder"
+                                            href="/account/review/{{this.hgBidder.f_ID}}">{{#if
+                                            (isBidder lcAuthUser)}}{{this.hgBidder.f_Name}} {{else}} {{#maskString
+                                            this.hgBidder.f_Name}}{{/maskString}} {{/if}}</a></h4>
+                                    <div id="bidder-rating" class="rate" rating="{{this.hgBidder.rating}}"></div>
+                                {{/if}}
                             {{/if}}
                             <div id="priceStepdiv" style="margin-top: 15px;"><h4><b>Step: </b>{{this.product.priceStep}}
                                 vnd
@@ -260,13 +312,17 @@
                                 </div>
                                 {{#if (isBidder lcAuthUser)}}
                                     {{#if (isUserRateSuit lcRating)}}
-                                        <button id="bidBtn" type="button" class="btn btn-primary"
-                                                style="margin-left: 0 !important; margin-top: 10px">Bid
-                                        </button>
-                                        <button id="buyBtn" type="button" class="btn btn-info" style="margin-top: 10px">
-                                            Buy
-                                            Now
-                                        </button>
+                                        {{#unless (isBidOver this.product.endDate)}}
+                                            {{#unless banned}}
+                                                <button id="bidBtn" type="button" class="btn btn-primary"
+                                                        style="margin-left: 0 !important; margin-top: 10px">Bid
+                                                </button>
+                                                <button id="buyBtn" type="button" class="btn btn-info" style="margin-top: 10px">
+                                                    Buy
+                                                    Now
+                                                </button>
+                                            {{/unless}}
+                                        {{/unless}}
                                     {{/if}}
                                 {{/if}}
                                 <button id="addFavBtn" type="button" class="btn btn-outline-primary"

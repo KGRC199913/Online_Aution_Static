@@ -13,5 +13,7 @@ module.exports = {
     pageByCat: (catId, offset) => db.load(`select * from products where CatID = ${catId} limit ${config.pagination.limit} offset ${offset}`),
     getXRandomProductInCat: (amount, catId) => db.load(`SELECT * FROM products WHERE ProID IN 
     (SELECT ProID FROM (SELECT ProID FROM products WHERE CatID = ${catId} ORDER BY RAND() LIMIT ${amount}) t)`),
-    updatePrice: (proId, newPrice) => db.load(`UPDATE products SET curPrice = ${newPrice} WHERE ProID = ${proId}`),
+    updatePrice: (proId, newPrice, hgBidderId) => db.load(`UPDATE products SET curPrice = ${newPrice}, hgBidderId = ${hgBidderId} WHERE ProID = ${proId}`),
+    add: entity => db.add(entity, 'products'),
+    byProName: ProName => db.load(`SELECT * FROM products WHERE ProName = '${ProName}'`)
 };

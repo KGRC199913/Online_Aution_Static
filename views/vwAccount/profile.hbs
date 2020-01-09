@@ -14,6 +14,14 @@
     $("#editbtn").on('click', firstClick);
     $('#savebtn').on('click', secondClick).hide();
 
+    $('#up-seller').on('click', () => {
+        $.post('/account/upseller', {
+            user: $('#userIDStore').val()
+        }, function (data, textStatus, jqXHR) {
+            alert(data);
+        });
+    });
+
     function firstClick() {
         $(this).hide();
         $('#savebtn').show();
@@ -212,7 +220,7 @@
             <div class="form-group col-md-6">
                 {{#if (isBidder lcAuthUser)}}
                 <div class="form-group">
-                    <button style="width: 100%; background:blue; color:white; " type="submit" class="btn">Upgrade to
+                    <button style="width: 100%; background:blue; color:white; " type="button" id="up-seller" class="btn">Upgrade to
                         seller?</button>
                 </div>
                 {{/if}}
