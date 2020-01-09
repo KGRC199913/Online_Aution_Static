@@ -27,4 +27,11 @@ module.exports = {
 
         return null;
     },
+    patch: entity => {
+        const condition = {
+          f_ID: entity.f_ID
+        };
+        delete entity.f_ID;
+        return db.patch(entity, condition, 'users');
+      }
 };

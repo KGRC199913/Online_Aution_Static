@@ -29,7 +29,15 @@ module.exports = function (app) {
                 if(permission === 2) return 'Admin';
                 if(permission === 1) return 'Seller';
                 else return 'Bidder'},
-            } 
+            searchoption: option => {
+                if(option == '1') return 'Giá giảm dần';
+                if(option == '2') return 'Giá tăng dần';
+                if(option == '3') return 'Thời gian giảm dần';
+                if(option == '4') return 'Thời gian tăngtăng dần';
+            },
+            eq: (l,r) => l==r,
+            neq: (l,r) => l != r,
+            },
        }));
     app.set('view engine', 'hbs');
 };

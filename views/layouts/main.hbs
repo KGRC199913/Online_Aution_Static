@@ -57,23 +57,29 @@
   <div>
     <form class="form-inline input-group p-3" method="GET" action="/search">
       <div class="input-group-prepend">
-            <span class="input-group-text black lighten-3" id="basic-text1"><i class="fas"
-                    aria-hidden="true"></i></span>
-        </div>
+        <span class="input-group-text black lighten-3" id="basic-text1"><i class="fas" aria-hidden="true"></i></span>
+      </div>
+      <select name="cat" class=" form-control-sm-1 input-group-text browser-default justify-content-end  ">
+        <option value='-1'> All</option>
+        {{#each lcCategories}}
+        <option value={{CatID}}>{{CatName}}</option>
+        {{/each}}
+      </select>
+      <div style="width: 1%;"> </div>
       <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
         <i class="fa fa-search"></i>
         Search
       </button>
       <div style="width: 3%;"> </div>
-      <select class=" form-control-sm-1 input-group-text browser-default justify-content-end  ">
+      <select name="option" class=" form-control-sm-1 input-group-text browser-default justify-content-end  ">
         <optgroup label="Giá">
-          <option value="1">Giá giảm dần</option>
-          <option value="2">Giá tăng dần</option>
+          <option value='1'>Giá giảm dần</option>
+          <option value='2'>Giá tăng dần</option>
         </optgroup>
         <optgroup label="Thời gian">
-          <option value="3">Thời gian giảm dần</option>
-          <option value="4">Thời gian tăng dần</option>
+          <option value='3'>Thời gian giảm dần</option>
+          <option value='4'>Thời gian tăng dần</option>
         </optgroup>
       </select>
     </form>
