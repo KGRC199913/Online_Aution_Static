@@ -20,7 +20,6 @@ module.exports = {
     return rows[0];
   },
   allwithcount: _ => db.load('SELECT c.*,IFNULL(COUNT(p.ProID), 0) AS COUNT FROM categories AS c LEFT JOIN products AS P ON c.CatID = p.CatID GROUP BY c.CatID;'),
-  add: entity => db.add(entity, 'categories'),
   remove: id => db.load(`DELETE FROM categories WHERE CatID = ${id}`),
   patch: entity => {
     const condition = {
