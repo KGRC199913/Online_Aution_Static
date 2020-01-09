@@ -2,6 +2,7 @@ const express = require('express');
 const productModel = require('../models/product.model');
 const userModel = require('../models/user.model');
 const bidHistoryModel = require('../models/bid.model');
+const reviewModel = require('../models/review.model');
 const config = require('../config/default.json');
 const fs = require('fs');
 
@@ -78,6 +79,30 @@ router.get('/:id', async function (req, res) {
       showImg.push(rows[0].ProID + "/" + file);
     };
   });
+
+    const sellerReview = await reviewModel.byReceivingId(seller.f_ID);
+    if (sellerReview === null) {
+        seller['rating'] = 5;
+    } else {
+        let avgRating = 0.0;
+        for (let review in sellerReview) {
+            avgRating += sellerReview[review].rating;
+        }
+        avgRating /= sellerReview.length;
+        seller['rating'] = avgRating;
+    }
+
+    const hgBidderReview = await reviewModel.byReceivingId(hgBidder.f_ID);
+    if (hgBidderReview === null) {
+        hgBidder['rating'] = 5;
+    } else {
+        let avgRating = 0.0;
+        for (let review in hgBidderReview) {
+            avgRating += hgBidderReview[review].rating;
+        }
+        avgRating /= hgBidderReview.length;
+        hgBidder['rating'] = avgRating;
+    }
 
   res.render('vwProducts/detail', {
     show: showImg,

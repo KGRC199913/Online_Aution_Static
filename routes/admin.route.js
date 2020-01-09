@@ -6,15 +6,21 @@ const userModel = require('../models/user.model');
 const router = express.Router();
 
 router.get('/', async function (req, res) {
+    if (!req.session.authUser || req.session.authUser.f_Permission !== 2) {
+        return res.render('404',
+            {
+                layout: false
+            })
+    }
     const cat = await categoryModel.allwithcount();
     const product = await productModel.all();
     const user = await userModel.all();
 
     res.render('vwAccount/admindashboard', {
-        layout:false,
+        layout: false,
         cats: cat,
-        products:product,
-        users:user,
+        products: product,
+        users: user,
     });
 })
 router.post('/remove-user', async function (req, res) {
