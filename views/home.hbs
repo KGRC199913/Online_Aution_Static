@@ -6,7 +6,7 @@
     var days, hours, minutes, seconds;
     // get tag element
 
-  
+
     //update the tag with id "countdown" every 1 second
     setInterval(function () {
       // find the amount of "seconds" between now and target
@@ -22,7 +22,7 @@
       if (days < 0 || hours < 0 || minutes < 0 || seconds < 0) {
         countDownElem.innerHTML = "Expire time";
       }
-      else{
+      else {
         // format countdown string + set tag value
         countDownElem.innerHTML = days + "d " + hours + ":" + minutes + ":" + seconds;
       }
@@ -47,12 +47,13 @@
             <img src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg" alt="{{ProName}}" style="padding-right: 5%;">
             <div class="text-white">
               <h5>{{ProName}}</h5>
+              <strong class="text-danger">{{format curPrice}} VND</strong>
               <p>{{TinyDes}}</p>
               <h5 id="timeprice{{@index}}" class="text-danger"></h5>
               <script>
-                    var countDownElem = document.getElementById("timeprice{{@index}}");
-                    var date = "{{endDate}}";
-                    setTimer(countDownElem, date);
+                var countDownElem = document.getElementById("timeprice{{@index}}");
+                var date = "{{endDate}}";
+                setTimer(countDownElem, date);
               </script>
               <a class="link-text" href="#">
                 <h5>Read more <i class="fas ml-2"></i></h5>
@@ -95,12 +96,13 @@
             <img src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg" alt="{{ProName}}" style="padding-right: 5%;">
             <div class="text-white">
               <h5>{{ProName}}</h5>
+              <strong class="text-danger">{{format curPrice}} VND</strong>
               <p>{{TinyDes}}</p>
               <h5 id="timedate{{@index}}" class="text-danger"></h5>
               <script>
-                    var countDownElem = document.getElementById("timedate{{@index}}");
-                    var date = "{{endDate}}";
-                    setTimer(countDownElem, date);
+                var countDownElem = document.getElementById("timedate{{@index}}");
+                var date = "{{endDate}}";
+                setTimer(countDownElem, date);
               </script>
               <a class="link-text" href="#">
                 <h5>Read more <i class="fas ml-2"></i></h5>
@@ -143,12 +145,13 @@
             <img src="/public/imgs/sp/{{ProID}}/main_thumbs.jpg" alt="{{ProName}}" style="padding-right: 5%;">
             <div class="text-white">
               <h5>{{ProName}}</h5>
+              <strong class="text-danger">{{format curPrice}} VND</strong>
               <p>{{TinyDes}}</p>
               <h5 id="timeactive{{@index}}" class="text-danger"></h5>
               <script>
-                    var countDownElem = document.getElementById("timeactive{{@index}}");
-                    var date = "{{endDate}}";
-                    setTimer(countDownElem, date);
+                var countDownElem = document.getElementById("timeactive{{@index}}");
+                var date = "{{endDate}}";
+                setTimer(countDownElem, date);
               </script>
               <a class="link-text" href="#">
                 <h5>Read more <i class="fas ml-2"></i></h5>

@@ -7,10 +7,9 @@ const router = express.Router();
 
 router.get('/', async function (req, res) {
     if (!req.session.authUser || req.session.authUser.f_Permission !== 2) {
-        return res.render('404',
-            {
-                layout: false
-            })
+        return res.render('404', {
+            layout: false
+        })
     }
     const cat = await categoryModel.allwithcount();
     const product = await productModel.all();
@@ -23,6 +22,68 @@ router.get('/', async function (req, res) {
         users: user,
     });
 })
+router.post('/add-user', async function (req, res) {
+    const hash = bcrypt.hashSync(req.body.password, config.authentication.saltRounds);
+    const f_DOB = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
+    const entity = {
+        f_username: req.body.username,
+        f_password: hash,
+        f_name: req.body.name,
+        f_email: req.body.email,
+        f_DOB,
+        f_permission: req.body.permission,
+    }
+    try {
+        const ret = await userModel.add(entity);
+    } catch (e) {
+        res.status(401);
+        return res.send('Add user fail');
+    }
+    res.status(200);
+    res.send('Add user Success.');
+});
+router.post('/add-cat', async function (req, res) {
+    const entity = {
+        CatID: req.body.CatID,
+        CatName: CatName,
+    }
+    try {
+        const ret = await categoryModel.add(entity);
+    } catch (e) {
+        res.status(401);
+        return res.send('Add Category fail');
+    }
+    res.status(200);
+    res.send('Add Category Success.');
+});
+router.post('/up-user', async function (req, res) {
+    const entity = {
+        f_ID: req.body.user_id,
+        f_Permission: req.body.f_Permission,
+    }
+    try {
+        const ret = await userModel.patch(entity);
+    } catch (e) {
+        res.status(401);
+        return res.send('Add user fail');
+    }
+    res.status(200);
+    res.send('Add user Success.');
+});
+router.post('/edit-cat', async function (req, res) {
+    const entity = {
+        CatID: req.body.CatID,
+        CatName: req.body.CatName,
+    }
+    try {
+        const ret = await categoryModel.patch(entity);
+    } catch (e) {
+        res.status(401);
+        return res.send('Add user fail');
+    }
+    res.status(200);
+    res.send('Add user Success.');
+});
 router.post('/remove-user', async function (req, res) {
     const user_id = req.body.userId;
     try {
