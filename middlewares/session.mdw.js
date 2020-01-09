@@ -8,6 +8,7 @@ module.exports = function(app) {
         resave: false,
         saveUninitialized: true,
         // cookie: { secure: true }
+
     store: new MySQLStore({
       connectionLimit: 100,
       host: 'localhost',
@@ -27,3 +28,4 @@ module.exports = function(app) {
     }),
   }))
 };
+
