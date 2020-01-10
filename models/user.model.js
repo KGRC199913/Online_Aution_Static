@@ -3,6 +3,7 @@ const db = require('../utils/db');
 module.exports = {
     all: _ => db.load('select * from users'),
     add: entity => db.add(entity, 'users'),
+    all_upseller: _ => db.load('SELECT u.*,IFNULL(COUNT(p.user_seller), 0) AS COUNT FROM users AS u  LEFT JOIN up_seller AS p ON u.f_ID = p.user_seller GROUP BY u.f_ID;'),
     update: (id, name, address, dob) => db.load(`update qlbh.users set f_Name = "${name}", f_Address = "${address}", f_DOB = "${dob}" WHERE f_ID = ${id}`),
     update_pw: (id, password) => db.load(`update qlbh.users set f_Password="${password}" where f_ID=${id}`),
     remove: id => db.load(`DELETE FROM users WHERE f_ID = ${id}`),

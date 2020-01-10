@@ -13,7 +13,7 @@ router.get('/', async function (req, res) {
     }
     const cat = await categoryModel.allwithcount();
     const product = await productModel.all();
-    const user = await userModel.all();
+    const user = await userModel.all_upseller();
 
     res.render('vwAccount/admindashboard', {
         layout: false,
