@@ -14,7 +14,7 @@ module.exports = function(app) {
             host: 'localhost',
             port: 3306,
             user: 'root',
-            password: 'shint1001',
+            password: 'Kuro96',
             database: 'qlbh',
             charset: 'utf8mb4_bin',
             schema: {

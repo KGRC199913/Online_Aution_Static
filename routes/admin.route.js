@@ -45,11 +45,9 @@ router.post('/add-user', async function (req, res) {
 });
 router.post('/add-cat', async function (req, res) {
     const entity = {
-        CatID: req.body.CatID,
         CatName: req.body.CatName,
     }
     try {
-        
         const ret = await categoryModel.add(entity);
     } catch (e) {
         res.status(401);
