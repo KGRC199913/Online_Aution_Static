@@ -15,7 +15,7 @@
                     toolbarVisibleWithoutSelection: true
                 });
     $('#append-btn').on('click', function() {
-        $.post(`products/edit/${$('#proIdStore').val()}`, {
+        $.post(`/products/edit/${$('#proIdStore').val()}`, {
             desc: $('.fr-view').html(),
         }, (data, txtStatus, jqXHR) => {
             alert(data);
@@ -27,7 +27,7 @@
     </script>
 {{/section}}
 <div>
-    <input type="hidden" id="proIdStore" val={{this.product.ProID}}>
+    <input type="hidden" id="proIdStore" value={{this.product.ProID}}>
     <div>Appending Description to <b>{{this.product.ProName}}</b></div>
     <div id="itemDesc"></div>
     <button id="append-btn" class="btn btn-primary" type="button">Submit</button>

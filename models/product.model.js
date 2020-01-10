@@ -17,6 +17,7 @@ module.exports = {
     singleSoldItem: seller_id => db.load(`select * from products where sellerId=${seller_id} and hgBidderId != 0 and datediff(endDate, CURDATE()) < 0`),
     updatePrice: (proId, newPrice, hgBidderId) => db.load(`UPDATE products SET curPrice = ${newPrice}, hgBidderId = ${hgBidderId} WHERE ProID = ${proId}`),
     add: entity => db.add(entity, 'products'),
-    byProName: ProName => db.load(`SELECT * FROM products WHERE ProName = '${ProName}'`)
+    byProName: ProName => db.load(`SELECT * FROM products WHERE ProName = '${ProName}'`),
+    updateDesc: (id, desc) => db.load(`UPDATE products SET FullDes = "${desc}" WHERE ProID = ${id}`),
 };
 

@@ -236,13 +236,14 @@ router.post('/upseller', async function (req, res) {
         return res.send("Not a bidder.");
     }
 
-    const id = req.body.user_id;
+    const id = req.body.user;
     const entity = {
-        user_seller: id,
-    }
+        user_id: id,
+    };
     try {
         await upSellerModel.add(entity);
     } catch (e) {
+        console.log(e);
         res.status = 400;
         return res.send("Already in seller upgrade list, please wait!!");
     }
