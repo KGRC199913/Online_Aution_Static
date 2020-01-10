@@ -66,9 +66,7 @@ router.post('/up-user', async function (req, res) {
     try {
         const res  = await upsellerModel.remove(entity.f_ID);
         const ret = await userModel.patch(entity);
-        console.log(res);
     } catch (e) {
-        console.log(e);
         res.status(401);
         return res.send('Update permission user fail');
     }
