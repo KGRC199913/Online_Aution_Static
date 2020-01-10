@@ -23,6 +23,31 @@
             $('#op1').attr('selected', 'selected');
 
             $('#submit-sell').on('click', function () {
+                if ($('#itemName').val() === "") {
+                    return alert("Item name must not be emptied.");
+                }
+                if ($('#itemTinyDes').val() === "") {
+                    return alert("Item brief description must not be emptied.");
+                }
+                if (!$('#itemPrice').val()) {
+                    return alert("Item price must not be left blank.");
+                }
+                if (!$('#priceStep').val()) {
+                    return alert("Item price must not be left blank.");
+                }
+                if ($('#immediateBuy').val() === "") {
+                    return alert("Item buy price must not be left blank.");
+                }
+                if ($('#endDate').val() === "") {
+                    return alert("End date must not be emptied.");
+                }
+                if ($('#itemImg').prop('files').length === 0) {
+                    return alert("Please select a main image.");
+                }
+                if ($('#itemSubImg').prop('files').length < 3) {
+                    return alert("Please select at least 3 sub image for the product.")
+                }
+
                 const data = {
                     ProName: $('#itemName').val(),
                     TinyDes: $('#itemTinyDes').val(),

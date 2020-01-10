@@ -1,0 +1,34 @@
+{{#section 'css'}}
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/css/froala_editor.pkgd.min.css" rel="stylesheet"
+          type="text/css"/>
+{{/section}}
+
+{{#section 'js'}}
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/froala-editor@3.0.6/js/froala_editor.pkgd.min.js"></script>
+    <script>
+    var editor = new FroalaEditor('#itemDesc', {
+                    height: 350,
+                    // toolbarInline: true,
+                    charCounterCount: false,
+                    toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertLink', 'undo', 'redo'],
+                    toolbarVisibleWithoutSelection: true
+                });
+    $('#append-btn').on('click', function() {
+        $.post(`products/edit/${$('#proIdStore').val()}`, {
+            desc: $('.fr-view').html(),
+        }, (data, txtStatus, jqXHR) => {
+            alert(data);
+            if (jqXHR.status === 200) {
+                window.location.href = `/products/${$("#proIdStore").val()}`
+            }
+        });
+    });
+    </script>
+{{/section}}
+<div>
+    <input type="hidden" id="proIdStore" val={{this.product.ProID}}>
+    <div>Appending Description to <b>{{this.product.ProName}}</b></div>
+    <div id="itemDesc"></div>
+    <button id="append-btn" class="btn btn-primary" type="button">Submit</button>
+</div>
