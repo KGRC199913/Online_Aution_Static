@@ -116,6 +116,10 @@
             $('#ban-dialog').dialog(`open`);
         });
 
+        $(`#auto-bid`).on('click', function () {
+            $(`#auto-bid-dialog`).dialog(`open`);
+        });
+
         $(function () {
             $(`#bid-dialog`).dialog({
                 resizable: false,
@@ -142,6 +146,32 @@
                     }
                 }
             });
+            $('#auto-bid-dialog').dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    "Confirm": function () {
+                        $(this).dialog("close");
+                        $.post(`/autobid`, {
+                            user: $(`#userStore`).val(),
+                            product: $(`#productStore`).val(),
+                            max: $(`#maxPriceInput`).val(),
+                        }, (data, textStatus, jqXHR) => {
+                            alert(data);
+                            if (jqXHR.status === 200) {
+                                window.location.reload(true);
+                            }
+                        });
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
             $(`#ban-dialog`).dialog({
                 resizable: false,
                 height: "auto",
@@ -196,6 +226,10 @@
 </div>
 <div id="ban-dialog" title="Are you sure?">
     <p id="ban-message-p"></p>
+</div>
+<div id="auto-bid-dialog" title="Autobid">
+    <label for="maxPriceInput">Max Price: </label>
+    <input type="number" id="maxPriceInput" min="0">
 </div>
 <div id="history-dialog" title="Bid History">
     <div style="margin-top: 1%; width: 100%;">

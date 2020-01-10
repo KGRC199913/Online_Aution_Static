@@ -223,10 +223,10 @@
     <div id="catadd-dialog" title="Add New Category">
         <form id="cataddform">
             <fieldset>
-                <div>
-                    <label for="name">ID</label>
-                    <input type="text" class="float-right" style="text-align: center;" id="catid_add_dialog">
-                </div>
+<!--                <div>-->
+<!--                    <label for="name">ID</label>-->
+<!--                    <input type="text" class="float-right" style="text-align: center;" id="catid_add_dialog">-->
+<!--                </div>-->
                 <div>
                     <label for="name">Name</label>
                     <input type="text" class="float-right" style="text-align: center;" id="catname_add_dialog">
@@ -266,7 +266,7 @@
                     const catname = $(`#catname_add_dialog`).val();
                     catadddialog.dialog("close");
                     $.post(`/admin/add-cat`, {
-                        CatID: catid,
+                        // CatID: catid,
                         CatName: catname,
                     }, (data, textStatus, jqXHR) => {
                         alert(data);
