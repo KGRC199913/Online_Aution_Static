@@ -2,3 +2,5 @@ node_modules/
 jspm_packages/
 .idea/
 */node_modules/"sendgrid.env" 
+"sendgrid.env" 
+sendgrid.env

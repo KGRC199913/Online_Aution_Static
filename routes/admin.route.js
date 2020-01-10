@@ -13,7 +13,7 @@ router.get('/', async function (req, res) {
     }
     const cat = await categoryModel.allwithcount();
     const product = await productModel.all();
-    const user = await userModel.all();
+    const user = await userModel.all_upseller();
 
     res.render('vwAccount/admindashboard', {
         layout: false,
@@ -45,9 +45,10 @@ router.post('/add-user', async function (req, res) {
 router.post('/add-cat', async function (req, res) {
     const entity = {
         CatID: req.body.CatID,
-        CatName: CatName,
+        CatName: req.body.CatName,
     }
     try {
+        
         const ret = await categoryModel.add(entity);
     } catch (e) {
         res.status(401);
@@ -65,10 +66,10 @@ router.post('/up-user', async function (req, res) {
         const ret = await userModel.patch(entity);
     } catch (e) {
         res.status(401);
-        return res.send('Add user fail');
+        return res.send('Update permission user fail');
     }
     res.status(200);
-    res.send('Add user Success.');
+    res.send('Update permission user Success.');
 });
 router.post('/edit-cat', async function (req, res) {
     const entity = {
@@ -79,10 +80,10 @@ router.post('/edit-cat', async function (req, res) {
         const ret = await categoryModel.patch(entity);
     } catch (e) {
         res.status(401);
-        return res.send('Add user fail');
+        return res.send('Update Category fail');
     }
     res.status(200);
-    res.send('Add user Success.');
+    res.send('Update Category Success.');
 });
 router.post('/remove-user', async function (req, res) {
     const user_id = req.body.userId;

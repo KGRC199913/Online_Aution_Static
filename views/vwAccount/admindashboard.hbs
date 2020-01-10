@@ -56,9 +56,6 @@
     <div class="collapse navbar-collapse justify-content-sm-end" id="navbarSupportedContent">
         <form id="frmLogout" action="/account/logout" method="post"></form>
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class=nav-link href="/sell">Sell</a>
-            </li>
             {{#if lcIsAuthenticated}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -93,12 +90,11 @@
 <body>
     <div class="tab overflow-auto">
         <button class="tablinks" onclick="openCity(event, 'category')" id="defaultOpen">CATEGORY</button>
-        <button class="tablinks" onclick="openCity(event, 'product')">PRODUCT</button>
         <button class="tablinks" onclick="openCity(event, 'users')">USERS</button>
     </div>
     <!-- Tab content -->
     <div id="category" class="tabcontent">
-        <button type="button" class="btn btn-success float-right">Add</button>
+        <button type="button" class="btn btn-success float-right add-cat">Add</button>
         <div class="table-responsive table-hover">
             <table class="table table-bordered" style="vertical-align: middle;">
                 <thead>
@@ -124,9 +120,8 @@
                         <td style="text-align: center;vertical-align: middle;">{{COUNT}}</td>
                         <td>
                             <div class=" float-right">
-                                <button type="button" class="btn btn-info edit-user" value="{{CatID}}">Edit</button>
-                                <button type="button" class="btn btn-danger delete-cat"
-                                    value="{{CatID}}">Delete</button>
+                                <button type="button" class="btn btn-info edit-cat" value="{{CatID}}">Edit</button>
+                                <button type="button" class="btn btn-danger delete-cat" value="{{CatID}}">Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -136,7 +131,6 @@
         </div>
     </div>
     <div id="users" class="tabcontent">
-        <button type="button" class="btn btn-success float-right">Add</button>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
@@ -170,11 +164,11 @@
                             {{#role f_Permission}}{{/role}}
                         </td>
                         <td>
+                            {{#if (neq COUNT 0)}}
                             <div class=" float-right">
                                 <button type="button" class="btn btn-info edit-user" value="{{f_ID}}">Edit</button>
-                                <button type="button" class="btn btn-danger delete-user"
-                                    value="{{f_ID}}">Delete</button>
                             </div>
+                            {{/if}}
                         </td>
                     </tr>
                     {{/each}}
@@ -182,9 +176,7 @@
             </table>
         </div>
     </div>
-
     <script>
-
         document.getElementById("defaultOpen").click();
         function openCity(evt, cityName) {
             // Declare all variables
@@ -207,32 +199,163 @@
             evt.currentTarget.className += " active";
         }
     </script>
+    <div id="user-dialog" title="Edit User">
+        <form id="upform">
+            <fieldset>
+                <div>
+                    <label for="name">ID</label>
+                    <input type="text" class="float-right" style="text-align: center;" id="uid_dialog" disabled>
+                </div>
+                <div>
+
+                    <label for="name">Permission</label>
+                    <select name="permission" id="upermission"
+                        class=" form-control-sm-1 input-group-text float-right browser-default justify-content-end  ">
+                        <option value='0'>Bidder</option>
+                        <option value='1'>Seller</option>
+                    </select>
+                </div>
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+
+    </div>
+    <div id="catadd-dialog" title="Add New Category">
+        <form id="cataddform">
+            <fieldset>
+                <div>
+                    <label for="name">ID</label>
+                    <input type="text" class="float-right" style="text-align: center;" id="catid_add_dialog">
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" class="float-right" style="text-align: center;" id="catname_add_dialog">
+                </div>
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+    <div id="catedit-dialog" title="Edit Category">
+        <form id="cateditform">
+            <fieldset>
+                <div>
+                    <label for="name">ID</label>
+                    <input type="text" class="float-right" style="text-align: center;" id="catid_edit_dialog" disabled>
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" class="float-right" style="text-align: center;" id="catname_edit_dialog">
+                </div>
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(`.delete-user`).on(`click`, function () {
-            const UID = $(this).attr(`value`);
-            console.log(UID);
-            $.post(`/admin/remove-user`, {
-                userId: UID,
-            }, (data, textStatus, jqXHR) => {
-                alert(data);
-                if (jqXHR.status === 200) {
-                    window.location.reload();
+        catadddialog = $(`#catadd-dialog`).dialog({
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Confirm": function () {
+                    const catid = $('#catid_add_dialog').val();
+                    const catname = $(`#catname_add_dialog`).val();
+                    catadddialog.dialog("close");
+                    $.post(`/admin/add-cat`, {
+                        CatID: catid,
+                        CatName: catname,
+                    }, (data, textStatus, jqXHR) => {
+                        alert(data);
+                        if (jqXHR.status === 200) {
+                            window.location.reload();
+                        }
+                    });
+
+                },
+                Cancel: function () {
+                    catadddialog.dialog("close");
                 }
-            });
+            },
+            close: function () {
+                $('#cataddform').trigger("reset");
+            }
         });
-        $(`.delete-product`).on(`click`, function () {
-            const UID = $(this).attr(`value`);
-            $.post(`/admin/remove-product`, {
-                proId: UID,
-            }, (data, textStatus, jqXHR) => {
-                alert(data);
-                if (jqXHR.status === 200) {
-                    window.location.reload();
+        cateditdialog = $(`#catedit-dialog`).dialog({
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Confirm": function () {
+                    const catid = $('#catid_edit_dialog').val();
+                    const catname = $(`#catname_edit_dialog`).val();
+                    cateditdialog.dialog("close");
+                    $.post(`/admin/edit-cat`, {
+                        CatID: catid,
+                        CatName: catname,
+                    }, (data, textStatus, jqXHR) => {
+                        alert(data);
+                        if (jqXHR.status === 200) {
+                            window.location.reload();
+                        }
+                    });
+
+                },
+                Cancel: function () {
+                    cateditdialog.dialog("close");
                 }
-            });
+            },
+            close: function () {
+                $('#cateditform').trigger("reset");
+            }
+        });
+        udialog = $(`#user-dialog`).dialog({
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Confirm": function () {
+                    const uid = $('#uid_dialog').val();
+                    const per = $(`#upermission`).val();
+                    udialog.dialog("close");
+                    $.post(`/admin/up-user`, {
+                        user_id: uid,
+                        f_Permission: per,
+                    }, (data, textStatus, jqXHR) => {
+                        alert(data);
+                        if (jqXHR.status === 200) {
+                            window.location.reload();
+                        }
+                    });
+
+                },
+                Cancel: function () {
+                    udialog.dialog("close");
+                }
+            },
+            close: function () {
+                $('#upform').trigger("reset");
+            }
+        });
+        $(`.edit-user`).on(`click`, function () {
+            $('#uid_dialog').val($(this).attr(`value`));
+            udialog.dialog("open");
+        });
+        $(`.add-cat`).on(`click`, function () { 
+            catadddialog.dialog("open");
+        });
+        $(`.edit-cat`).on(`click`, function () {
+            $('#catid_edit_dialog').val($(this).attr(`value`));
+            cateditdialog.dialog("open");
         });
         $(`.delete-cat`).on(`click`, function () {
             const UID = $(this).attr(`value`);
+            console.log(UID);
             $.post(`/admin/remove-cat`, {
                 catId: UID,
             }, (data, textStatus, jqXHR) => {
@@ -241,58 +364,6 @@
                     window.location.reload();
                 }
             });
-        });
-    </script>
-    <div id="user-dialog" title="edit user">
-        <form>
-            <label for="name">ID</label>
-            <input type="text" id="id" class="disabled ui-widget-content ui-corner-all">
-            <label for="name">Name</label>
-            <input type="text" id="name" class="disabled ui-widget-content ui-corner-all">
-            <label for="name">Permission</label>
-            <select name="permission" class=" form-control-sm-1 input-group-text browser-default justify-content-end  ">
-                <option value='1'>Bidder</option>
-                <option value='2'>Seller</option>
-            </select>
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(`.edit-user`).on(`click`, function () {
-            const UID = $(this).attr(`value`);
-            $(`#user-dialog`).dialog("open");
-        });
-        $(`#user-dialog`).dialog({
-            autoOpen: false,
-            height: "auto",
-            width: 400,
-            modal: true,
-            buttons: {
-                "Confirm": function () {
-                    $(this).dialog("close");
-                    $.post(`/admin/up-user`, {
-                        user_id: UID,
-                        f_Permission: 1,
-                    }, (data, textStatus, jqXHR) => {
-                        alert(data);
-                        if (jqXHR.status === 200) {
-
-                        }
-                    });
-
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            },
-            close: function () {
-                form[0].reset();
-                allFields.removeClass("ui-state-error");
-            }
         });
     </script>
 </body>
