@@ -2,6 +2,7 @@ const express = require('express');
 const categoryModel = require('../models/category.model');
 const productModel = require('../models/product.model');
 const userModel = require('../models/user.model');
+const upsellerModel = require('../models/upseller.model');
 
 const router = express.Router();
 
@@ -63,6 +64,7 @@ router.post('/up-user', async function (req, res) {
         f_Permission: req.body.f_Permission,
     }
     try {
+        const res  = await upsellerModel.remove(entity.f_ID);
         const ret = await userModel.patch(entity);
     } catch (e) {
         res.status(401);
