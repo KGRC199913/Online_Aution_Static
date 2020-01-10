@@ -6,6 +6,7 @@ const reviewModel = require('../models/review.model');
 const banModel = require('../models/ban.model');
 const config = require('../config/default.json');
 const fs = require('fs');
+const moment = require('moment');
 
 const router = express.Router();
 
@@ -137,15 +138,30 @@ router.get('/:id', async function (req, res) {
     })
 });
 
+
+router.post('/edit/:id', async function (req, res) {
+    const product = (await productModel.single(req.params.id))[0];
+    const appendDes = req.body.desc;
+    const editDate = moment(moment.now()).format('YYYY-MM-DD HH:mm:ss');
+    const newDes =  `${product.FullDes}<hr/><p><b>${editDate}</b></p><hr/>${appendDes}`;
+
+    try {
+        await productModel.updateDesc(req.params.id, newDes);
+        res.status = 200;
+        return res.send("Description updated successfully.");
+    } catch (e) {
+        res.status = 400;
+        res.send("Description cannot be update, unknown error!! Please contact admin.");
+        console.log(e);
+    }
+
+});
+
 router.get('/edit/:id', async function (req, res) {
     const product = (await productModel.single(req.params.id))[0];
 
     res.render('vwProducts/desc_edit', {product});
 });
 
-router.post('/edit/:id', async function (req, res) {
-    const product = (await productModel.single(req.params.id))[0];
-    
-});
 
 module.exports = router;
