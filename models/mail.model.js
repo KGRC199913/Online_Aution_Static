@@ -1,5 +1,7 @@
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+
+const key = require('../api.key');
+sgMail.setApiKey(key.key);
 module.exports = {
     bidsuccess: (seller, bidder, lastbidder, ProName, CurPrice) => {
         const msg = [{

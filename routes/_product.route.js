@@ -7,6 +7,7 @@ const banModel = require('../models/ban.model');
 const config = require('../config/default.json');
 const fs = require('fs');
 const moment = require('moment');
+const autoBidModel = require('../models/autobid.model');
 
 const router = express.Router();
 
@@ -163,5 +164,23 @@ router.get('/edit/:id', async function (req, res) {
     res.render('vwProducts/desc_edit', {product});
 });
 
+router.post('/autobid', async function (req, res) {
+   const entity = {
+       user_id: req.body.user,
+       product_id: req.body.product,
+       max: req.body.max,
+   }
+
+    try {
+        await autoBidModel.upsert(req.body.user, req.body.product, req.body.max);
+    } catch (e) {
+        res.status = 400;
+        console.log(e);
+        return res.send('Auto bid failed');
+    }
+
+    res.status = 200;
+    res.send('Auto bid set successfully');
+});
 
 module.exports = router;

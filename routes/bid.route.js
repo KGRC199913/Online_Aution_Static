@@ -1,7 +1,8 @@
 const express = require('express');
 const bidModel = require('../models/bid.model');
-const productModel = require('../models/product.model')
+const productModel = require('../models/product.model');
 const moment = require('moment');
+const auto = require('../utils/autobid');
 
 const router = express.Router();
 
@@ -28,6 +29,8 @@ router.post('/', async function (req, res) {
 
     res.status(200);
     res.send(`Bid placed successfully`);
+
+    await auto.invokeAuto(req.body.product);
 });
 
 module.exports = router;

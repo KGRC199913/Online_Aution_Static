@@ -155,7 +155,7 @@
                 buttons: {
                     "Confirm": function () {
                         $(this).dialog("close");
-                        $.post(`/autobid`, {
+                        $.post(`/products/autobid`, {
                             user: $(`#userStore`).val(),
                             product: $(`#productStore`).val(),
                             max: $(`#maxPriceInput`).val(),
@@ -360,7 +360,7 @@
                                                     Buy
                                                     Now
                                                 </button>
-                                                <button id="auto-bid" type="button" class="btn btn-action">
+                                                <button id="auto-bid" type="button" class="btn btn-outline-danger" style="margin-top: 10px">
                                                     Autobid
                                                 </button>
                                             {{/unless}}
