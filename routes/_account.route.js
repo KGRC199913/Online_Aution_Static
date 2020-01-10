@@ -39,8 +39,8 @@ router.post('/login', async function(req, res) {
     req.session.authUser = user;
 
     const reviews = await reviewModel.byReceivingId(user.f_ID);
-    if (reviews === null) {
-        req.session.rating = 5;
+    if (reviews.length < 1) {
+        req.session.rating = 5.0;
     } else {
         let avgRating = 0.0;
         for (let review in reviews) {

@@ -326,6 +326,9 @@
                                                     Buy
                                                     Now
                                                 </button>
+                                                <button id="auto-bid" type="button" class="btn btn-action">
+                                                    Autobid
+                                                </button>
                                             {{/unless}}
                                         {{/unless}}
                                     {{/if}}
@@ -368,10 +371,12 @@
                 </h4>
                 </div>
                 <div style="margin-top: 20px">
-                    <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 10px"
-                            onclick="window.location.href='/products/edit/{{this.product.ProID}}'">Append
-                        Description
-                    </button>
+                    {{#if (isSeller lcAuthUser)}}
+                        <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 10px"
+                                onclick="window.location.href='/products/edit/{{this.product.ProID}}'">Append
+                            Description
+                        </button>
+                    {{/if}}
                     <h4 class="card-title bg-secondary align-content-center" style="text-align: center; padding: 10px">
                         Item Description
                     </h4>
